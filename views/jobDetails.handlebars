@@ -15,11 +15,13 @@
                                         <p> Position: {{this.position}}</p>
                                         <p> Job Location: {{this.job_location}} </p>
                                         <p> Remote Available: {{this.remote_available}}</p>
-                                        <p> Notes to Self: {{this.notes_to_self}}</p>
-                                        <p> Job Location: {{this.job_location}} </p>
+                                        <p> Confidence level: {{this.confidence_level}}</p>
+                                        <p> Notes to Self: {{this.notes_to_self}} </p>
+                                        <p> Posted Annual Salary: {{this.posted_annual_salary}} </p>
+                                        <p> Posted Hourly Salary: {{this.posted_hourly_salary}} </p>
 
 
-                <form action="put/event/{{this.id}}?_method=PUT" method="POST">
+                <form action="get/event/{{this.id}}?_method=GET" method="POST">
                   <button type="submit" class="btn red accent-4 ">delete</button>
                 </form>
 
