@@ -12,11 +12,19 @@ const user = {
   }
 };
  
-async () => {
+async function hashing() {
+    
+//}() => {
   // set the user's password to { hash: String, salt: String }
   user.password = await password.hash('foo');
+  console.log(user.password);
  
   // ...later, verify that a given string matches the user's password data
-  await password.compare('bar', user.password); // false
-  await password.compare('foo', user.password); // true
+  console.log(await password.compare('bar', user.password)); // false
+  console.log(await password.compare('foo', user.password)); // true
 }
+
+
+hashing();
+
+//exports=
