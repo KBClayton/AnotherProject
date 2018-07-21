@@ -7,7 +7,7 @@ module.exports = function(app) {
     // Take Input from Client
     var newUser = req.body;
     //Creates a new user in the database
-    db.user.create()
+    db.user.create(newUser)
     //Then it renders 
     .then(function(results){
       res.json(results)
