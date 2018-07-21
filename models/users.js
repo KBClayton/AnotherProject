@@ -1,27 +1,31 @@
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("user", {
     username: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       required: true
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      required: true
+    },
+    salt: {
+      type: DataTypes.TEXT,
       required: true
     },
     firstName: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       required: true
     },
     lastName: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       required: true
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       required: true
     },
     location: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       required: true
     }
   });
