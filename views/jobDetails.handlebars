@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="create-event">
+							<h2>Enter New Job</h2><br>
+							<div class="col-md-12">
+                                
+								 {{#each job}}
+
+                                        <p> Company: {{this.company}}</p>
+                                        <p> Contact Name: {{this.contact_name}}</p>
+                                        <p> Position: {{this.position}}</p>
+                                        <p> Job Location: {{this.job_location}} </p>
+                                        <p> Remote Available: {{this.remote_available}}</p>
+                                        <p> Notes to Self: {{this.notes_to_self}}</p>
+                                        <p> Job Location: {{this.job_location}} </p>
+
+
+                <form action="put/event/{{this.id}}?_method=PUT" method="POST">
+                  <button type="submit" class="btn red accent-4 ">delete</button>
+                </form>
+
+          {{/each}}
+
+							
+									</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+        <a href = "/signup" class="waves-effect waves-light btn red lighten-2" id="btnSignUp"> Sign Up</a>
+      <a href = "/login" class="waves-effect waves-light btn red lighten-2" id="btnSignIn"> Log In</a>
