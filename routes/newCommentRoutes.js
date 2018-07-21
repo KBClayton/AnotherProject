@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
   
-  // -- Post New Job
+  // -- Create New Job
   app.post('/api/comments', function(req, res) {
     // Take Input from Client
     var newComment = req.body;
@@ -13,6 +13,7 @@ module.exports = function(app) {
       res.json(results)
     })
   });
+
 };
 
 // -- WHAT THE DATA LOOKS LIKE
