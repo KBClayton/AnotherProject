@@ -2,6 +2,13 @@ var db = require("../models");
 
 module.exports = function(app) {
   
+  // -- Get All Users
+  app.get("/api/users", function(req, res) {
+    db.user.findAll({}).then(function(results) {
+      res.json(results);
+    });
+  });
+  
   // -- Post New User
   app.post('/api/users', function(req, res) {
     // Take Input from Client
