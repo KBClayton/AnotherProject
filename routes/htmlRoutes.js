@@ -4,6 +4,16 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(result) {
+      res.render("index", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // CreateNewJob Page  --ALEX
+  app.get("/createJob", function(req, res) {
+    db.user.findAll({}).then(function(result) {
       res.render("enterNewJob", {
         msg: "Welcome!",
         examples: result
