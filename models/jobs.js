@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
   var SavedJob = sequelize.define("savedJob", {
     company: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     contactName: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     contactPhone: {
@@ -13,15 +13,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     applicationLink: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     position: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     jobLocation: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     confidenceLevel: {
