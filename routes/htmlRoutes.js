@@ -5,17 +5,37 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(result) {
       res.render("index", {
-        //msg: "Welcome!",
-        //examples: result
+        msg: "Welcome!",
+        examples: result
       });
     });
   });
 
-  // Load jobDetail page and pass in a specific job by id
-  app.get("/jobs/:id", function(req, res) {
-    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(result) {
-      res.render("jobDetails", {
-        //example: result
+  // CreateNewJob Page  --ALEX
+  app.get("/createJob", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("enterNewJob", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // CreateNewUser Page --Alex
+  app.get("/createProfile", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("newProfile", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // Load example page and pass in an example by id
+  app.get("/example/:id", function(req, res) {
+    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+      res.render("example", {
+        example: dbExample
       });
     });
   });
