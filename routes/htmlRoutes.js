@@ -6,18 +6,13 @@ var path = require("path");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    // db.user.findAll({}).then(function(result) {
+    db.user.findAll({}).then(function(result) {
       res.render("index", {
         msg: "Welcome!",
         examples: result
       });
     });
-//  }); 
-
-  // index route loads view.html
-  //app.get("/", function(req, res) {
-    //res.sendFile(path.join(__dirname, "../public/blog.html"));
-  //});
+  }); 
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
