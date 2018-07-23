@@ -1,4 +1,4 @@
-var db = require("../models");
+var db = require("../models"); 
 
 module.exports = function(app) {
   
@@ -6,7 +6,12 @@ module.exports = function(app) {
   app.post('/api/users', function(req, res) {
     // Take Input from Client
     var newUser = req.body;
+    console.log(newUser);
+
     //Creates a new user in the database
+
+
+
     db.user.create(newUser)
     //Then it renders 
     .then(function(results){
