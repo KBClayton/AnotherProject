@@ -8,46 +8,46 @@ module.exports = function(app) {
   app.post('/api/users/new', function(req, res) {
     // Take Input from Client
     //console.log("in post route with uid "+req.session.uid)
-    var newUser = req.body;
-    console.log(newUser.password);
-    var namesearch=newUser.username;
-    db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
-      console.log(dbExample);
-      if(dbExample==null){
-          console.log("there is no user by that name");
-          //send to login page
-          res.redirect('/');
-          const user = {
-            password: {
-              hash: null,
-              salt: null
+    if(req.session.uid!==undefined){
+      console.log("do not make a new user while logged in");
+      //send to home page
+      return res.redirect("/");
+    }else{
+      var newUser = req.body;
+      //console.log(newUser.password);
+      var namesearch=newUser.username;
+      //search to see if username is already taken
+      db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
+        //console.log(dbExample);
+        if(dbExample==null){
+            const user = {
+              password: {
+                hash: null,
+                salt: null
+              }
+            };
+            async function hashing() {
+              //create hash and salt
+              user.password = await password.hash(newUser.password);
+              //console.log(user);
+              newUser.password=user.password.hash;
+              newUser.salt=user.password.salt;
+              //console.log(newUser);
+              db.user.create(newUser).then(function(dbExample){
+                //console.log(dbExample.dataValues.id);
+                req.session.uid=dbExample.dataValues.id;
+                //send to home page
+                return res.redirect("/");
+              });;
             }
-          };
-          async function hashing() {
-            user.password = await password.hash(newUser.password);
-            console.log(user);
-            newUser.password=user.password.hash;
-            newUser.salt=user.password.salt;
-            console.log(newUser);
-            db.user.create(newUser);
-            //send to home page
-            res.redirect("/");
-          }
-          hashing();
-      }else{
-        console.log("that username is taken")
-        //send to login page
-        res.redirect('/')
-      }
-
-  });
-    
-
-    //Creates a new user in the database
-
-
-
-
+            hashing();
+        }else{
+          console.log("that username is taken")
+          //send to login page
+          return res.redirect('/')
+        }
+      });
+    }
   });
 };
 

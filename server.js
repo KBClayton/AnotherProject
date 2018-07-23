@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 
 var sess = {
-  secret: 'This is another long high entropy string for encrypting cookie values',
+  secret: 'This is an exceedingly long high entropy string for encrypting cookie values',
   cookie: {
     secure:false
   }
