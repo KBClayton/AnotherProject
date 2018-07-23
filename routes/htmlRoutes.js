@@ -1,15 +1,23 @@
 var db = require("../models");
+// Dependencies
+// =============================================================
+var path = require("path");
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.user.findAll({}).then(function(result) {
+    // db.user.findAll({}).then(function(result) {
       res.render("index", {
         msg: "Welcome!",
         examples: result
       });
     });
-  });
+//  }); 
+
+  // index route loads view.html
+  //app.get("/", function(req, res) {
+    //res.sendFile(path.join(__dirname, "../public/blog.html"));
+  //});
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
@@ -25,6 +33,17 @@ module.exports = function(app) {
   app.get("/createProfile", function(req, res) {
     db.user.findAll({}).then(function(result) {
       res.render("newProfile", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
+
+
+  // CreateNewUser Page --Alex
+  app.get("/home", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("homePage", {
         msg: "Welcome!",
         examples: result
       });
