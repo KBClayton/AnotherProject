@@ -7,7 +7,7 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(result) {
-      res.render("index", {
+      res.render("login", {
         msg: "Welcome!",
         examples: result
       });
@@ -38,7 +38,7 @@ module.exports = function(app) {
       });
     });
   });
-
+  
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
