@@ -39,6 +39,17 @@ module.exports = function(app) {
     });
   });
 
+
+  // CreateNewUser Page --Alex
+  app.get("/home", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("homePage", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
+
   // load jobDetails Page 
   app.get("/jobDetails", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
