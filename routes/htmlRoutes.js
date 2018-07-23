@@ -51,6 +51,26 @@ module.exports = function(app) {
     });
   });
 
+  // load authenticJobs Page
+  app.get("/jobSearchGov", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("usaJobs", {
+        msg:"Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // load authenticJobs Page
+  app.get("/jobSearchAJ", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("authenticJobs", {
+        msg:"Welcome!",
+        examples: result
+      });
+    });
+  });
+
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
     //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
