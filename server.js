@@ -19,7 +19,9 @@ app.use(express.static("public"));
 
 var sess = {
   secret: 'This is another long high entropy string for encrypting cookie values',
-  cookie: {}
+  cookie: {
+    secure:false
+  }
 }
  
 if (app.get('env') === 'production') {
@@ -47,6 +49,12 @@ require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
 // require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
+//start clayton stuff
+require("./routes/logroutes")(app);
+require("./routes/newUserRoutes")(app);
+require("./routes/verify")(app);
+//end clayton stuff
 
 var syncOptions = { force: false };
 

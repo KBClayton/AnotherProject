@@ -7,12 +7,12 @@ password.pepper('This is a high entropy pepper string for hashing');
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-  genid: function(req) {
-        ;
-        return genuuid() // use UUIDs for session IDs
-      },
-      secret: 'keyboard cat'
-    }))
+  // genid: function(req) {
+  //       ;
+  //       return genuuid() // use UUIDs for session IDs
+  //     },
+  //     secret: 'keyboard cat'
+  //   }))
     
     //clayton stuff
 
@@ -24,6 +24,7 @@ module.exports = function(app) {
     });
   });
 
+}
   // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-  db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+  //app.get("/example/:id", function(req, res) {
+  //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
