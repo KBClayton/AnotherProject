@@ -1,7 +1,10 @@
 var jobArrayGov = [];
 var jobsGov = [];
-//var authenticJobsKey = authenticJobs.key;
 
+/*$(document).ready(function(){
+  $("#jobTableUSdisplay").hide();
+  $("#jobQueryUSdisplay").show();
+});*/
 //submit button for USAJobs.gov search
 $("#submit-jobSearchGov").on("click", function(){
   jobArrayGov = [];
@@ -31,7 +34,7 @@ $("#submit-jobSearchGov").on("click", function(){
 
         alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
       }
-      else {
+      else { $("#jobQueryUSdisplay").hide();
       for (i = 0 ; i < response.length ; i++){
         if ( response[i].minimum >= searchSalaryUS){
         jobArrayGov.push(response[i].position_title);
@@ -47,15 +50,18 @@ $("#submit-jobSearchGov").on("click", function(){
       if (jobsGov.length < 1){
         alert("Sorry. None of the available jobs match your desired salary.")
       }
+      $("#jobQueryUSdisplay").hide();
       for(i=0; i<jobsGov.length; i++){
         //add table html with relevant job data to the table body
         $("#jobTableUSBody").append("<tr> <th scope='row' id='jobTitleUS"+ i +"'>" + jobsGov[i][0] + "</td></th> <td id='jobCompanyUS"+ i +"'>" + jobsGov[i][1] + 
         "</td> <td id='jobLocationUS"+ i +"'>"+ jobsGov[i][2] + 
         "</td> <td id='jobSalaryUS"+ i +"'>" + jobsGov[i][3] + 
         "</td><td id='jobSalaryUS"+ i +"'><a href=" + jobsGov[i][4] + 
-        " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td><td><button type='input' class='btn btn-primary rounded jobSelectorBtn' value='"
-        + i + "' >Add Me</button></td>");         
+        " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td>" +
+        "<td><button type='input' class='btn btn-primary rounded jobSelectorBtn' id='jobSelectorBtn'" + i + 
+        "' value='" + i + "' >Add Me</button></td>");         
         }
+        $("#jobTableUSdisplay").show();
         
     };
     });
@@ -78,7 +84,7 @@ $("#submit-jobSearchGov").on("click", function(){
       console.log(searchKeywordAJ);
       var searchLocationAJ = $("#jobLocationSearchAJ").val().trim();
       //console.log(NewJob);
-      var queryAuthJobsURL = ("https://authenticjobs.com/api/?api_key="/*KEYKEYKEYKEYKEY*/"&method=aj.jobs.search&category=" + searchKeywordAJ + "&perpage=5&location=" + searchLocationAJ + "&format=json")
+      var queryAuthJobsURL = ("https://authenticjobs.com/api/?api_key=c45c6054ab7267ff5afbfdd74058dca0&method=aj.jobs.search&category=" + searchKeywordAJ + "&perpage=5&location=" + searchLocationAJ + "&format=json")
       console.log("query: " + queryAuthJobsURL)
       $.ajax({
           url:queryAuthJobsURL,
@@ -97,6 +103,7 @@ $("#submit-jobSearchGov").on("click", function(){
     //add API generated job to database
     $(document).on('click', '.jobSelectorBtn', function() {
       var helper = $(this).val();
+      $(this).hide();
       //Create NewJob Object
       var NewJob = {
         company: jobsGov[helper][1],
@@ -118,5 +125,4 @@ $("#submit-jobSearchGov").on("click", function(){
         console.log("Created New Job Lead");
       }
     );
-
   });
