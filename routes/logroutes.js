@@ -21,7 +21,7 @@ module.exports = function(app) {
             userpass=req.body.password;
             //console.log(userpass);
             db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
-                console.log(dbExample);
+                //console.log(dbExample);
                 if(dbExample==null){
                     console.log("there is no user by that name");
                     //send to login page
@@ -97,7 +97,7 @@ module.exports = function(app) {
                         };
                         async function hashing2() {
                             user2.password = await password.hash(newpass);
-                            console.log(user2);
+                            //console.log(user2);
                             db.user.update({password:user2.password.hash, salt:user2.password.salt},{where:{id:req.session.uid}}).then(function(dbExample) {
                                 console.log("the password of user id "+req.session.uid+" was updated")
                                 console.log(dbExample);

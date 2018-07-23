@@ -16,8 +16,9 @@ module.exports = function(app) {
       var newUser = req.body;
       //console.log(newUser.password);
       var namesearch=newUser.username;
+      var emailsearch=newUser.email;
       //search to see if username is already taken
-      db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
+      db.user.findOne({where: {$or:[{username:{$eq:namesearch}}, {email:{$eq:emailsearch}}]}}).then(function(dbExample) {
         //console.log(dbExample);
         if(dbExample==null){
             const user = {
@@ -42,7 +43,7 @@ module.exports = function(app) {
             }
             hashing();
         }else{
-          console.log("that username is taken")
+          console.log("that username or email is taken")
           //send to login page
           return res.redirect('/')
         }
