@@ -42,9 +42,9 @@ app.set("view engine", "handlebars");
 
 // Routes
 require("./routes/testRoutes")(app);
-require("./routes/newUserRoutes")(app);
-require("./routes/newJobRoutes")(app);
-require("./routes/newCommentRoutes")(app);
+require("./routes/userRoutes")(app);
+require("./routes/jobRoutes")(app);
+require("./routes/commentRoutes")(app);
 // require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 

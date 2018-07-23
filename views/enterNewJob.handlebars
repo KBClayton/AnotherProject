@@ -1,48 +1,62 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-4">
-			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="create-event">
-							<h2>Enter New Job</h2><br>
-							<div class="col-md-12">
-								<form action="/...." method="POST">
-									<div class="form-group">
-										<label for="jobTitle">Job Title</label>
-										<input type="text" class="form-control" name="jobTitle" id="jobTitle" placeholder="Job Title">
-									</div>
-                                    <div class="form-group">
-										<label for="company">Company</label>
-										<input type="text" class="form-control" name="company" id="company" placeholder="company">
-									</div>
-                                    <div class="form-group">
-										<label for="salary">Salary</label>
-										<input type="text" class="form-control" name="salary" id="salary" placeholder="Salary">
-									</div>
-									<div class="form-group">
-										<label for="contactEmail">Contact Email</label>
-										<input type="text" class="form-control" name="contactEmail" id="contactEmail" placeholder="Email">
-									</div>
-                                    <div class="form-group">
-										<label for="contactEmail">Contact Phone</label>
-										<input type="text" class="form-control" name="contactPhone" id="contactPhone" placeholder="Phone">
-									</div>
-                                    <div class="form-group">
-										<label for="applyBy">Apply By</label>
-										<input type="text" class="form-control" name="applyBy" id="applyBy" placeholder="Apply By">
-									</div>
-                                    <div class="form-group">
-										<label for="notes">Notes</label>
-										<input type="text" class="form-control" name="notes" id="notes" placeholder="Notes">
-									</div>
-
-										<input type="hidden" value="true">
-										<button class="btn btn-site btn-sm" type="submit"><a>Submit</a></button>
-									</form>
-							</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="card p-3 bg-light border-secondary mb-3">
+				<h3 class="bg-info text-light p-3 border border-dark">Create a Job Lead!</h3>
+				<br>
+				<div class="row">
+					<div class="col-md-8">
+						<p class="mb-2"><u>Basic Job Info</u><span class="text-danger"> *</span></p>
+						<div class="form-group">							
+							<input type="text" class="form-control" name="jobTitle" id="jobTitle" placeholder="Job Title...">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="company" id="company" placeholder="Company or Business...">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="location" id="location" placeholder="Job Location...">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" name="salary" id="postedSalary" placeholder="Posted Salary (if any)...">
 						</div>
 					</div>
+					<div class="col-md-4">
+						<p class="mb-2"><u>Contact Name</u></p>
+						<div class="form-group">
+							<input type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name...">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" name="contactPhone" id="contactPhone" placeholder="Contact Phone...">
+						</div>
+					</div>
+					<div class="col-12">
+						<br>
+						<div class="form-group text-center">
+							<label for="notes">How Confident Are You About Getting This Job?</label>
+							<div>
+								<select id = "confidenceLevel">
+									<option value="Null"> --</option>
+									<option value="1">1. - Not Confident At All!</option>
+									<option value="2">2. - Not Very</option>
+									<option value="3">3. - Average</option>
+									<option value="4">4. - Somewhat</option>
+									<option value="5">5. - Extremely Confident! </option>
+								</select>	
+							</div>
+						</div>
+						<br>
+						<div class="text-center">
+							<button class="btn btn-success btn-lg" id="submit-newJob">Create Job</button>
+							<button class="btn btn-danger btn-lg" id="submit-newJob">Back</button>
+						</div>
+						<div>
+							<p class="mt-3 mb-0"><span class="text-danger">*</span><i> Denotes Required Fields</i></p>
+						</div>
+					</div>		
 				</div>
 			</div>
 		</div>
+		<div class="col-md-1"></div>
+	</div>
+</div>
