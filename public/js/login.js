@@ -7,12 +7,12 @@ $("#signInBtn").on("click", function(){
 
   console.log(LoginAccess);
 
-  // $.ajax("/api/loginAccess", {
-  //   type: "POST",
-  //   data: LoginAccess
-  // }).then(
-  //   function(){
-  //     console.log("login");
-  //   }
-  // )
+   $.ajax("/api/login", {
+     type: "POST",
+     data: LoginAccess
+   }).then(
+    function(){
+      console.log("login");
+    }
+   )
 })

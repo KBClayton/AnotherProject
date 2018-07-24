@@ -20,7 +20,7 @@ $("#create-newUser").on("click", function(){
     console.log(NewUser)
 
     console.log(NewUser);
-    $.ajax("/api/users", {
+    $.ajax("/api/users/new", {
       type: "POST",
       data: NewUser
     }).then(

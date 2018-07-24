@@ -4,10 +4,12 @@ const password = require('s-salt-pepper');
 
 module.exports = function(app) {
     app.post("/api/login", function(req, res) {
+        //console.log(req.body);
         if(req.session.uid!==undefined){
             console.log("do not login while logged in");
             //send to home page
-            return res.redirect("/");
+            res.redirect("/");
+            return;
         }else{
             //console.log("in login route");
             const user = {
@@ -19,13 +21,14 @@ module.exports = function(app) {
             var correctpass;
             namesearch=req.body.username;
             userpass=req.body.password;
-            //console.log(userpass);
+            console.log(namesearch);
+            console.log(userpass);
             db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
                 //console.log(dbExample);
                 if(dbExample==null){
                     console.log("there is no user by that name");
                     //send to login page
-                    res.redirect('/');
+                    res.redirect('/login');
                 }
                 user.password.hash=dbExample.dataValues.password;
                 user.password.salt=dbExample.dataValues.salt;
@@ -44,7 +47,7 @@ module.exports = function(app) {
                         //console.log(correctpass);
                         console.log("the password was wrong");
                         //send to login page
-                        return res.redirect("/")
+                        return res.redirect("/login")
                     }
                 }
                 checker();
