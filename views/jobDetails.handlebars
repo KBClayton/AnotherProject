@@ -7,10 +7,13 @@
 						<div class="create-event">
 							<h2>Job Details</h2><br>
 							<div class="col-md-12">
-                       
+
+
+							                       
 											{{#each savedJob}}
-											<form action="{{this.id}}?_method=GET" method="POST">
-                                        <p> Company: {{this.company}}</p>
+
+											<div action="{{savedJob}}?_method=GET" method="POST">
+                                        <p> Company: {{company}}</p>
                                         <p> Contact Name: {{this.contactName}}</p>
 																				<p> Contact Name: {{this.contactPhone}}</p>
                                        	<p> Position: {{this.position}}</p>
@@ -20,7 +23,7 @@
                                         <p> Notes to Self: {{this.notes_to_self}} </p>
                                         <p> Posted Annual Salary: {{this.postedSalary}} </p>
                                         {{!-- <p> Posted Hourly Salary: {{this.posted_hourly_salary}} </p> --}}
-                			 </form>
+                			 </div>
                
                 
 								  {{/each}}

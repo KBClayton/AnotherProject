@@ -14,6 +14,7 @@ module.exports = function(app) {
     });
   });
 
+ 
   // index route loads view.html
   //app.get("/", function(req, res) {
     //res.sendFile(path.join(__dirname, "../public/blog.html"));
@@ -28,6 +29,16 @@ module.exports = function(app) {
       });
     });
   });
+
+    // load jobDetails Page 
+    app.get("/jobDetails", function(req, res) {
+      db.savedJob.findAll({}).then(function(result) {
+        res.render("jobDetails", {
+          
+          jobs: savedJob
+        });
+      });
+    });
 
   // CreateNewUser Page --Alex
   app.get("/createProfile", function(req, res) {
@@ -50,15 +61,16 @@ module.exports = function(app) {
     });
   });
 
-  // load jobDetails Page 
-  app.get("/jobDetails", function(req, res) {
+  // jobDetails page (new home page) -Alan
+  app.get("/home2", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
       res.render("jobDetails", {
-        msg: "Welcome!",
-        examples: result
+        savedJob: result
       });
+      console.log(result);
     });
   });
+
 
   // load login Page
   app.get("/login", function(req, res) {
