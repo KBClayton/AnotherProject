@@ -84,7 +84,7 @@ $("#submit-jobSearchGov").on("click", function(){
       console.log(searchKeywordAJ);
       var searchLocationAJ = $("#jobLocationSearchAJ").val().trim();
       //console.log(NewJob);
-      var queryAuthJobsURL = ("https://authenticjobs.com/api/?api_key=c45c6054ab7267ff5afbfdd74058dca0&method=aj.jobs.search&category=" + searchKeywordAJ + "&perpage=5&location=" + searchLocationAJ + "&format=json")
+      var queryAuthJobsURL = ("https://authenticjobs.com/api/?api_key="/*KEYKYEKYEKYEKEYKEYKEYKEYKEKYEKYE*/  + "&method=aj.jobs.search&category=" + searchKeywordAJ + "&perpage=5&location=" + searchLocationAJ + "&format=json")
       console.log("query: " + queryAuthJobsURL)
       $.ajax({
           url:queryAuthJobsURL,
