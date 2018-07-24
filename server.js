@@ -2,6 +2,9 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var session = require('express-session')
+
+
 
 var db = require("./models");
 
@@ -12,6 +15,23 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+
+
+var sess = {
+  secret: 'This is an exceedingly long high entropy string for encrypting cookie values',
+  cookie: {
+    secure:false
+  }
+}
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+ 
+app.use(session(sess))
+
+
 
 // Handlebars
 app.engine(
@@ -29,6 +49,12 @@ require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
 // require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
+//start clayton stuff
+require("./routes/logroutes")(app);
+require("./routes/newUserRoutes")(app);
+require("./routes/verify")(app);
+//end clayton stuff
 
 var syncOptions = { force: false };
 
@@ -50,3 +76,7 @@ db.sequelize.sync(syncOptions).then(function() {
 });
 
 module.exports = app;
+
+
+
+

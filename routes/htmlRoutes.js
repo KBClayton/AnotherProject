@@ -1,11 +1,13 @@
 var db = require("../models");
-// Dependencies
-// =============================================================
-var path = require("path");
+const password = require('s-salt-pepper');
+password.iterations(75000); 
+password.pepper('This is a high entropy pepper string for hashing');
+
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+
     db.user.findAll({}).then(function(result) {
       res.render("index", {
         msg: "Welcome!",
@@ -28,9 +30,16 @@ module.exports = function(app) {
       });
     });
   });
+  // genid: function(req) {
+  //       ;
+  //       return genuuid() // use UUIDs for session IDs
+  //     },
+  //     secret: 'keyboard cat'
+  //   }))
+    
+    //clayton stuff
 
-  // CreateNewUser Page --Alex
-  app.get("/createProfile", function(req, res) {
+
     db.user.findAll({}).then(function(result) {
       res.render("newProfile", {
         msg: "Welcome!",
@@ -54,33 +63,14 @@ module.exports = function(app) {
   app.get("/jobDetails", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
       res.render("jobDetails", {
+      res.render("enterNewJob", {
         msg: "Welcome!",
         examples: result
       });
     });
   });
 
-  // load login Page
-  app.get("/login", function(req, res) {
-    db.user.findAll({}).then(function(result) {
-      res.render("login", {
-        msg:"Welcome!",
-        examples: result
-      });
-    });
-  });
-
+}
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
-    //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      //res.render("example", {
-        //example: dbExample
-      //});
-    //});
-  //});
-
-  // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
-  });
-};
+  //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
