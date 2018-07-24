@@ -42,7 +42,11 @@ module.exports = function(app) {
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
-    db.user.findAll({}).then(function(result) {
+    db.user.findAll({
+      where: {
+        id: req.session.uid
+      }
+    }).then(function(result) {
       res.render("homePage", {
         msg: "Welcome!",
         examples: result
