@@ -1,20 +1,20 @@
 var db = require("../models");
-const password = require('s-salt-pepper');
-password.iterations(75000); 
-password.pepper('This is a high entropy pepper string for hashing');
-
+// Dependencies
+// =============================================================
+var path = require("path");
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-
-    // db.user.findAll({}).then(function(result) {
+-    // db.user.findAll({}).then(function(result) {
++    db.user.findAll({}).then(function(result) {
       res.render("index", {
         msg: "Welcome!",
         examples: result
       });
     });
-//  }); 
+-//  }); 
++ }); 
 
   // index route loads view.html
   //app.get("/", function(req, res) {
@@ -31,16 +31,15 @@ module.exports = function(app) {
     });
   });
 
-
-  //   db.user.findAll({}).then(function(result) {
-
-  //     res.render("enterNewJob", {
-  //     res.render("newProfile", {
-  //       msg: "Welcome!",
-  //       examples: result
-  //     });
-  //   });
-  // });
+  // CreateNewUser Page --Alex
+  app.get("/createProfile", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("newProfile", {
+        msg: "Welcome!",
+        examples: result
+      });
+    });
+  });
 
 
   // CreateNewUser Page --Alex
@@ -63,7 +62,27 @@ module.exports = function(app) {
     });
   });
 
-}
+  // load login Page
+  app.get("/login", function(req, res) {
+    db.user.findAll({}).then(function(result) {
+      res.render("login", {
+        msg:"Welcome!",
+        examples: result
+      });
+    });
+  });
+
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
-  //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+    //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+      //res.render("example", {
+        //example: dbExample
+      //});
+    //});
+  //});
+
+  // Render 404 page for any unmatched routes
+  app.get("*", function(req, res) {
+    res.render("404");
+  });
+};
