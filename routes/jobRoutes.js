@@ -40,6 +40,7 @@ module.exports = function(app) {
   });
   
   // PUT route for updating the phone contact info for a given job
+  //can be used as template to create routes for any other item we want to be able to edit
   app.put("/api/jobs/changePhone/:id", function(req, res) {
     db.savedJob.update(
       {
