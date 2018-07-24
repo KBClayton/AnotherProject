@@ -9,6 +9,13 @@ module.exports = function(app) {
     });
   });
 
+  // --Get An individual Job
+  app.get("/api/jobs/:id", function(req, res) {
+    db.savedJob.findOne({}).then(function(results) {
+      res.json(results);
+    });
+  });
+
   // -- Post New Job
   app.post('/api/jobs', function(req, res) {
     // Take Input from Client
