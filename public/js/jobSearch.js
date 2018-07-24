@@ -84,7 +84,6 @@ $("#submit-jobSearchGov").on("click", function(){
       console.log(searchKeywordAJ);
       var searchLocationAJ = $("#jobLocationSearchAJ").val().trim();
       console.log(searchLocationAJ);
-      //console.log(NewJob);
       var NewQueryAJ = {
         jobType: searchKeywordAJ,
         jobLocation: searchLocationAJ
@@ -95,7 +94,6 @@ $("#submit-jobSearchGov").on("click", function(){
         data: NewQueryAJ
       }).then(
         function(response){
-          console.log("result: " + JSON.stringify(response));
           if (response.listings.listing.length <1){
 
             alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
@@ -124,6 +122,10 @@ $("#submit-jobSearchGov").on("click", function(){
               "' value='" + i + "' >Add Me</button></td></tr>");         
               }
               $("#jobTableAJDisplay").show();
+              $("#jobLocationSearchAJ").val("");
+              console.log($("#jobLocationSearchAJ").val());
+              
+
             
           }
         });

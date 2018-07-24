@@ -1,6 +1,6 @@
 var db = require("../models");
-var request = require("request");
 var rp = require("request-promise-native");
+var keys = require("../keys");
 
 module.exports = function(app) {
 
@@ -47,11 +47,9 @@ module.exports = function(app) {
 app.post("/api/authJobs", function(req, res) {
   var keyword = req.body.jobType;
   var location = req.body.jobLocation;
-  console.log("keyword: " + keyword + "location: " + location)
-  var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key=c45c6054ab7267ff5afbfdd74058dca0&method=aj.jobs.search&category="+ keyword +"&perpage=5&location="+ location +"&format=json"
-  console.log("query: " + queryAuthJobsURL);
+  var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=5&location="+ location +"&format=json";
   var options = {
-    uri: "https://authenticjobs.com/api/?api_key=c45c6054ab7267ff5afbfdd74058dca0&method=aj.jobs.search&category="+ keyword +"&perpage=5&location="+ location +"&format=json",
+    uri: queryAuthJobsURL,
     json: true // Automatically parses the JSON string in the response
   };
   
