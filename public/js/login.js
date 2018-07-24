@@ -14,13 +14,23 @@ $("#signInBtn").on("click", function(){
    .then(function(res){
     console.log("in then client side");
     console.log(res);
-    if(res.status==200){
-      window.location = res;
+    if(res.url !== undefined){
+      window.location = res.url;
+    }else if (res.error!==undefined){
+      alert(res.error);
     }else{
-      alert(res);
+      location.reload();
     }
      //location.href = res;
       //console.log("login");
     }
    )
+})
+
+$("#logout").on("click", function(){
+  $.ajax("/api/logout", {
+    type: "DELETE",
+  }).then(function(){
+    window.location="/login"
+  })
 })

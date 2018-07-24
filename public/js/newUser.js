@@ -24,8 +24,14 @@ $("#create-newUser").on("click", function(){
       type: "POST",
       data: NewUser
     }).then(
-      function(){
-        console.log("Created New User");
+      function(res){
+        if(res.url !== undefined){
+          window.location = res.url;
+        }else if (res.error!==undefined){
+          alert(res.error);
+        }else{
+          location.reload();
+        }
       }
     )
   }
