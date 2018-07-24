@@ -7,11 +7,16 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(result) {
+<<<<<<< HEAD
       res.render("login", {
+=======
+      res.render("index", {
+>>>>>>> 2b468024926ce84891fca1244a4f0dcb58e24b8a
         msg: "Welcome!",
         examples: result
       });
     });
+<<<<<<< HEAD
   });
 
  
@@ -19,6 +24,9 @@ module.exports = function(app) {
   //app.get("/", function(req, res) {
     //res.sendFile(path.join(__dirname, "../public/blog.html"));
   //});
+=======
+  }); 
+>>>>>>> 2b468024926ce84891fca1244a4f0dcb58e24b8a
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
@@ -76,6 +84,26 @@ module.exports = function(app) {
   app.get("/login", function(req, res) {
     db.user.findAll({}).then(function(result) {
       res.render("login", {
+        msg:"Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // load authenticJobs Page
+  app.get("/jobSearchGov", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("usaJobs", {
+        msg:"Welcome!",
+        examples: result
+      });
+    });
+  });
+
+  // load authenticJobs Page
+  app.get("/jobSearchAJ", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("authenticJobs", {
         msg:"Welcome!",
         examples: result
       });
