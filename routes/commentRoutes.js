@@ -21,6 +21,25 @@ module.exports = function(app) {
     })
   });
 
+  // -- Edit a specific comment
+  app.put("/api/comments/:id", function(req, res) {
+    // update the entry that corresponds to the appropriate id
+    console.log(req.body.comment);
+    db.comment.update(
+      {
+        comment: req.body.comment
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function(results) {
+        res.json(results);
+      });
+  });
+  
+
   // -- Delete a Comment
   app.delete("/api/comments/:id", function(req, res) {
     // delete entry that corresponds to appropriate id
