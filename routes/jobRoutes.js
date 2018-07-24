@@ -13,6 +13,8 @@ module.exports = function(app) {
   app.post('/api/jobs', function(req, res) {
     // Take Input from Client
     var newJob = req.body;
+    newJob.userId=req.session.uid
+    console.log(newJob);
     // Creates a new Job in the database
     db.savedJob.create(newJob)
      // Then it renders 
