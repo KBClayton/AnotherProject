@@ -53,7 +53,7 @@ $("#submit-jobSearchGov").on("click", function(){
         //add table html with relevant job data to the table body
         $("#jobTableUSBody").append("<tr id='jobRowUS" + i +"'> <th scope='row' id='jobTitleUS"+ i +"'>" + jobsGov[i][0] + "</td></th> <td id='jobCompanyUS"+ i +"'>" + jobsGov[i][1] + 
         "</td> <td id='jobLocationUS"+ i +"'>"+ jobsGov[i][2] + 
-        "</td> <td id='jobSalaryUS"+ i +"'>" + jobsGov[i][3] + 
+        "</td> <td id='jobSalaryUS"+ i +"'> $ " + Number(jobsGov[i][3]).toLocaleString('en') + 
         "</td><td id='jobSalaryUS"+ i +"'><a href=" + jobsGov[i][4] + 
         " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td>" +
         "<td><button type='input' class='btn btn-primary rounded jobSelectorGovBtn' id='jobSelectorGovBtn'" + i + 
@@ -130,12 +130,12 @@ $("#submit-jobSearchGov").on("click", function(){
       var helper = $(this).val();
       var identifier = "jobRowUS" + helper;
       $("#" + identifier.toString()).hide();
-      
+      console.log(jobsGov[helper]);
       //Create NewJob Object
       var NewJob = {
         company: jobsGov[helper][1],
-        contactName: "N/A",
-        contactPhone: "N/A",
+        contactName: null,
+        contactPhone: null,
         position: jobsGov[helper][0],
         jobLocation: jobsGov[helper][2],
         confidenceLevel: null,
