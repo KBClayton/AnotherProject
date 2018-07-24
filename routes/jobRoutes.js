@@ -9,10 +9,19 @@ module.exports = function(app) {
     });
   });
 
+  // --Get An individual Job
+  app.get("/api/jobs/:id", function(req, res) {
+    db.savedJob.findOne({}).then(function(results) {
+      res.json(results);
+    });
+  });
+
   // -- Post New Job
   app.post('/api/jobs', function(req, res) {
     // Take Input from Client
     var newJob = req.body;
+    newJob.userId=req.session.uid
+    console.log(newJob);
     // Creates a new Job in the database
     db.savedJob.create(newJob)
      // Then it renders 

@@ -45,7 +45,7 @@ module.exports = function(app) {
         }else{
           console.log("that username or email is taken")
           //send to login page
-          return res.redirect('/')
+          return res.redirect('/login')
         }
       });
     }
