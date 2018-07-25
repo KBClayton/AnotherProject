@@ -11,7 +11,7 @@ module.exports = function(app) {
     if(req.session.uid!==undefined){
       console.log("do not make a new user while logged in");
       //send to home page
-      return res.redirect("/");
+      return res.json({url:"/"});
     }else{
       var newUser = req.body;
       //console.log(newUser.password);
@@ -38,14 +38,16 @@ module.exports = function(app) {
                 //console.log(dbExample.dataValues.id);
                 req.session.uid=dbExample.dataValues.id;
                 //send to home page
-                return res.redirect("/");
+                return res.json({url:"/"});
+                //return res.redirect("/");
               });;
             }
             hashing();
         }else{
           console.log("that username or email is taken")
           //send to login page
-          return res.redirect('/')
+          //return res.redirect('/login')
+          return res.json({error:"that username or email is taken"});
         }
       });
     }

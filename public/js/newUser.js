@@ -20,12 +20,18 @@ $("#create-newUser").on("click", function(){
     console.log(NewUser)
 
     console.log(NewUser);
-    $.ajax("/api/users", {
+    $.ajax("/api/users/new", {
       type: "POST",
       data: NewUser
     }).then(
-      function(){
-        console.log("Created New User");
+      function(res){
+        if(res.url !== undefined){
+          window.location = res.url;
+        }else if (res.error!==undefined){
+          alert(res.error);
+        }else{
+          location.reload();
+        }
       }
     )
   }
