@@ -42,7 +42,13 @@ $("#submit-jobSearchGov").on("click", function(){
         if ( response[i].minimum >= searchSalaryUS){
         jobArrayGov.push(response[i].position_title);
         jobArrayGov.push(response[i].organization_name);
+        console.log(response[i].locations.length);
+        if (response[i].locations.length > 1) {
+          jobArrayGov.push("multiple openings");
+        }
+        else {
         jobArrayGov.push(response[i].locations.join(", "));
+        }
         jobArrayGov.push(response[i].minimum);
         jobArrayGov.push(JSON.stringify(response[i].url));
         jobsGov.push(jobArrayGov);
@@ -58,12 +64,12 @@ $("#submit-jobSearchGov").on("click", function(){
       $("#jobQueryUSdisplay").hide();
       for(i=0; i<jobsGov.length; i++){
         //add table html with relevant job data to the table body
-        $("#jobTableUSBody").append("<tr id='jobRowUS" + i +"'> <th scope='row' id='jobTitleUS"+ i +"'>" + jobsGov[i][0] + "</td></th> <td id='jobCompanyUS"+ i +"'>" + jobsGov[i][1] + 
-        "</td> <td id='jobLocationUS"+ i +"'>"+ jobsGov[i][2] + 
-        "</td> <td id='jobSalaryUS"+ i +"'> $ " + Number(jobsGov[i][3]).toLocaleString('en') + 
-        "</td><td id='jobSalaryUS"+ i +"'><a href=" + jobsGov[i][4] + 
+        $("#jobTableUSBody").append("<tr id='jobRowUS" + i +"'> <th class='align-middle' scope='row' id='jobTitleUS"+ i +"'>" + jobsGov[i][0] + "</th> <td class='align-middle' id='jobCompanyUS"+ i +"'>" + jobsGov[i][1] + 
+        "</td> <td class='align-middle' id='jobLocationUS"+ i +"'>"+ jobsGov[i][2] + 
+        "</td> <td class='align-middle' id='jobSalaryUS"+ i +"'> $ " + Number(jobsGov[i][3]).toLocaleString('en') + 
+        "</td><td class='align-middle' id='jobSalaryUS"+ i +"'><a href=" + jobsGov[i][4] + 
         " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td>" +
-        "<td><button type='input' class='btn btn-primary rounded jobSelectorGovBtn' id='jobSelectorGovBtn'" + i + 
+        "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorGovBtn' id='jobSelectorGovBtn'" + i + 
         "' value='" + i + "' >Add Me</button></td></tr>");         
         }
         $("#jobTableUSdisplay").show();
@@ -133,11 +139,11 @@ $("#submit-jobSearchGov").on("click", function(){
             console.log(jobsAJ[0][0]);
             for(i=0; i<jobsAJ.length; i++){
               //add table html with relevant job data to the table body
-              $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</td></th> <td id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
-              "</td> <td id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
-              "</td><td id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
+              $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th class='align-middle' scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</th> <td class='align-middle' id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
+              "</td> <td class='align-middle' id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
+              "</td><td class='align-middle' id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
               " class='btn btn-info' id='jobLinkAJ' role='button' target='blank'>Open Link in New Window</a></td>" +
-              "<td><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
+              "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
               "' value='" + i + "' >Add Me</button></td></tr>");         
               }
               $("#jobTableAJDisplay").show();
