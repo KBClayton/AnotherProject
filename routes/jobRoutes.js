@@ -9,9 +9,18 @@ module.exports = function(app) {
     });
   });
 
-  // --Get An individual Job
+  // --Get An individual Job and include comments associated with that job
   app.get("/api/jobs/:id", function(req, res) {
-    db.savedJob.findOne({}).then(function(results) {
+    db.savedJob.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: db.comment
+        }
+      ]
+    }).then(function(results) {
       res.json(results);
     });
   });
@@ -31,8 +40,7 @@ module.exports = function(app) {
   });
   
   // PUT route for updating the phone contact info for a given job
-  app.put("/api/jobs/contactPhone/:id", function(req, res) {
-    console.log(req.params);
+  app.put("/api/jobs/changePhone/:id", function(req, res) {
     db.savedJob.update(
       {
         contactPhone: req.body.contactPhone
