@@ -1,20 +1,26 @@
+//arrays to help populate job tables when querying the USAjobs API
 var jobArrayGov = [];
 var jobsGov = [];
+//arrays to help populate job tables when querying the authenticJobs API
 var jobArrayAJ = [];
 var jobsAJ = [];
+//variables that will hold the number of responses (i.e. rows) are left in the 
+//jobs table. helps toggle between 
+var counterHelperUS = 0;
+var counterHelperAJ = 0;
 //submit button for USAJobs.gov search
 $("#submit-jobSearchGov").on("click", function(){
   jobArrayGov = [];
   jobsGov = [];
   if (
     $("#jobKeywordSearchUS").val().trim() != "" &&
-    $("#jobLocationSearchUS").val().trim() != "" &&
+    $("#jobLocationStateUS").val().trim() != "" &&
     $("#jobSalarySearchUS").val().trim() != ""
   ){
  
     var searchKeywordUS = $("#jobKeywordSearchUS").val().trim().split(" ").join("+");
     console.log(searchKeywordUS);
-    var searchLocationUS = $("#jobLocationSearchUS").val().trim();
+    var searchLocationUS = $("#jobLocationCityUS").val().trim().toLowerCase().split(" ").join("+") + "+" + $("#jobLocationStateUS").val();
     var searchSalaryUS = $("#jobSalarySearchUS").val();
     //console.log(NewJob);
     var queryAuthJobsURL = ("https://jobs.search.gov/jobs/search.json?query=" + searchKeywordUS + "+in+" + searchLocationUS);
@@ -43,7 +49,8 @@ $("#submit-jobSearchGov").on("click", function(){
         jobArrayGov = [];
           }
         }
-      console.log(jobsGov);
+      counterHelperUS = jobsGov.length;
+      console.log("number of jobs returned: " + counterHelperUS);
       if (jobsGov.length < 1){
         alert("Sorry. None of the available jobs match your desired salary.")
         return;
@@ -60,6 +67,10 @@ $("#submit-jobSearchGov").on("click", function(){
         "' value='" + i + "' >Add Me</button></td></tr>");         
         }
         $("#jobTableUSdisplay").show();
+        $("#jobKeywordSearchUS").val("");
+        $("#jobLocationCityUS").val("");
+        $("#jobLocationStateUS").val("");
+        $("#jobSalarySearchUS").val("");
         
     };
     });
@@ -76,13 +87,13 @@ $("#submit-jobSearchGov").on("click", function(){
 
     if (
       $("#jobKeywordSearchAJ").val() != "" &&
-      $("#jobLocationSearchAJ").val().trim() != ""
+      $("#jobLocationStateAJ").val().trim() != ""
     ){
       
       }
       var searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
       console.log(searchKeywordAJ);
-      var searchLocationAJ = $("#jobLocationSearchAJ").val().trim();
+      var searchLocationAJ = $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us";
       console.log(searchLocationAJ);
       var NewQueryAJ = {
         jobType: searchKeywordAJ,
@@ -94,21 +105,29 @@ $("#submit-jobSearchGov").on("click", function(){
         data: NewQueryAJ
       }).then(
         function(response){
+          console.log(response.listings.listing);
           if (response.listings.listing.length <1){
 
             alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
           }
           else {
-          for (i = 0 ; i < response.listings.listing.length ; i++){
+          for (i = 0 ; i < response.listings.listing.length ; i++) {
             jobArrayAJ.push(response.listings.listing[i].title);
             jobArrayAJ.push(response.listings.listing[i].company.name);
+            if (response.listings.listing[i].company.location == undefined) {
+              jobArrayAJ.push("remote");
+            }
+            else {
             jobArrayAJ.push(response.listings.listing[i].company.location.name);
+          }
             jobArrayAJ.push(JSON.stringify(response.listings.listing[i].url));
             jobsAJ.push(jobArrayAJ);
             console.log("success #" + i);
             jobArrayAJ = [];  
-            }
-            console.log(jobsAJ);
+            
+          }
+            counterHelperAJ = jobsAJ.length
+            console.log("number of jobs returned: " + counterHelperAJ);
   
             $("#jobQueryAJDisplay").hide();
             console.log(jobsAJ[0][0]);
@@ -123,9 +142,9 @@ $("#submit-jobSearchGov").on("click", function(){
               }
               $("#jobTableAJDisplay").show();
               $("#jobLocationSearchAJ").val("");
-              console.log($("#jobLocationSearchAJ").val());
-              
-
+              $("#jobLocationCityAJ").val("");
+              $("#jobLocationStateAJ").val("");
+            
             
           }
         });
@@ -134,6 +153,8 @@ $("#submit-jobSearchGov").on("click", function(){
 
     //add USAjobs API generated job to database
     $(document).on('click', '.jobSelectorGovBtn', function() {
+      counterHelperUS--;
+      console.log(counterHelperUS);
       var helper = $(this).val();
       var identifier = "jobRowUS" + helper;
       $("#" + identifier.toString()).hide();
@@ -147,8 +168,8 @@ $("#submit-jobSearchGov").on("click", function(){
         jobLocation: jobsGov[helper][2],
         confidenceLevel: null,
         postedSalary: jobsGov[helper][3],
-        applicationLInk: jobsGov[helper][4],
-        userId: 2
+        applicationLink: jobsGov[helper][4],
+        userId: null
       }
       console.log(NewJob);
     $.ajax("/api/jobs", {
@@ -159,10 +180,19 @@ $("#submit-jobSearchGov").on("click", function(){
         console.log("Created New Job Lead");
       }
     );
+    if (counterHelperUS<1){
+      console.log("HIDING")
+      $("#jobTableUSdisplay").hide();
+      $("#jobQueryUSdisplay").show();
+      $("#jobTableUSBody").empty();
+
+    }
   });
 
       //add AJ API generated job to database
       $(document).on('click', '.jobSelectorAJBtn', function() {
+        counterHelperAJ--;
+        console.log(counterHelperAJ);
         var helper = $(this).val();
         var identifier = "jobRowAJ" + helper;
         $("#" + identifier.toString()).hide();
@@ -176,8 +206,8 @@ $("#submit-jobSearchGov").on("click", function(){
           jobLocation: jobsAJ[helper][2],
           confidenceLevel: null,
           postedSalary: null,
-          applicationLInk: jobsAJ[helper][3],
-          userId: 2
+          applicationLink: jobsAJ[helper][3],
+          userId: null
         }
         console.log(NewJob);
       $.ajax("/api/jobs", {
@@ -188,6 +218,12 @@ $("#submit-jobSearchGov").on("click", function(){
           console.log("Created New Job Lead");
         }
       );
+      if (counterHelperAJ<1){
+        console.log("HIDING")
+        $("#jobTableAJDisplay").hide();
+        $("#jobQueryAJDisplay").show();
+        $("#jobTableAJBody").empty();
+      }
     });
 
 //change view from the USAjobs table view to the USAjobs search view
