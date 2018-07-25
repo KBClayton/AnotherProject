@@ -65,6 +65,16 @@ module.exports = function(app) {
     });
   });
 
+  // editJobPage page -Alan
+  app.get("/home2", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("jobDetails", {
+        savedJob: result
+      });
+      console.log(result);
+    });
+  });
+
 
   // load login Page
   app.get("/login", function(req, res) {
@@ -104,6 +114,15 @@ module.exports = function(app) {
       //});
     //});
   //});
+
+  // Create page base on id from button click -- Alan
+  app.get("/home3", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(result) {
+      res.render("editJobPage", {
+        editJob: result
+      });
+    });
+  });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {

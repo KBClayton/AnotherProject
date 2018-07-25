@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="create-event">
+							<h2>Saved Jobs</h2><br>
+							<div class="col-md-12">
+
+
+							                       
+											
+
+
+												<div data-toggle="collapse" action="{{savedJob}}?_method=GET" method="POST" class="card p-3">
+													<div class="row">
+														<div class="col-16">
+															<p> Company: {{company}}</p>
+                              <div class="text-center">
+					                    <button class="btn btn-success btn-lg" id="create-newUser">Change Company</button>
+						                  </div>  
+                              <br>
+                              <p> Contact Name: {{this.contactName}}</p>
+                              <div class="text-center">
+					                    <button class="btn btn-success btn-lg" id="create-newUser">Change Contact</button>
+						                  </div>  
+                              <br>
+															<p> Contact Name: {{this.contactPhone}}</p>
+                              <div class="text-center">
+					                    <button class="btn btn-success btn-lg" id="create-newUser">Change Contact Phone</button>
+						                  </div>
+                              <br>  
+                              <p> Position: {{this.position}}</p>
+                              
+                              <p> Job Location: {{this.jobLocation}} </p>
+                              <p> Remote Available: {{this.remote_available}}</p>
+                              <p> Confidence level: {{this.confidenceLevel}}</p>
+                              <div class="text-center">
+					                    <button class="btn btn-success btn-lg" id="create-newUser">Change Level of Confidence</button>
+						                  </div>
+                              <br>  
+                              <p> Notes to Self: {{this.notes_to_self}} </p>
+                              <div class="text-center">
+					                    <button class="btn btn-success btn-lg" id="create-newUser">Change Notes to Self</button>
+						                  </div>
+                              <br>  
+                              <p> Posted Annual Salary: {{this.postedSalary}} </p>
+														</div>
+														
+													</div>
+          							</div>
+												<br>
+
+
+
+											
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
