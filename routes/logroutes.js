@@ -8,8 +8,8 @@ module.exports = function(app) {
         if(req.session.uid!==undefined){
             console.log("do not login while logged in");
             //send to home page
-            res.redirect("/");
-            return;
+            return res.redirect(303, "/");
+            
         }else{
             //console.log("in login route");
             const user = {
@@ -21,14 +21,14 @@ module.exports = function(app) {
             var correctpass;
             namesearch=req.body.username;
             userpass=req.body.password;
-            console.log(namesearch);
-            console.log(userpass);
+            //console.log(namesearch);
+            //console.log(userpass);
             db.user.findOne({where:{username:namesearch}}).then(function(dbExample) {
                 //console.log(dbExample);
                 if(dbExample==null){
                     console.log("there is no user by that name");
                     //send to login page
-                    res.redirect('/login');
+                    res.redirect(303, '/login');
                 }
                 user.password.hash=dbExample.dataValues.password;
                 user.password.salt=dbExample.dataValues.salt;
@@ -42,12 +42,14 @@ module.exports = function(app) {
                         console.log("the password was correct the users id is "+dbExample.id);
                         req.session.uid=dbExample.id;
                         //send to home page
-                        return res.redirect('/');
+                        //return res.redirect(303, '/');
+                        return res.json({url:"/"});
                     }else{
                         //console.log(correctpass);
                         console.log("the password was wrong");
                         //send to login page
-                        return res.redirect("/login")
+                        //return res.redirect(303, "/login")
+                        return res.json({error: "the password was wrong"});
                     }
                 }
                 checker();
@@ -65,12 +67,12 @@ module.exports = function(app) {
         if(req.session.uid==undefined){
             //send to login page
             console.log("you are not logged in to change password")
-            return res.redirect("/");
+            return res.redirect(303, "/");
         }else{
             const user = {
                 password: {
-                hash: null,
-                salt: null
+                    hash: null,
+                    salt: null
                 }
             };
             var correctpass2;
@@ -79,7 +81,7 @@ module.exports = function(app) {
                 if(dbExample==null){
                     console.log("there is no user with that id, how did you get here?");
                     //send to change password page
-                    return res.redirect('/');
+                    return res.redirect(303, '/');
                 }
                 user.password.hash=dbExample.dataValues.password;
                 user.password.salt=dbExample.dataValues.salt;
@@ -94,8 +96,8 @@ module.exports = function(app) {
                         console.log("the old password was correct");
                         const user2 = {
                             password: {
-                            hash: null,
-                            salt: null
+                                hash: null,
+                                salt: null
                             }
                         };
                         async function hashing2() {
@@ -105,7 +107,7 @@ module.exports = function(app) {
                                 console.log("the password of user id "+req.session.uid+" was updated")
                                 console.log(dbExample);
                                 //send to home page
-                                return res.redirect("/");
+                                return res.redirect(303, "/");
                             });
                           }
                         hashing2();
@@ -114,7 +116,7 @@ module.exports = function(app) {
                         console.log("correctpass: "+correctpass2);
                         console.log("the old password was wrong");
                         //send to change password page
-                        return res.redirect("/")
+                        return res.redirect(303, "/")
                     }
                 }
                 checker2();
@@ -127,6 +129,6 @@ module.exports = function(app) {
         //req.session=null;
         //delete req.session;
         //send to login page
-        return res.redirect('/');
+        return res.redirect(303, '/login');
     });
 }

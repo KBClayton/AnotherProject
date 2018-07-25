@@ -80,50 +80,57 @@ $("#submit-jobSearchGov").on("click", function(){
     ){
       
       }
-      var searchKeywordAJ= $("#jobKeywordSearchAJ").val();
+      var searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
       console.log(searchKeywordAJ);
       var searchLocationAJ = $("#jobLocationSearchAJ").val().trim();
-      //console.log(NewJob);
-      var queryAuthJobsURL = ("https://authenticjobs.com/api/?api_key="/*KEYKYEKYEKYEKEYKEYKEYKEYKEKYEKYE*/  + "&method=aj.jobs.search&category=" + searchKeywordAJ + "&perpage=5&location=" + searchLocationAJ + "&format=json")
-      console.log("query: " + queryAuthJobsURL)
-      $.ajax({
-          url:queryAuthJobsURL,
-          method:"GET",
-          dataType: "JSON",
-      }).
-      then(function(response){
-        if (response.listings.listing.length <1){
+      console.log(searchLocationAJ);
+      var NewQueryAJ = {
+        jobType: searchKeywordAJ,
+        jobLocation: searchLocationAJ
+      }
+      console.log(NewQueryAJ);
+      $.ajax("/api/authJobs", {
+        type: "POST",
+        data: NewQueryAJ
+      }).then(
+        function(response){
+          if (response.listings.listing.length <1){
 
-          alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
-        }
-        else {
-        for (i = 0 ; i < response.listings.listing.length ; i++){
-          jobArrayAJ.push(response.listings.listing[i].title);
-          jobArrayAJ.push(response.listings.listing[i].company.name);
-          jobArrayAJ.push(response.listings.listing[i].company.location.name);
-          jobArrayAJ.push(JSON.stringify(response.listings.listing[i].url));
-          jobsAJ.push(jobArrayAJ);
-          console.log("success #" + i);
-          jobArrayAJ = [];  
+            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
           }
-          console.log(jobsAJ);
-
-          $("#jobQueryAJDisplay").hide();
-          console.log(jobsAJ[0][0]);
-          for(i=0; i<jobsAJ.length; i++){
-            //add table html with relevant job data to the table body
-            $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</td></th> <td id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
-            "</td> <td id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
-            "</td><td id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
-            " class='btn btn-info' id='jobLinkAJ' role='button' target='blank'>Open Link in New Window</a></td>" +
-            "<td><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
-            "' value='" + i + "' >Add Me</button></td></tr>");         
+          else {
+          for (i = 0 ; i < response.listings.listing.length ; i++){
+            jobArrayAJ.push(response.listings.listing[i].title);
+            jobArrayAJ.push(response.listings.listing[i].company.name);
+            jobArrayAJ.push(response.listings.listing[i].company.location.name);
+            jobArrayAJ.push(JSON.stringify(response.listings.listing[i].url));
+            jobsAJ.push(jobArrayAJ);
+            console.log("success #" + i);
+            jobArrayAJ = [];  
             }
-            $("#jobTableAJDisplay").show();
+            console.log(jobsAJ);
+  
+            $("#jobQueryAJDisplay").hide();
+            console.log(jobsAJ[0][0]);
+            for(i=0; i<jobsAJ.length; i++){
+              //add table html with relevant job data to the table body
+              $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</td></th> <td id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
+              "</td> <td id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
+              "</td><td id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
+              " class='btn btn-info' id='jobLinkAJ' role='button' target='blank'>Open Link in New Window</a></td>" +
+              "<td><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
+              "' value='" + i + "' >Add Me</button></td></tr>");         
+              }
+              $("#jobTableAJDisplay").show();
+              $("#jobLocationSearchAJ").val("");
+              console.log($("#jobLocationSearchAJ").val());
+              
+
+            
+          }
+        });
           
-      };
-    });
-  });
+      });
 
     //add USAjobs API generated job to database
     $(document).on('click', '.jobSelectorGovBtn', function() {
@@ -187,6 +194,7 @@ $("#submit-jobSearchGov").on("click", function(){
 $(document).on('click', '.changeSearchUSBtn', function() {
 $("#jobTableUSdisplay").hide();
 $("#jobQueryUSdisplay").show();
+$("#jobTableUSBody").empty();
 
 });
 
@@ -194,5 +202,6 @@ $("#jobQueryUSdisplay").show();
 $(document).on('click', '.changeSearchAJBtn', function() {
   $("#jobTableAJDisplay").hide();
   $("#jobQueryAJDisplay").show();
+  $("#jobTableAJBody").empty();
   
 });
