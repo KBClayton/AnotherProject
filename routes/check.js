@@ -20,8 +20,8 @@ module.exports =  {
 
   notin: function(req, res){
     if(req.session.uid!==undefined){
-      db.user.findAll({}).then(function(result) {
-        res.render("index", {
+      db.savedJob.findAll({}).then(function(result) {
+        res.render("jobDetails", {
           msg: "Welcome!",
           examples: result
         });

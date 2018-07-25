@@ -12,7 +12,7 @@ module.exports = function(app) {
         if(req.session.uid!==undefined){
             console.log("do not login while logged in");
             //send to home page
-            return res.json({url:"/"});
+            return res.json({url:"/jobDetails"});
             
         }else{
             //console.log("in login route");
@@ -114,7 +114,7 @@ module.exports = function(app) {
                                 console.log("the password of user id "+req.session.uid+" was updated")
                                 console.log(dbExample);
                                 //send to home page
-                                return res.json({url:"/"});
+                                return res.json({url:"/jobDetails"});
                             });
                           }
                         hashing2();
