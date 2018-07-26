@@ -73,7 +73,7 @@ module.exports = function(app) {
   });
 
   // PUT route for updating the contact name for a given job
-  app.put("/api/jobs/changeContact/:id", function(req, res) {
+  app.put("/api/jobs/changeName/:id", function(req, res) {
     if(check.login(req, res)){
       return;
     }
@@ -81,6 +81,46 @@ module.exports = function(app) {
     db.savedJob.update(
       {
         contactName: req.body.contactName
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
+  // PUT route for updating the user confidence for a given job
+  app.put("/api/jobs/changeConfidence/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    console.log(req.params);
+    db.savedJob.update(
+      {
+        confidenceLevel: req.body.confidenceLevel
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
+  // PUT route for updating the contact link for a given job
+  app.put("/api/jobs/changeLink/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    console.log(req.params);
+    db.savedJob.update(
+      {
+        applicationLink: req.body.applicationLInk
       },
       {
         where: {

@@ -47,7 +47,7 @@ require("./routes/testRoutes")(app);
 require("./routes/userRoutes")(app);
 require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
-// require("./routes/apiRoutes")(app);
+require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 //start clayton stuff
