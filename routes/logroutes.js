@@ -1,14 +1,18 @@
 var db = require("../models"); 
 const password = require('s-salt-pepper');
+var check =require("./check");
 
 
 module.exports = function(app) {
     app.post("/api/login", function(req, res) {
         //console.log(req.body);
+        if(check.notin(req, res)){
+            return;
+        }
         if(req.session.uid!==undefined){
             console.log("do not login while logged in");
             //send to home page
-            return res.redirect(303, "/");
+            return res.json({url:"/jobDetails"});
             
         }else{
             //console.log("in login route");
@@ -28,7 +32,7 @@ module.exports = function(app) {
                 if(dbExample==null){
                     console.log("there is no user by that name");
                     //send to login page
-                    res.redirect(303, '/login');
+                    return res.json({error: "there is no user by that name"});
                 }
                 user.password.hash=dbExample.dataValues.password;
                 user.password.salt=dbExample.dataValues.salt;
@@ -61,13 +65,16 @@ module.exports = function(app) {
     });
 
     app.put("/api/change", function(req, res) {
+        if(check.login(req, res)){
+            return;
+        }
         var oldpass=req.body.oldpass;
         var newpass=req.body.newpass;
 
         if(req.session.uid==undefined){
             //send to login page
             console.log("you are not logged in to change password")
-            return res.redirect(303, "/");
+            return res.json({url:"/login"});
         }else{
             const user = {
                 password: {
@@ -81,7 +88,7 @@ module.exports = function(app) {
                 if(dbExample==null){
                     console.log("there is no user with that id, how did you get here?");
                     //send to change password page
-                    return res.redirect(303, '/');
+                    return res.json({url:"/changepass"});
                 }
                 user.password.hash=dbExample.dataValues.password;
                 user.password.salt=dbExample.dataValues.salt;
@@ -107,7 +114,7 @@ module.exports = function(app) {
                                 console.log("the password of user id "+req.session.uid+" was updated")
                                 console.log(dbExample);
                                 //send to home page
-                                return res.redirect(303, "/");
+                                return res.json({url:"/jobDetails"});
                             });
                           }
                         hashing2();
@@ -116,7 +123,7 @@ module.exports = function(app) {
                         console.log("correctpass: "+correctpass2);
                         console.log("the old password was wrong");
                         //send to change password page
-                        return res.redirect(303, "/")
+                        return res.json({url:"/changepass"});
                     }
                 }
                 checker2();
@@ -129,6 +136,6 @@ module.exports = function(app) {
         //req.session=null;
         //delete req.session;
         //send to login page
-        return res.redirect(303, '/login');
+        return res.json({url:"/login"});
     });
 }
