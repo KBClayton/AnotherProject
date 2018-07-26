@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    jobSearchID: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     postedSalary: {
       type: DataTypes.INTEGER,
       allowNull: true

@@ -24,7 +24,7 @@ module.exports = function(app) {
   });
   // -- Get All Data From A Specific UserID (Join)
   app.get("/api/all/:id?", function(req, res) {
-    db.user.findAll({
+    db.user.findOne({
       where: {
         id: req.params.id
       },

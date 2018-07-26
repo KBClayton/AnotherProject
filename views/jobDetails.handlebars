@@ -5,37 +5,44 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="create-event">
-							<h2>Enter New Job</h2><br>
-							<div class="col-md-12">
-                                
-								 {{#each job}}
+							<h2>Saved Jobs</h2><br>
+							<div class="col-md-48">
+							<div class="card p-3 bg- border-secondary mb-3">
 
-                                        <p> Company: {{this.company}}</p>
-                                        <p> Contact Name: {{this.contact_name}}</p>
-                                        <p> Position: {{this.position}}</p>
-                                        <p> Job Location: {{this.job_location}} </p>
-                                        <p> Remote Available: {{this.remote_available}}</p>
-                                        <p> Confidence level: {{this.confidence_level}}</p>
-                                        <p> Notes to Self: {{this.notes_to_self}} </p>
-                                        <p> Posted Annual Salary: {{this.posted_annual_salary}} </p>
-                                        <p> Posted Hourly Salary: {{this.posted_hourly_salary}} </p>
+							                       
+											{{#each savedJob}}
 
 
-                <form action="get/event/{{this.id}}?_method=GET" method="POST">
-                  <button type="submit" class="btn red accent-4 ">delete</button>
-                </form>
+												<div data-toggle="collapse" action="{{savedJob}}?_method=GET" method="POST" class="card p-3">
+													<div class="row">
+														<div class="col-16">
+															<p> Company: {{company}}</p>
+                              <p> Contact Name: {{this.contactName}}</p>
+															{{!-- <p> Contact Name: {{this.contactPhone}}</p>
+                              <p> Position: {{this.position}}</p>
+                              <p> Job Location: {{this.jobLocation}} </p>
+                              <p> Remote Available: {{this.remote_available}}</p>
+                              <p> Confidence level: {{this.confidenceLevel}}</p>
+                              <p> Notes to Self: {{this.notes_to_self}} </p>
+                              <p> Posted Annual Salary: {{this.postedSalary}} </p> --}}
+														</div>
+														<div class="col-24">
+														  														
+															<a href="/home/{{id}}"><button >Edit Job Posting</button></a>
+														</div>
+													</div>
+          							</div>
+												<br>
 
-          {{/each}}
-
-							
-									</form>
-							</div>
+											{{/each}}
+							</div>		
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+	
 
 
-        <a href = "/signup" class="waves-effect waves-light btn red lighten-2" id="btnSignUp"> Sign Up</a>
-      <a href = "/login" class="waves-effect waves-light btn red lighten-2" id="btnSignIn"> Log In</a>
