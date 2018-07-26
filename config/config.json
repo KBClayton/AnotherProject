@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "process.env.DB_USER",
-    "password": "process.env.DB_PASS",
+    "username": "root",
+    "password": "1qaz6yhn2wsx!QAZ",
     "database": "jobs_db",
-    "host": " process.env.DB_HOST",
+    "host": "localhost",
     "port": "3306",
     "dialect": "mysql"
   },
