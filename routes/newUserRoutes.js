@@ -1,11 +1,15 @@
 var db = require("../models"); 
 const password = require('s-salt-pepper');
+var check =require("./check");
 
 
 module.exports = function(app) {
   
   // -- Post New User
   app.post('/api/users/new', function(req, res) {
+    if(check.notin(req, res)){
+      return;
+    }
     // Take Input from Client
     //console.log("in post route with uid "+req.session.uid)
     if(req.session.uid!==undefined){

@@ -1,4 +1,5 @@
 var db = require("../models");
+var check =require("./check");
 // Dependencies
 // =============================================================
 var path = require("path");
@@ -6,8 +7,11 @@ var path = require("path");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.user.findAll({}).then(function(result) {
-      res.render("index", {
+      res.render("jobDetails", {
         msg: "Welcome!",
         examples: result
       });
@@ -16,7 +20,17 @@ module.exports = function(app) {
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
    db.savedJob.findAll({}).then(function(result) {
+    if(req.session.uid==undefined){
+      res.render("login", {
+        msg:"Welcome!",
+        //examples: result
+      });
+      return;
+    }
       res.render("enterNewJob", {
         msg: "Welcome!",
         examples: result
@@ -24,8 +38,21 @@ module.exports = function(app) {
     });
   });
 
+    // load jobDetails Page 
+    app.get("/jobDetails", function(req, res) {
+      db.savedJob.findAll({}).then(function(result) {
+        res.render("jobDetails", {
+          
+          jobs: savedJob
+        });
+      });
+    });
+
   // CreateNewUser Page --Alex
   app.get("/createProfile", function(req, res) {
+    if(check.notin(req, res)){
+      return;
+    }
     db.user.findAll({}).then(function(result) {
       res.render("newProfile", {
         msg: "Welcome!",
@@ -33,10 +60,13 @@ module.exports = function(app) {
       });
     });
   });
-
+  
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.user.findAll({}).then(function(result) {
       res.render("homePage", {
         msg: "Welcome!",
@@ -45,18 +75,40 @@ module.exports = function(app) {
     });
   });
 
+<<<<<<< HEAD
+  // jobDetails page (new home page) -Alan
+  app.get("/home2", function(req, res) {
+=======
   // load jobDetails Page 
   app.get("/jobDetails", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+>>>>>>> 4db9018c7200852beefd34ff2da6eeb176452d49
     db.savedJob.findAll({}).then(function(result) {
       res.render("jobDetails", {
-        msg: "Welcome!",
-        examples: result
+        savedJob: result
       });
+      console.log(result);
     });
   });
 
+  // editJobPage page -Alan
+  app.get("/home2", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("jobDetails", {
+        savedJob: result
+      });
+      console.log(result);
+    });
+  });
+
+
   // load login Page
   app.get("/login", function(req, res) {
+    if(check.notin(req, res)){
+      return;
+    }
     db.user.findAll({}).then(function(result) {
       res.render("login", {
         msg:"Welcome!",
@@ -67,6 +119,9 @@ module.exports = function(app) {
 
   // load authenticJobs Page
   app.get("/jobSearchGov", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.savedJob.findAll({}).then(function(result) {
       res.render("usaJobs", {
         msg:"Welcome!",
@@ -77,6 +132,9 @@ module.exports = function(app) {
 
   // load authenticJobs Page
   app.get("/jobSearchAJ", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.savedJob.findAll({}).then(function(result) {
       res.render("authenticJobs", {
         msg:"Welcome!",
@@ -85,6 +143,15 @@ module.exports = function(app) {
     });
   });
 
+  // load change password page
+  app.get("/change", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    res.render("changepass", {
+      msg:"Welcome!",
+    });
+  });
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
     //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
@@ -93,6 +160,24 @@ module.exports = function(app) {
       //});
     //});
   //});
+  //});
+
+  // create page base on id from button click
+  app.get("/home/:id", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(jobID) {
+      res.render("editJobPage", jobID);
+    });
+  });
+  // });
+
+  // Route to view changes to editJobPage -ALAN
+  app.get("/home3", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(result) {
+      res.render("editJobPage", {
+        editJob: result
+      });
+    });
+  });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {

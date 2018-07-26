@@ -47,7 +47,7 @@ module.exports = function(app) {
 app.post("/api/authJobs", function(req, res) {
   var keyword = req.body.jobType;
   var location = req.body.jobLocation;
-  var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=5&location="+ location +"&format=json";
+  var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=10&location="+ location +"&format=json";
   var options = {
     uri: queryAuthJobsURL,
     json: true // Automatically parses the JSON string in the response

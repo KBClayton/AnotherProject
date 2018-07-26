@@ -1,9 +1,13 @@
 var db = require("../models");
+var check =require("./check");
 
 module.exports = function(app) {
   
   // -- Get All SavedJobs
   app.get("/api/jobs", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.savedJob.findAll({}).then(function(results) {
       res.json(results);
     });
@@ -11,6 +15,9 @@ module.exports = function(app) {
 
   // --Get An individual Job and include comments associated with that job
   app.get("/api/jobs/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     db.savedJob.findOne({
       where: {
         id: req.params.id
@@ -27,6 +34,9 @@ module.exports = function(app) {
 
   // -- Post New Job
   app.post('/api/jobs', function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     // Take Input from Client
     var newJob = req.body;
     newJob.userId=req.session.uid
@@ -40,7 +50,14 @@ module.exports = function(app) {
   });
   
   // PUT route for updating the phone contact info for a given job
+
+
+  //can be used as template to create routes for any other item we want to be able to edit
   app.put("/api/jobs/changePhone/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    console.log(req.params);
     db.savedJob.update(
       {
         contactPhone: req.body.contactPhone
@@ -57,6 +74,9 @@ module.exports = function(app) {
 
   // -- Delete Job
   app.delete("/api/jobs/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
     // delete entry that corresponds to appropriate id
     db.savedJob.destroy({
       where: {
