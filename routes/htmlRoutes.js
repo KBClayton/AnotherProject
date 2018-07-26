@@ -149,6 +149,18 @@ module.exports = function(app) {
       msg:"Welcome!",
     });
   });
+  //load edit account page
+  app.get("/editUser", function(req, res){
+    if(check.login(req, res)){
+      return;
+    }
+    db.users.findOne({},{where:{id:req.params.id}}).then(function(res){
+      console.log(res);
+      res.render("editUser", {
+        account:res,
+      });
+    })
+  })
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
     //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
