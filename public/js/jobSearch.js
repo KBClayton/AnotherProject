@@ -174,8 +174,7 @@ $("#submit-jobSearchGov").on("click", function(){
         jobLocation: jobsGov[helper][2],
         confidenceLevel: null,
         postedSalary: jobsGov[helper][3],
-        applicationLink: jobsGov[helper][4],
-        userId: null
+        applicationLink: jobsGov[helper][4]
       }
       console.log(NewJob);
     $.ajax("/api/jobs", {
@@ -212,8 +211,7 @@ $("#submit-jobSearchGov").on("click", function(){
           jobLocation: jobsAJ[helper][2],
           confidenceLevel: null,
           postedSalary: null,
-          applicationLink: jobsAJ[helper][3],
-          userId: null
+          applicationLink: jobsAJ[helper][3]
         }
         console.log(NewJob);
       $.ajax("/api/jobs", {
