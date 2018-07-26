@@ -11,7 +11,7 @@ module.exports = function(app) {
       return;
     }
     db.user.findAll({}).then(function(result) {
-      res.render("index", {
+      res.render("jobDetails", {
         msg: "Welcome!",
         examples: result
       });
@@ -38,6 +38,17 @@ module.exports = function(app) {
     });
   });
 
+
+    // load jobDetails Page 
+    app.get("/jobDetails", function(req, res) {
+      db.savedJob.findAll({}).then(function(result) {
+        res.render("jobDetails", {
+          
+          jobs: savedJob
+        });
+      });
+    });
+
   // CreateNewUser Page --Alex
   app.get("/createProfile", function(req, res) {
     if(check.notin(req, res)){
@@ -50,10 +61,11 @@ module.exports = function(app) {
       });
     });
   });
-
+  
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
+
     if(check.login(req, res)){
       return;
     }
@@ -65,6 +77,7 @@ module.exports = function(app) {
     });
   });
 
+
   // load jobDetails Page 
   app.get("/jobDetails", function(req, res) {
     if(check.login(req, res)){
@@ -72,11 +85,22 @@ module.exports = function(app) {
     }
     db.savedJob.findAll({}).then(function(result) {
       res.render("jobDetails", {
-        msg: "Welcome!",
-        examples: result
+        savedJob: result
       });
+      console.log(result);
     });
   });
+
+  // editJobPage page -Alan
+  app.get("/home2", function(req, res) {
+    db.savedJob.findAll({}).then(function(result) {
+      res.render("jobDetails", {
+        savedJob: result
+      });
+      console.log(result);
+    });
+  });
+
 
   // load login Page
   app.get("/login", function(req, res) {
@@ -134,6 +158,24 @@ module.exports = function(app) {
       //});
     //});
   //});
+  //});
+
+  // create page base on id from button click
+  app.get("/home/:id", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(jobID) {
+      res.render("editJobPage", jobID);
+    });
+  });
+  // });
+
+  // Route to view changes to editJobPage -ALAN
+  app.get("/home3", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(result) {
+      res.render("editJobPage", {
+        editJob: result
+      });
+    });
+  });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
