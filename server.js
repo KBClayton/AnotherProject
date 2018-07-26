@@ -20,7 +20,9 @@ app.use(express.static("public"));
 var sess = {
   secret: 'This is an exceedingly long high entropy string for encrypting cookie values',
   cookie: {
-    secure:false
+    secure:false,
+    resave: false,
+    saveUninitialized: true
   }
 }
  
@@ -47,7 +49,7 @@ require("./routes/testRoutes")(app);
 require("./routes/userRoutes")(app);
 require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
-// require("./routes/apiRoutes")(app);
+require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 //start clayton stuff
