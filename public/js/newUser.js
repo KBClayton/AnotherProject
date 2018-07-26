@@ -41,15 +41,17 @@ $("#create-newUser").on("click", function(){
 });
 
 $("#updateUser").on("click", function(){
+  console.log("in update clickhandler")
   var updateUser = {
     firstName: $("#firstNameNew").val().trim(),
     lastName: $("#lastNameNew").val().trim(),
     email: $("#emailNew").val().trim(),
     location: $("#locationNew").val().trim()
   }
+  console.log(updateUser);
   $.ajax("/api/users/change", {
     type: "PUT",
-    data: NewUser
+    data: updateUser
   }).then(
     function(res){
       if(res.url !== undefined){

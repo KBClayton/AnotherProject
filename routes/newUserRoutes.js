@@ -58,6 +58,7 @@ module.exports = function(app) {
   });
 
   app.put('/api/users/change', function(req, res) {
+    console.log("in users/change route");
     console.log(req.body);
     if(check.login(req, res)){
       return;

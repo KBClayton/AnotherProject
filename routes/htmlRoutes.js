@@ -154,10 +154,13 @@ module.exports = function(app) {
     if(check.login(req, res)){
       return;
     }
-    db.users.findOne({},{where:{id:req.params.id}}).then(function(res){
-      console.log(res);
+    console.log("In edituser route");
+    console.log(req.body);
+    db.user.findOne({},{where:{id:req.params.id}}).then(function(response){
+      console.log("in findone reply");
+      console.log(response.dataValues);
       res.render("editUser", {
-        account:res,
+        account:response.dataValues,
       });
     })
   })
