@@ -6,64 +6,57 @@
 				<h3 class="bg-info text-light p-3 border border-dark">Let's Find a Tech Sector Job Lead!</h3>
 				<br>
 				<div class="row" id="jobQueryAJDisplay">
-             <div class="col-md-12">
-                <p class="mb-2"><u>Basic Job Info</u><span class="text-danger"> *</span></p>
-                  <div class="form-group">What's your area of expertise?
-                    <select multiple class="form-control" name="jobKeywordSearchAJ" id="jobKeywordSearchAJ">
-                    <option value="5">Apps</option>
-                    <option value="2">Back-End Engineering</option>
-                    <option value="12">Content &amp Copywriting</option>
-                    <option value="11">Customer &amp Community</option>
-                    <option value="3">Design &amp User Experience</option>
-                    <option value="4">Front-End Engineering</option>
-                    <option value="6">Management</option>
-                    <option value="8">Marketing &amp Sales</option>
-                    <option value="10">Product Management</option>
-                    </select>
-                  </div>
-                
-                  <div class="form-group">Where Would You Like to Work?
-                    <input type="text" class="form-control" name="jobLocationSearchAJ" id="jobLocationSearchAJ" placeholder="Job Location...">
-                  </div>
+					<div class="col-md-12">
+						<p class="mb-2"><u>Basic Job Info</u><span class="text-danger"> *</span></p>
+						<div class="form-group">What's your area of expertise?
+							<select multiple class="form-control" name="jobKeywordSearchAJ" id="jobKeywordSearchAJ">
+							<option value="5">Apps</option>
+							<option value="2">Back-End Engineering</option>
+							<option value="12">Content &amp Copywriting</option>
+							<option value="11">Customer &amp Community</option>
+							<option value="3">Design &amp User Experience</option>
+							<option value="4">Front-End Engineering</option>
+							<option value="6">Management</option>
+							<option value="8">Marketing &amp Sales</option>
+							<option value="10">Product Management</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="jobLocationsSearch" class="mb-0">Where Would You Like to Work?</label>
+							<input type="text" class="form-control" name="jobLocationSearchAJ" id="jobLocationSearchAJ" placeholder="Job Location...">
+						</div>
+					
+						<div class="text-center">
+							<button class="btn btn-success btn-lg" id="submit-jobSearchAJ">Search</button>
+						</div>
+						<div>
+							<p class="mt-3 mb-0"><span class="text-danger">*</span><i>All Fields Required</i></p>
+						</div>
+        	</div>
 
-              </div>
-
-              <div class="text-center">
-                <button class="btn btn-success btn-lg" id="submit-jobSearchAJ">Search</button>
-              </div>
-              <div>
-                <p class="mt-3 mb-0"><span class="text-danger">*</span><i>All Fields Required</i></p>
-              </div>
-        </div>
-
-        <div id="jobTableAJDisplay" style="display: none">
-					<!--bootstrap responsive table with 6 columns-->
-					<div class="table-responsive">
+					<div id="jobTableAJDisplay" style="display: none">
+						<!--bootstrap responsive table with 6 columns-->
+						<div class="table-responsive">
 							<table class="table table-bordered table-hover" id="jobTableAJ">
-							<thead id="jobTableAJHeader">
+								<thead id="jobTableAJHeader">
 									<tr>
-											<th scope="col">Position</th>
-											<th scope="col">Hiring Agency</th>
-											<th scope="col">Location</th>
-											<th scope="col">Job Link</th>
-											<th scope="col">Add Job to my List</th>
+										<th scope="col">Position</th>
+										<th scope="col">Hiring Agency</th>
+										<th scope="col">Location</th>
+										<th scope="col">Job Link</th>
+										<th scope="col">Add Job to my List</th>
 									</tr>
-							</thead>
+								</thead>
 							<!--table body, will hold data retrieved from API query-->
-							<tbody id="jobTableAJBody">                    
-							</tbody>
+								<tbody id="jobTableAJBody"></tbody>
 							</table> 
-					</div> 
-					<!--div to hold button-->
-					<div class="changeSearchBtnHldr">
-							<!--button to choose a different satellite type-->
-							<button type="button" class="btn btn-danger rounded changeSearchAJBtn" >Try a Different Search</button>
-					</div>   
-			  </div>
-
-
-
-			</div>		
+						</div> 
+						<!--div to hold button-->
+						<div class="changeSearchBtnHldr">
+								<!--button to choose a different satellite type-->
+								<button type="button" class="btn btn-danger rounded changeSearchAJBtn" >Try a Different Search</button>
+						</div>   
+					</div>
 				</div>
 			</div>
 		</div>
