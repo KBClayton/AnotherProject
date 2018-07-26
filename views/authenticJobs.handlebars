@@ -3,7 +3,7 @@
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
 			<div class="card p-3 bg-light border-secondary mb-3">
-				<h3 class="bg-info text-light text-center p-3 border border-dark">Let's Find a Job with Authentic Jobs!</h3>
+				<h3 class="bg-info text-light text-center p-3 border border-dark">Find a Job with Authentic Jobs</h3>
 				<br>
 				<div class="row" id="jobQueryAJDisplay">
              <div class="col-md-12">
@@ -20,14 +20,20 @@
                     <option value="10">Product Management</option>
                     </select>
                   </div>
-                
+
+									<div class="row" id="locationDisplayHolder" style="display: none">
+										<div class="col-md-12">
+												<button type="button" class="btn btn-danger rounded locationDisplayBtn" margin="auto">Narrow Search By Location</button>
+										</div>
+									</div>
+
                   <div class="row" id="locationHolderAJ">
-										<div class="col-md-9 text-center" id="cityInputAJ">Desired Job Location
+										<div class="col-md-12 text-center" id="cityInputAJ">Where would you like to work?
 											<div class="form-row text-left">
-												<div class="col-md-6">
+												<div class="col-md-5">
 													<input type="text" class="form-control" name="jobLocationCityAJ" id="jobLocationCityAJ" placeholder="City">
 												</div>
-												<div class="col-md-6" id="stateInputAJ">
+												<div class="col-md-4" id="stateInputAJ">
 													<select class="form-control" id="jobLocationStateAJ">
 														<option value="" selected="selected">State (Required)</option>
 														<option value="al">Alabama</option>
@@ -84,34 +90,38 @@
 
 													</select>
 												</div>
+												<div class="col-md-3">
+													<button type="button" class="btn btn-danger rounded form-control showAllJobsBtn" margin="auto" style="justify-content: center">Show All Jobs</button>
+												</div>
 											</div>
 										</div>
-											<br>
-										<div class="col-md-3">FUTURE HOME OF BUTTON TO DISPLAY ALL JOBS IN CATEGORY
-                		</div>
 									</div>
 
 									<br>
 
-							<div class="row">
-								<div class="col-m-12 tcRadioToggle">
-									<div class="custom-control custom-radio custom-control-inline">
-										<input type="radio" id="tcIncludeRadio" name="tcIncludeRadio" class="custom-control-input" checked="checked">
-										<label class="custom-control-label" for="tcIncludeRadio">Include Telecommuting Jobs</label>
+							<div class="row radioToggleAJ">
+								<div class="col-m-12 form-group">
+									<div class="form-check">
+										<label class="form-check-label radio-inline" for="tcIncludeRadio">
+											<input type="radio" id="tcIncludeRadio" name="optionsRadio" class="form-check-input" checked="checked">
+											Include Telecommuting Jobs
+										</label>
 									</div>
-									<div class="custom-control custom-radio custom-control-inline">
-										<input type="radio" id="tcExcludeRadio" name="tcExcludeRadio" class="custom-control-input">
-										<label class="custom-control-label" for="tcExcludeRadio">Exclude Telecommuting Jobs</label>
+									<div class="form-check">
+										<label class="form-check-label radio-inline" for="tcExcludeRadio">
+											<input type="radio" id="tcExcludeRadio" name="optionsRadio" class="form-check-input">
+											Exclude Telecommuting Jobs
+										</label>
 									</div>
-									<div class="custom-control custom-radio custom-control-inline">
-										<input type="radio" id="tcOnlyRadio" name="tcOnlyRadio" class="custom-control-input">
-										<label class="custom-control-label" for="tcOnlyRadio">Only Show Me Telecommuting Jobs</label>
+									<div class="form-check">
+										<label class="form-check-label radio-inline" for="tcOnlyRadio">
+											<input type="radio" id="tcOnlyRadio" name="optionsRadio" class="form-check-input">
+											Only Show Me Telecommuting Jobs
+										</label>
 									</div>
 								</div>
-
-								<br>
-
 							</div>
+
 							<div class="row">
 								<div class="col-12 submitBtnHolderAJ">
 									<div class="text-center">

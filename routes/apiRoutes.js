@@ -10,10 +10,10 @@ module.exports = function(app) {
     if(check.login(req, res)){
       return;
     }
-    var keyword = req.body.jobType;
-    var location = req.body.jobLocation;
-    var telC = req.body.tC;
-    var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=15" + location + telC +"&format=json";
+    console.log(req.body);
+    var queryEndAJ = req.body.userQueryAJ;
+    console.log(queryEndAJ);
+    var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key + queryEndAJ;
     console.log(queryAuthJobsURL);
     var options = {
       uri: queryAuthJobsURL,

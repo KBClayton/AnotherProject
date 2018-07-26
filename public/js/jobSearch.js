@@ -4,14 +4,20 @@ var jobsGov = [];
 //arrays to help populate job tables when querying the authenticJobs API
 var jobArrayAJ = [];
 var jobsAJ = [];
+//variable to hold the end of the authenticJobs query URL
+var queryFooterAJ = "";
 //variables that will hold the number of responses (i.e. rows) are left in the 
 //jobs table. helps toggle between 
 var counterHelperUS = 0;
 var counterHelperAJ = 0;
-
+//variables that enable a range of authentic Jobs API queries
 var searchKeywordAJ= "";
 var searchLocationAJ = "";
 var tC= "";
+//boolean variable to enable/disable location search for AJ API
+var locStateBool = true;
+//boolean variable to enable/disable remote-only search for AJ API
+var remoteOnly = false;
 //submit button for USAJobs.gov search
 $("#submit-jobSearchGov").on("click", function(){
   jobArrayGov = [];
@@ -21,7 +27,6 @@ $("#submit-jobSearchGov").on("click", function(){
     $("#jobLocationStateUS").val().trim() != "" &&
     $("#jobSalarySearchUS").val().trim() != ""
   ){
- 
     var searchKeywordUS = $("#jobKeywordSearchUS").val().trim().split(" ").join("+");
     console.log(searchKeywordUS);
     var searchLocationUS = $("#jobLocationCityUS").val().trim().toLowerCase().split(" ").join("+") + "+" + $("#jobLocationStateUS").val();
@@ -92,33 +97,102 @@ $("#submit-jobSearchGov").on("click", function(){
 
   //submit button for authentic jobs search button
   $("#submit-jobSearchAJ").on("click", function(){
+    //clear out holder arrays
     jobArrayAJ = [];
     jobsAJ = [];
+    //ensure the user keyword search is not empty
+    if ($("#jobKeywordSearchAJ").val() == ""){
+      alert("Please enter an area of expertise.")
+      return;
+    }
+    if ($("#jobLocationStateAJ").val() == "" && locStateBool == true && remoteOnly== false){
+      alert("Enter a State to Continue.");
+      return;
+    }
+    searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
+    if (locStateBool== false) {
+      queryFooterAJ = "&method=aj.jobs.search&category="+ searchKeywordAJ +"&perpage=15&format=json";
+      console.log("return all jobs query:   IS EQUAL TO " +queryFooterAJ);
 
-    if (
-      $("#jobKeywordSearchAJ").val() != "" &&
-      $("#jobLocationStateAJ").val().trim() != ""
-    ){
-      
+      var NewQueryAJ = {
+        userQueryAJ: queryFooterAJ
       }
+      $.ajax("/api/authJobs", {
+        type: "POST",
+        data: NewQueryAJ
+      }).then(
+        function(response){
+          console.log(response.listings.listing);
+          if (response.listings.listing.length <1){
+
+            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+          }
+          else {
+          for (i = 0 ; i < response.listings.listing.length ; i++) {
+            jobArrayAJ.push(response.listings.listing[i].title);
+            jobArrayAJ.push(response.listings.listing[i].company.name);
+            if (response.listings.listing[i].company.location == undefined) {
+              jobArrayAJ.push("remote");
+            }
+            else {
+            jobArrayAJ.push(response.listings.listing[i].company.location.name);
+          }
+            jobArrayAJ.push(JSON.stringify(response.listings.listing[i].url));
+            jobsAJ.push(jobArrayAJ);
+            console.log("success #" + i);
+            jobArrayAJ = [];  
+            
+          }
+            counterHelperAJ = jobsAJ.length
+            console.log("number of jobs returned: " + counterHelperAJ);
+  
+            $("#jobQueryAJDisplay").hide();
+            console.log(jobsAJ[0][0]);
+            for(i=0; i<jobsAJ.length; i++){
+              //add table html with relevant job data to the table body
+              $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th class='align-middle' scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</th> <td class='align-middle' id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
+              "</td> <td class='align-middle' id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
+              "</td><td class='align-middle' id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
+              " class='btn btn-info' id='jobLinkAJ' role='button' target='blank'>Open Link in New Window</a></td>" +
+              "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
+              "' value='" + i + "' >Add Me</button></td></tr>");         
+              }
+              $("#jobTableAJDisplay").show();
+              $("#jobLocationSearchAJ").val("");
+              $("#jobLocationCityAJ").val("");
+              $("#jobLocationStateAJ").val("");
+            
+            
+          }
+        });
+        return;
+    }
+    if ($("#jobLocationStateAJ").val().trim() != "") {
       searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
       console.log(searchKeywordAJ);
-      if($("#tcIncludeRadio").checked) {
+      if($("#tcIncludeRadio:checked").val()== "on") {
         searchLocationAJ = "&location=" + $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us,anywhere";
-        tC = "";
-      }else if($("#tcExcludeRadio").checked) {
+        tC= "";
+        console.log("INCLUDED");
+      }else if($("#tcExcludeRadio:checked").val()== "on") {
         searchLocationAJ = "&location=" + $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us";
-        tC= "&telecommuting=0";
-      }else if($("#tcOnlyRadio").checked) {
+        tC= '&telecommuting=0';
+        console.log("EXCLUDED");
+      }else if($("#tcOnlyRadio:checked").val()== "on") {
         searchLocationAJ = "";
         tC= "&telecommuting=1";
+        console.log("ONLY");
+      }
+      else{
+        console.log("check not registered");
+        alert("whoops! someting went wrong -- we're working hard to fix it, though!")
       }
       console.log(searchLocationAJ);
       console.log(tC);
+      queryFooterAJ = "&method=aj.jobs.search&category="+ searchKeywordAJ + searchLocationAJ + tC +"&perpage=15&format=json";
+      console.log(queryFooterAJ);
       var NewQueryAJ = {
-        jobType: searchKeywordAJ,
-        jobLocation: searchLocationAJ,
-        telecommute: tC
+        userQueryAJ: queryFooterAJ
       }
       console.log(NewQueryAJ);
       $.ajax("/api/authJobs", {
@@ -168,9 +242,71 @@ $("#submit-jobSearchGov").on("click", function(){
             
             
           }
-        });
-          
+        }); //HERE HERE HERE HERE
+      }
+    else if (remoteOnly=true) {
+      searchLocationAJ = "";
+      tC= "&telecommuting=1";
+      queryFooterAJ = "&method=aj.jobs.search&category="+ searchKeywordAJ + searchLocationAJ + tC +"&perpage=15&format=json";
+      console.log(queryFooterAJ);
+      var NewQueryAJ = {
+        userQueryAJ: queryFooterAJ
+      }
+      console.log(NewQueryAJ);
+      $.ajax("/api/authJobs", {
+        type: "POST",
+        data: NewQueryAJ
+      }).then(
+        function(response){
+          console.log(response.listings.listing);
+          if (response.listings.listing.length <1){
+
+            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+          }
+          else {
+          for (i = 0 ; i < response.listings.listing.length ; i++) {
+            jobArrayAJ.push(response.listings.listing[i].title);
+            jobArrayAJ.push(response.listings.listing[i].company.name);
+            if (response.listings.listing[i].company.location == undefined) {
+              jobArrayAJ.push("remote");
+            }
+            else {
+            jobArrayAJ.push(response.listings.listing[i].company.location.name);
+          }
+            jobArrayAJ.push(JSON.stringify(response.listings.listing[i].url));
+            jobsAJ.push(jobArrayAJ);
+            console.log("success #" + i);
+            jobArrayAJ = [];  
+            
+          }
+            counterHelperAJ = jobsAJ.length
+            console.log("number of jobs returned: " + counterHelperAJ);
+  
+            $("#jobQueryAJDisplay").hide();
+            console.log(jobsAJ[0][0]);
+            for(i=0; i<jobsAJ.length; i++){
+              //add table html with relevant job data to the table body
+              $("#jobTableAJBody").append("<tr id='jobRowAJ" + i +"'> <th class='align-middle' scope='row' id='jobTitleAJ"+ i +"'>" + jobsAJ[i][0] + "</th> <td class='align-middle' id='jobCompanyAJ"+ i +"'>" + jobsAJ[i][1] + 
+              "</td> <td class='align-middle' id='jobLocationAJ"+ i +"'>"+ jobsAJ[i][2] + 
+              "</td><td class='align-middle' id='jobLinkAJcell"+ i +"'><a href=" + jobsAJ[i][3] + 
+              " class='btn btn-info' id='jobLinkAJ' role='button' target='blank'>Open Link in New Window</a></td>" +
+              "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorAJBtn' id='jobSelectorAJBtn'" + i + 
+              "' value='" + i + "' >Add Me</button></td></tr>");         
+              }
+              $("#jobTableAJDisplay").show();
+              $("#jobLocationSearchAJ").val("");
+              $("#jobLocationCityAJ").val("");
+              $("#jobLocationStateAJ").val("");
+            
+            
+            }
+          });
+        }else{
+          alert("Please Choose a State to Continue.");
+        }
       });
+    
+
 
     //add USAjobs API generated job to database
     $(document).on('click', '.jobSelectorGovBtn', function() {
@@ -250,7 +386,6 @@ $(document).on('click', '.changeSearchUSBtn', function() {
 $("#jobTableUSdisplay").hide();
 $("#jobQueryUSdisplay").show();
 $("#jobTableUSBody").empty();
-
 });
 
 //change view from the AJ table view to the AJ search view
@@ -258,5 +393,53 @@ $(document).on('click', '.changeSearchAJBtn', function() {
   $("#jobTableAJDisplay").hide();
   $("#jobQueryAJDisplay").show();
   $("#jobTableAJBody").empty();
-  
+});
+
+//hide locationDisplayHolder, set  and toggle to location disabled
+$(document).on('click', '#tcOnlyRadio', function() {
+  console.log("clicked");
+  $("#locationHolderAJ").hide();
+  remoteOnly=true;
+  console.log("rOTRUETRUETRUE");
+  //$("#jobQueryAJDisplay").show();
+  //$("#jobTableAJBody").empty(); 
+});
+
+//show location search and toggle to location enabled
+$(document).on('click', '#tcIncludeRadio', function() {
+  console.log("clicked");
+  //$("#jobTableAJDisplay").hide();
+  $("#locationHolderAJ").show();
+  remoteOnly=false;
+  console.log("rOfalse");
+  //$("#jobTableAJBody").empty(); 
+});
+
+//show location search and toggle to location enabled
+$(document).on('click', '#tcExcludeRadio', function() {
+  console.log("clicked");
+  //$("#jobTableAJDisplay").hide();
+  $("#locationHolderAJ").show();
+  remoteOnly=false;
+  console.log("rOfalse");
+  //$("#jobTableAJBody").empty();
+});
+
+//force API to return all available jobs of a given type
+$(document).on('click', '.showAllJobsBtn', function() {
+  console.log("clicked lSBFALSE");
+  $("#locationHolderAJ").hide();
+  $(".radioToggleAJ").hide();
+  $("#locationDisplayHolder").show();
+  locStateBool=false;
+  console.log("lSB is false");
+});
+
+//enable focused job search
+$(document).on('click', '.locationDisplayBtn', function() {
+  console.log("clicked lSBTRUE");
+  $("#locationDisplayHolder").hide();
+  $("#locationHolderAJ").show();
+  $(".radioToggleAJ").show();
+  locStateBool=true;
 });
