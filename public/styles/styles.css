@@ -61,10 +61,12 @@ input::placeholder {
 .border-bottom {
   border-bottom: 2px solid black;
 }
+.border-bottom1 {
+  border-bottom: 1px solid black;
+}
 .border-top {
   border-top: 1px solid black;
 }
-
 .customBorder {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
