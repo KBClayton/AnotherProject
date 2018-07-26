@@ -48,14 +48,36 @@ module.exports = function(app) {
             }
             hashing();
         }else{
-          console.log("that username or email is taken")
+          console.log("That username or email is taken")
           //send to login page
           //return res.redirect('/login')
-          return res.json({error:"that username or email is taken"});
+          return res.json({error:"That username or email is taken"});
         }
       });
     }
   });
+
+  app.put('/api/users/change', function(req, res) {
+    console.log("in users/change route");
+    console.log(req.body);
+    if(check.login(req, res)){
+      return;
+    }
+    emailsearch=req.body.email;
+    db.user.findOne({where: {email:{$eq:emailsearch}}}).then(function(dbExample) {
+      if(dbExample==null){
+        db.user.update({firstName:req.body.firstName,lastName: req.body.lastName, email:req.body.email, location:req.body.location },
+          {where:{id:req.session.uid}}).then(function(dbExample){
+          return res.json({url:"/"});
+        })
+      }else{
+        console.log("That email is associated with another account")
+        return res.json({error:"That email is associated with another account"});
+      }
+
+    })
+  });
+
 };
 
 // -- WHAT THE DATA LOOKS LIKE

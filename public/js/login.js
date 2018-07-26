@@ -56,3 +56,4 @@ $("#changepass").on("click", function(){
     alert("New passwords do not match");
   }
 })
+
