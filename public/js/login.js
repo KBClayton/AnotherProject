@@ -17,7 +17,8 @@ $("#signInBtn").on("click", function(){
     if(res.url !== undefined){
       window.location = res.url;
     }else if (res.error!==undefined){
-      alert(res.error);
+      // alert(res.error);
+      $('.modal').modal('show')
     }else{
       location.reload();
     }
@@ -55,3 +56,4 @@ $("#changepass").on("click", function(){
     alert("New passwords do not match");
   }
 })
+

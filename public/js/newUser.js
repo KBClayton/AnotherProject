@@ -39,3 +39,29 @@ $("#create-newUser").on("click", function(){
     alert("Cannot create user. please fix issues...")
   }
 });
+
+$("#updateUser").on("click", function(){
+  console.log("in update clickhandler")
+  var updateUser = {
+    firstName: $("#firstNameNew").val().trim(),
+    lastName: $("#lastNameNew").val().trim(),
+    email: $("#emailNew").val().trim(),
+    location: $("#locationNew").val().trim()
+  }
+  console.log(updateUser);
+  $.ajax("/api/users/change", {
+    type: "PUT",
+    data: updateUser
+  }).then(
+    function(res){
+      if(res.url !== undefined){
+        window.location = res.url;
+      }else if (res.error!==undefined){
+        alert(res.error);
+      }else{
+        location.reload();
+      }
+    }
+  )
+
+})

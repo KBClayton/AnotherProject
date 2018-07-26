@@ -38,6 +38,7 @@ module.exports = function(app) {
     });
   });
 
+
     // load jobDetails Page 
     app.get("/jobDetails", function(req, res) {
       db.savedJob.findAll({}).then(function(result) {
@@ -64,6 +65,7 @@ module.exports = function(app) {
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
+
     if(check.login(req, res)){
       return;
     }
@@ -147,6 +149,21 @@ module.exports = function(app) {
       msg:"Welcome!",
     });
   });
+  //load edit account page
+  app.get("/editUser", function(req, res){
+    if(check.login(req, res)){
+      return;
+    }
+    console.log("In edituser route");
+    console.log(req.body);
+    db.user.findOne({},{where:{id:req.params.id}}).then(function(response){
+      console.log("in findone reply");
+      console.log(response.dataValues);
+      res.render("editUser", {
+        account:response.dataValues,
+      });
+    })
+  })
   // Load example page and pass in an example by id
   //app.get("/example/:id", function(req, res) {
     //db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
@@ -173,6 +190,10 @@ module.exports = function(app) {
         editJob: result
       });
     });
+  });
+
+  app.get("/about", function(req, res){
+    res.render("aboutPage");
   });
 
   // Render 404 page for any unmatched routes

@@ -4,31 +4,47 @@
 <head>
   <meta  charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  {{!-- <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8"> --}}
+  {{!-- Google Fonts --}}
+  
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Ultra" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ultra" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
   <title>Job Search App Home Page</title>
+
 </head>
 
 <body>
     
-<nav class="opaque navbar navbar-expand-md bg-white navbar-light border-bottom border-dark">
-        <div class="navbar-header">
-            <a href="/" class="navbar-brand lobster p-0"><h1>JOBSKR</h1></a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon navbar-right"></span>
-        </button>       
-        <div class="collapse navbar-collapse justify-content-end text-dark" id="navbarSupportedContent">
-            <ul class="nav navbar-nav navbar-right">
-                <a class="nav-item text-dark p-0 m-2 border-highlight-nav border-secondary" href="/" id="homeBtn">Home</a>
-                <a class="nav-item text-dark p-0 m-2" href="/home2" id="jobs">Jobs</a>
-                <a class="nav-item text-dark p-0 m-2" href="/" id="indeed">Indeed</a>
-                <a class="nav-item text-dark p-0 m-2" href="/createJob" id ="newJob">Enter New Job</a>
-                <a class="nav-item text-dark p-0 m-2" href="/" id ="logout">Logout</a> 
-            </ul>                
-        </div>
+<nav class="navbar navbar-expand-md border-bottom bg-light navbar-light mb-3 p-1 pl-3">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand LuckyFont mt-3 p-0"><h1>J O B <span class="text-info"> S K R</span></h1></a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon navbar-right"></span>
+    </button>       
+    <div class="collapse navbar-collapse justify-content-end text-dark" id="navbarSupportedContent">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item  text-dark p-1 m-2 border-highlight-nav border-secondary" id="homeBtn"><a href="/home" class="text-dark">Home</a></li>
+            <li class="nav-item text-dark p-1 m-2" id ="aboutPage"><a href="/about" class="text-dark"> About</a></li>
+            <li class="nav-item text-dark p-1 m-2" id="indeed"><a href="/jobSearchAJ" class="text-dark">Search Jobs</a></li>
+            <li class="nav-item text-dark p-1 m-2" id ="newJob"><a href="/createJob" class="text-dark"> +New Lead</a></li>
+            <li class="nav-item text-danger p-1 m-2" id ="logout">SignOut</li> 
+
+        </ul>                
+    </div>
 </nav>  
+  
   {{{body}}}
   
+<footer class="footer text-center bg-secondary border-top">
+    <p class="mb-0 pb-0 "><span>
+            <a href="#">Resources</a>
+            <a href="#">About This Page</a>
+            <a href="#">GitHub Repository</a>
+    </span></p>
+    <p class="mb-0 pb-0 text-white">This website is hosted on HEROKU</p>
+</footer>
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>

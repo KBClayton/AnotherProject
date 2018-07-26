@@ -1,3 +1,73 @@
-.list-group-item {
-  line-height: 2.5;
+/* Enables Fixed Header and Sticky Footer */
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body{
+  position: relative;
+  padding-bottom: 3rem;
+  background-image: url("/images/laptopimage.jpg");
+  min-height: 100%; 
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-size: cover;
+}
+.navbar{
+  position:fixed;
+  width:100%;
+  z-index: 1000;
+}
+
+.footer {
+  font-size: 12px;
+  position: absolute;
+  
+  width: 100%;
+  bottom:0;
+  text-align: center;
+}
+
+/* Fonts */
+.Ultrafont {
+  font-family: 'Ultra', serif;
+}
+.LuckyFont{
+  font-family: 'Luckiest Guy', cursive;
+}
+.Monoton{
+  font-family: 'Monoton', cursive;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
+/* Body Styling */
+.push8 {
+  padding-top: 8rem;
+}
+.push20 {
+  padding-top: 12rem;
+}
+.opaque {
+  opacity: 0.85;
+}
+.border-bottom {
+  border-bottom: 2px solid black;
+}
+.border-bottom1 {
+  border-bottom: 1px solid black;
+}
+.border-top {
+  border-top: 1px solid black;
+}
+.customBorder {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
