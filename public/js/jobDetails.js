@@ -13,7 +13,7 @@ $(".addCommentBtn").on("click", function(event){
     data: commentID
     }).then(
     function(){
-      console.log("Created New Job Lead");
+      console.log("logged job id");
     }
   );
   

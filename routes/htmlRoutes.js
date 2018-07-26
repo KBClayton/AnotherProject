@@ -7,7 +7,7 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.user.findAll({}).then(function(result) {
-      res.render("index", {
+      res.render("jobDetails", {
         msg: "Welcome!",
         examples: result
       });
@@ -114,8 +114,17 @@ module.exports = function(app) {
       //});
     //});
   //});
+  //});
 
-  // Create page base on id from button click -- Alan
+  // create page base on id from button click
+  app.get("/home/:id", function(req, res) {
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(jobID) {
+      res.render("editJobPage", jobID);
+    });
+  });
+  // });
+
+  // Route to view changes to editJobPage -ALAN
   app.get("/home3", function(req, res) {
     db.savedJob.findOne({ where: { id: req.params.id } }).then(function(result) {
       res.render("editJobPage", {
