@@ -72,6 +72,26 @@ module.exports = function(app) {
       });
   });
 
+  // PUT route for updating the contact name for a given job
+  app.put("/api/jobs/changeContact/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    console.log(req.params);
+    db.savedJob.update(
+      {
+        contactName: req.body.contactName
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
   // -- Delete Job
   app.delete("/api/jobs/:id", function(req, res) {
     if(check.login(req, res)){
