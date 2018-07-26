@@ -1,8 +1,9 @@
 var db = require("../models");
+var check =require("./check");
 //var hashing = require("loginsalt")
-const password = require('s-salt-pepper');
-password.iterations(75000); 
-password.pepper('This is a high entropy pepper string for hashing');
+// const password = require('s-salt-pepper');
+// password.iterations(75000); 
+// password.pepper('This is a high entropy pepper string for hashing');
 
 
 
@@ -17,17 +18,6 @@ module.exports = function(app) {
 
   // Create a new example
   app.post("/api/examples", function(req, res) {
-    const user = {
-      password: {
-        hash: null,
-        salt: null
-      }
-    };
-    async () => {
-      user.password = await password.hash(req.body.password);
-    }
-
-
     db.Example.create(req.body).then(function(dbExample) {
       res.json(dbExample);
     });

@@ -34,3 +34,24 @@ $("#logout").on("click", function(){
     window.location="/login"
   })
 })
+
+$("#changepass").on("click", function(){
+  if (
+    $("#newpassword1").val().trim() != "" &&
+    $("#newpassword2").val().trim() != "" &&
+    $("#newpassword1").val().trim() === $("#newpassword2").val().trim()
+  ){
+    var cpassword={
+      oldpass: $("#oldpassword").val().trim(),
+      newpass: $("#newpassword1").val().trim()
+    }
+    $.ajax("/api/change", {
+      type: "PUT",
+      data: cpassword
+    }).then(function(){
+      window.location="/login"
+    })
+  }else{
+    alert("New passwords do not match");
+  }
+})
