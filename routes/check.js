@@ -20,7 +20,7 @@ module.exports =  {
 
   notin: function(req, res){
     if(req.session.uid!==undefined){
-      db.savedJob.findAll({}).then(function(result) {
+      db.savedJob.findAll({where:{id:req.session.uid}}).then(function(result) {
         res.render("jobDetails", {
           msg: "Welcome!",
           examples: result
