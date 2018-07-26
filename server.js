@@ -20,7 +20,9 @@ app.use(express.static("public"));
 var sess = {
   secret: 'This is an exceedingly long high entropy string for encrypting cookie values',
   cookie: {
-    secure:false
+    secure:false,
+    resave: false,
+    saveUninitialized: true
   }
 }
  
