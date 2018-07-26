@@ -8,6 +8,10 @@ var jobsAJ = [];
 //jobs table. helps toggle between 
 var counterHelperUS = 0;
 var counterHelperAJ = 0;
+
+var searchKeywordAJ= "";
+var searchLocationAJ = "";
+var tC= "";
 //submit button for USAJobs.gov search
 $("#submit-jobSearchGov").on("click", function(){
   jobArrayGov = [];
@@ -97,13 +101,24 @@ $("#submit-jobSearchGov").on("click", function(){
     ){
       
       }
-      var searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
+      searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
       console.log(searchKeywordAJ);
-      var searchLocationAJ = $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us";
+      if($("#tcIncludeRadio").checked) {
+        searchLocationAJ = "&location=" + $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us,anywhere";
+        tC = "";
+      }else if($("#tcExcludeRadio").checked) {
+        searchLocationAJ = "&location=" + $("#jobLocationCityAJ").val().trim().toLowerCase().split(" ").join("") + $("#jobLocationStateAJ").val() + "us";
+        tC= "&telecommuting=0";
+      }else if($("#tcOnlyRadio").checked) {
+        searchLocationAJ = "";
+        tC= "&telecommuting=1";
+      }
       console.log(searchLocationAJ);
+      console.log(tC);
       var NewQueryAJ = {
         jobType: searchKeywordAJ,
-        jobLocation: searchLocationAJ
+        jobLocation: searchLocationAJ,
+        telecommute: tC
       }
       console.log(NewQueryAJ);
       $.ajax("/api/authJobs", {

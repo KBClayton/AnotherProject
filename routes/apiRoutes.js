@@ -12,7 +12,9 @@ module.exports = function(app) {
     }
     var keyword = req.body.jobType;
     var location = req.body.jobLocation;
-    var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=10&location="+ location +"&format=json";
+    var telC = req.body.tC;
+    var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key +"&method=aj.jobs.search&category="+ keyword +"&perpage=15" + location + telC +"&format=json";
+    console.log(queryAuthJobsURL);
     var options = {
       uri: queryAuthJobsURL,
       json: true // Automatically parses the JSON string in the response
