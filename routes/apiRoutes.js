@@ -1,32 +1,28 @@
 var db = require("../models");
-var check =require("./check");
-//var hashing = require("loginsalt")
-// const password = require('s-salt-pepper');
-// password.iterations(75000); 
-// password.pepper('This is a high entropy pepper string for hashing');
-
-
-
+var rp = require("request-promise-native");
+var keys = require("../keys");
+var check = require("./check");
 module.exports = function(app) {
 
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
+  
+  //--authentic jobs API route
+  app.post("/api/authJobs", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    console.log(req.body);
+    var queryEndAJ = req.body.userQueryAJ;
+    console.log(queryEndAJ);
+    var queryAuthJobsURL = "https://authenticjobs.com/api/?api_key="+ keys.authenticJobs.key + queryEndAJ;
+    console.log(queryAuthJobsURL);
+    var options = {
+      uri: queryAuthJobsURL,
+      json: true // Automatically parses the JSON string in the response
+    };
+    
+    rp(options).
+    then(function(response){
+      res.json(response)
     });
   });
-
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
-
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
-};
+}
