@@ -38,6 +38,7 @@ module.exports = function(app) {
     });
   });
 
+
     // load jobDetails Page 
     app.get("/jobDetails", function(req, res) {
       db.savedJob.findAll({}).then(function(result) {
@@ -64,6 +65,7 @@ module.exports = function(app) {
 
   // CreateNewUser Page --Alex
   app.get("/home", function(req, res) {
+
     if(check.login(req, res)){
       return;
     }
@@ -75,6 +77,10 @@ module.exports = function(app) {
     });
   });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 16672e4d0186fe9fac40ae651b6fcdb6f2f13c48
   // load jobDetails Page 
   app.get("/jobDetails", function(req, res) {
     if(check.login(req, res)){
