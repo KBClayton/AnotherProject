@@ -75,16 +75,11 @@ module.exports = function(app) {
     });
   });
 
-<<<<<<< HEAD
-  // jobDetails page (new home page) -Alan
-  app.get("/home2", function(req, res) {
-=======
   // load jobDetails Page 
   app.get("/jobDetails", function(req, res) {
     if(check.login(req, res)){
       return;
     }
->>>>>>> 4db9018c7200852beefd34ff2da6eeb176452d49
     db.savedJob.findAll({}).then(function(result) {
       res.render("jobDetails", {
         savedJob: result
@@ -164,8 +159,9 @@ module.exports = function(app) {
 
   // create page base on id from button click
   app.get("/home/:id", function(req, res) {
-    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(jobID) {
-      res.render("editJobPage", jobID);
+    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
+      console.log(job.dataValues);
+      res.render("editJobPage", job.dataValues);
     });
   });
   // });
