@@ -17,9 +17,7 @@ $("#create-newUser").on("click", function(){
       email: $("#emailCreate").val().trim(),
       location: $("#locationCreate").val().trim()
     }
-    console.log(NewUser)
-
-    console.log(NewUser);
+    //console.log(NewUser)
     $.ajax("/api/users/new", {
       type: "POST",
       data: NewUser
@@ -41,14 +39,26 @@ $("#create-newUser").on("click", function(){
 });
 
 $("#updateUser").on("click", function(){
-  console.log("in update clickhandler")
   var updateUser = {
     firstName: $("#firstNameNew").val().trim(),
     lastName: $("#lastNameNew").val().trim(),
     email: $("#emailNew").val().trim(),
     location: $("#locationNew").val().trim()
   }
-  console.log(updateUser);
+  if(updateUser.firstName===""){
+    updateUser.firstName=$("#firstNameNew").attr("placeholder");
+  }
+  if(updateUser.lastName===""){
+    updateUser.lastName=$("#lastNameNew").attr("placeholder");
+  }
+  if(updateUser.email===""){
+    updateUser.email=$("#emailNew").attr("placeholder");
+  }
+  if(updateUser.location===""){
+    updateUser.location=$("#locationNew").attr("placeholder");
+  }
+  
+  //console.log(updateUser);
   $.ajax("/api/users/change", {
     type: "PUT",
     data: updateUser
