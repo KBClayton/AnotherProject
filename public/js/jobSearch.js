@@ -102,11 +102,17 @@ $("#submit-jobSearchGov").on("click", function(){
     jobsAJ = [];
     //ensure the user keyword search is not empty
     if ($("#jobKeywordSearchAJ").val() == ""){
-      alert("Please enter an area of expertise.")
+      // alert("Please enter an area of expertise.")
+      $("#modalTitle").text("Missing Required Field(s)");
+      $("#modalBody").text("Please enter an Area of Expertise to continue");
+      $('.modal').modal('show')
       return;
     }
     if ($("#jobLocationStateAJ").val() == "" && locStateBool == true && remoteOnly== false){
-      alert("Enter a State to Continue.");
+      $("#modalTitle").text("Missing Required Field(s)");
+      $("#modalBody").text("Please enter an Location - State to continue");
+      $('.modal').modal('show')
+      // alert("Enter a State to Continue.");
       return;
     }
     searchKeywordAJ= $("#jobKeywordSearchAJ").val().toString();
@@ -124,8 +130,10 @@ $("#submit-jobSearchGov").on("click", function(){
         function(response){
           console.log(response.listings.listing);
           if (response.listings.listing.length <1){
-
-            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+            $("#modalTitle").text("No Jobs Found");
+            $("#modalBody").text("Sorry. We were unable to find any jobs matching your requirements, please try a different search keyword or location.");
+            $('.modal').modal('show');
+            // alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
           }
           else {
           for (i = 0 ; i < response.listings.listing.length ; i++) {
@@ -185,7 +193,10 @@ $("#submit-jobSearchGov").on("click", function(){
       }
       else{
         console.log("check not registered");
-        alert("whoops! someting went wrong -- we're working hard to fix it, though!")
+        $("#modalTitle").text("Unknown Error");
+        $("#modalBody").text("There seems to be something wrong on our end.  We are working hard to fix it.");
+        $('.modal').modal('show');
+        // alert("whoops! someting went wrong -- we're working hard to fix it, though!")
       }
       console.log(searchLocationAJ);
       console.log(tC);
@@ -202,8 +213,10 @@ $("#submit-jobSearchGov").on("click", function(){
         function(response){
           console.log(response.listings.listing);
           if (response.listings.listing.length <1){
-
-            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+            $("#modalTitle").text("No Jobs Found");
+            $("#modalBody").text("Sorry. We were unable to find any jobs matching your requirements, please try a different search keyword or location.");
+            $('.modal').modal('show');
+            // alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
           }
           else {
           for (i = 0 ; i < response.listings.listing.length ; i++) {
@@ -260,8 +273,10 @@ $("#submit-jobSearchGov").on("click", function(){
         function(response){
           console.log(response.listings.listing);
           if (response.listings.listing.length <1){
-
-            alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+            $("#modalTitle").text("No Jobs Found");
+            $("#modalBody").text("Sorry. We were unable to find any jobs matching your requirements, please try a different search keyword or location.");
+            $('.modal').modal('show');
+            // alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
           }
           else {
           for (i = 0 ; i < response.listings.listing.length ; i++) {
@@ -302,7 +317,10 @@ $("#submit-jobSearchGov").on("click", function(){
             }
           });
         }else{
-          alert("Please Choose a State to Continue.");
+          $("#modalTitle").text("Missing Required Field(s)");
+          $("#modalBody").text("Please enter a Location - State to continue.");
+          $('.modal').modal('show');
+          // alert("Please Choose a State to Continue.");
         }
       });
     
