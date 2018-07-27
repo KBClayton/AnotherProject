@@ -1,21 +1,29 @@
-// $( document ).ready(function() {
-//   console.log( "ready!" );
 
+// ajax call for job data route 
 $.ajax({
   url: "/api/jobs/1",
   method: "GET"
-}).then(function() {
+}).then(function () {
   console.log("Heyo");
 });
 
-// });
+
+// ajax call for comments route
+$.ajax({
+  url: "/api/comments/1",
+  method: "GET"
+}).then(function () {
+  console.log("getting comments");
+});
+
+
 
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);
 
 // javascript for editing contactName
 
-$("#saveContChanges").on("click", function() {
+$("#saveContChanges").on("click", function () {
   if (
     $("#chCont")
       .val()
@@ -35,7 +43,7 @@ $("#saveContChanges").on("click", function() {
     $.ajax("/api/jobs/changeName/" + jobID, {
       type: "PUT",
       data: changeContact
-    }).then(function() {
+    }).then(function () {
       console.log("Changed contact");
       // location.reload();
     });
@@ -45,7 +53,7 @@ $("#saveContChanges").on("click", function() {
 });
 
 // javascript for editing contactPhone
-$("#savePhoneChanges").on("click", function() {
+$("#savePhoneChanges").on("click", function () {
   if (
     $("#chPhone")
       .val()
@@ -65,7 +73,7 @@ $("#savePhoneChanges").on("click", function() {
     $.ajax("/api/jobs/changePhone/" + jobID, {
       type: "PUT",
       data: changePhone
-    }).then(function() {
+    }).then(function () {
       console.log("Changed contact phone");
       // location.reload();
     });
@@ -75,7 +83,7 @@ $("#savePhoneChanges").on("click", function() {
 });
 
 // javascript for editing confidencelevel
-$("#chConfidenceBtn").on("click", function() {
+$("#chConfidenceBtn").on("click", function () {
   console.log("test");
 
   // Create changeConfidence Object
@@ -90,32 +98,30 @@ $("#chConfidenceBtn").on("click", function() {
   $.ajax("/api/jobs/changeConfidence/" + jobID, {
     type: "PUT",
     data: changeConfidence
-  }).then(function() {
+  }).then(function () {
     console.log("Changed confidence");
     // location.reload();
   });
 });
 
-$("#deleteJob").on("click", function() {
+$("#deleteJob").on("click", function () {
   console.log("test");
 
-  // Create changePhone Object
-  // var changePhone = {
-  //   phone: $("#chPhone").val().trim(),
-  //   id: jobID
-  // }
-
+  var deleteJob = {
+    id: jobID
+  }
   // console.log();
   $.ajax("/api/jobs/" + jobID, {
-    type: "DELETE"
-  }).then(function() {
+    type: "DELETE",
+    data: deleteJob
+  }).then(function () {
     console.log("Deleted job" + jobID);
     // location.reload();
   });
 });
 
 // javascript to submit a comment
-$("#addComment").on("click", function() {
+$("#addComment").on("click", function () {
   if (
     $("#commentBox")
       .val()
@@ -135,7 +141,7 @@ $("#addComment").on("click", function() {
     $.ajax("/api/comments/" + jobID, {
       type: "PUT",
       data: addComment
-    }).then(function() {
+    }).then(function () {
       console.log("Added comment");
       // location.reload();
     });

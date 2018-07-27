@@ -16,9 +16,9 @@
 											</div> --}}
 
 											<div class="form-group">
-												<label for="editCompany" id="chCompany">Company</label>
+												<label for="editCompany" id="chCompany">Job ID</label>
 												<input type="text" class="form-control" id="chComp" placeholder="{{id}}">
-												<button class="btn btn-success btn-sm" id="saveCompChanges">Save Changes</button>
+											
 											</div>
 											<br>
 											<div class="form-group">
@@ -62,21 +62,22 @@
 											<p> Posted Annual Salary: {{this.postedSalary}} </p>
 											<br>
 											<br>
-											
- 
-										
+				
         </div>
+	
+	</div>
+</div>
+
 
 <div class="col-6">
-<div class="form-group">
-  <label for="comment">Add Comment:</label>
-  <textarea class="form-control" rows="5" id="commentBox"></textarea>
+<div class="form-group" action="{{comments}}?_method=GET" method="POST">
+
+  <label for="comment">{{comments.id}}</label>
+  <textarea class="form-control" rows="5" id="commentBox {{comments.comment}}"></textarea>
 	<button class="btn btn-success btn-sm" id="addComment">Add Comment</button>
 </div>
 </div>
-		
-	</div>
-</div>
+
 
 
 
