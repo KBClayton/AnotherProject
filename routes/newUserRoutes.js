@@ -64,7 +64,7 @@ module.exports = function(app) {
       return;
     }
     emailsearch=req.body.email;
-    db.user.findOne({where: {email:{$eq:emailsearch}}}).then(function(dbExample) {
+    db.user.findOne({where: {email:{$eq:emailsearch}, $and:{id:{$ne:req.session.uid}}}}).then(function(dbExample) {
       if(dbExample==null){
         db.user.update({firstName:req.body.firstName,lastName: req.body.lastName, email:req.body.email, location:req.body.location },
           {where:{id:req.session.uid}}).then(function(dbExample){
