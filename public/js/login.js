@@ -19,7 +19,6 @@ $("#signInBtn").on("click", function() {
     if (res.url !== undefined) {
       window.location = res.url;
     } else if (res.error !== undefined) {
-      // alert(res.error);
       $("#modalTitle").text("Error");
       $("#modalBody").text(res.error);
       $('.modal').modal('show');
@@ -69,7 +68,6 @@ $("#changepass").on("click", function() {
       if (res.url !== undefined) {
         window.location=res.url;
       } else if (res.error !== undefined) {
-       // alert(res.error);
         $("#modalTitle").text("Error");
         $("#modalBody").text(res.error);
         $('.modal').modal('show');
@@ -79,7 +77,6 @@ $("#changepass").on("click", function() {
       }
     });
   } else {
-    //alert("New passwords do not match");
     $("#modalTitle").text("Password Error");
     $("#modalBody").text("New passwords do not match");
     $('.modal').modal('show');
