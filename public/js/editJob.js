@@ -67,7 +67,7 @@ $("#savePhoneChanges").on("click", function() {
       data: changePhone
     }).then(function() {
       console.log("Changed contact phone");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
@@ -92,25 +92,22 @@ $("#chConfidenceBtn").on("click", function() {
     data: changeConfidence
   }).then(function() {
     console.log("Changed confidence");
-    // location.reload();
+    location.reload();
   });
 });
 
 $("#deleteJob").on("click", function() {
   console.log("test");
-
-  // Create changePhone Object
-  // var changePhone = {
-  //   phone: $("#chPhone").val().trim(),
-  //   id: jobID
-  // }
-
-  // console.log();
+  var deleteJob = {
+    id: jobID
+  }
+  console.log(deleteJob);
   $.ajax("/api/jobs/" + jobID, {
-    type: "DELETE"
+    type: "DELETE",
+    data: deleteJob
   }).then(function() {
     console.log("Deleted job" + jobID);
-    // location.reload();
+    location.reload();
   });
 });
 
@@ -137,7 +134,7 @@ $("#addComment").on("click", function() {
       data: addComment
     }).then(function() {
       console.log("Added comment");
-      // location.reload();
+      //location.reload();
     });
   } else {
     console.log("no changes made");
