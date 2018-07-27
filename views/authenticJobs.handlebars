@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-1"></div>
 		<div class="col-md-10">
-			<div class="card p-3 bg-light border-secondary mb-3">
+			<div class="card p-3 bg-light border-secondary mb-3 opaque">
 				<h3 class="bg-info text-light text-center p-3 border border-dark">Find a Job with Authentic Jobs</h3>
 				<br>
 				<div class="row" id="jobQueryAJDisplay">
@@ -129,7 +129,6 @@
 								<div class="text-center">
 									<span id="locationDisplayHolder" style="display: none"><button type="button" class="btn btn-danger rounded locationDisplayBtn" margin="auto">Include Location</button></span>
 									<button class="btn btn-success" id="submit-jobSearchAJ" margin="auto">Run Search!</button>
-									
 								</div>
 							</div>
 						</div>
@@ -164,4 +163,24 @@
 		</div>
 		<div class="col-md-1"></div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade push20" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="modalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0" id="modalBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
