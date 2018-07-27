@@ -1,42 +1,113 @@
 $( document ).ready(function() {
   console.log( "ready!" );
 
-  // $.ajax("/api/jobs", {
-  //   type: "GET"
-  //   })
   $.ajax({
     url:"/api/jobs/1",
     method:"GET",
-    // dataType: "JSON"
+  
 }).then(
     function(){
       console.log("Heyo");
     }
   );
 
-  // var contents = $('#chComp')[0].placeholder;
-  // console.log(contents);
-  // console.log(document.getElementById('#chCompany').getAttribute('value'));
+});
+
+var jobID = $('#chComp')[0].placeholder;
+console.log(jobID);
+
+
+
+
+// javascript for editing contactName
+
+$("#saveContChanges").on("click", function(){
+
+  if (
+    $("#chCont").val().trim() != ""
+ 
+  ){
+    console.log("test")
+ 
+    // Create changeContact Object
+    var changeContact = {
+      contact: $("#chCont").val().trim(),
+      id: jobID
+    }
+
+    console.log(changeContact);
+    $.ajax("/api/jobs/changeName/"+jobID, {
+      type: "PUT",
+      data: changeContact
+    }).then(
+      function(){
+        console.log("Changed contact");
+      }
+    );
+  }else{
+    console.log("no changes made");
+  }
+});
+
+// javascript for editing contactPhone
+$("#savePhoneChanges").on("click", function(){
+
+  if (
+    $("#chPhone").val().trim() != ""
+ 
+  ){
+    console.log("test")
+ 
+    // Create changePhone Object
+    var changePhone = {
+      phone: $("#chPhone").val().trim(),
+      id: jobID
+    }
+
+    console.log(changePhone);
+    $.ajax("/api/jobs/changePhone/"+jobID, {
+      type: "PUT",
+      data: changePhone
+    }).then(
+      function(){
+        console.log("Changed contact phone");
+      }
+    );
+  }else{
+    console.log("no changes made");
+  }
 });
 
 
-$("#saveCompChanges").on("click", function(event){
-  var contents = $('#chComp')[0].placeholder;
-  console.log(contents);
-  // console.log($(this).data("id"));
-  // var commentID = {
-  //   savedJobID: $(this).data("id"),
-  //   comment: $(".commentBox").val()
-  // }
+// $('#chConfidence').on('click',function() {
   
-  // console.log(commentID);
-  // $.ajax("/api/jobs", {
-  //   type: "POST",
-  //   data: commentID
-  //   }).then(
-  //   function(){
-  //     console.log("logged job id");
-  //   }
-  // );
+//   console.log($(this).val());
+// });
+
+
+console.log($('#chConfidence').val());
+
+
+
+// javascript for editing confidencelevel
+$("#chConfidenceBtn").on("click", function(){
+
+     console.log("test")
+ 
+    // Create changePhone Object
+    var changeConfidence = {
+      confidence: $("#chConfidence").val().trim(),
+      id: jobID
+    }
+
+    console.log(changeConfidence);
+    $.ajax("/api/jobs/changeConfidence/"+jobID, {
+      type: "PUT",
+      data: changeConfidence
+    }).then(
+      function(){
+        console.log("Changed confidence");
+      }
+    );
   
 });

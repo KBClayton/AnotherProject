@@ -74,16 +74,13 @@ module.exports = function(app) {
 
   // PUT route for updating the contact name for a given job
   app.put("/api/jobs/changeName/:id", function(req, res) {
-    if(check.login(req, res)){
-      return;
-    }
-    console.log(req.params);
+    // if(check.login(req, res)){
+    //   return;
+    // }
+    // console.log(req.params);
     db.savedJob.update(
-      {
-        contactName: req.body.contactName
-      },
-      {
-        where: {
+      {contactName: req.body.contactName},
+      { where: {
           id: req.params.id
         }
       })
