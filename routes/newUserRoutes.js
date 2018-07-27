@@ -1,30 +1,37 @@
-var db = require("../models"); 
-const password = require('s-salt-pepper');
-var check =require("./check");
-
+var db = require("../models");
+const password = require("s-salt-pepper");
+var check = require("./check");
 
 module.exports = function(app) {
-  
   // -- Post New User
-  app.post('/api/users/new', function(req, res) {
-    if(check.notin(req, res)){
+  app.post("/api/users/new", function(req, res) {
+    if (check.notin(req, res)) {
       return;
     }
     // Take Input from Client
     //console.log("in post route with uid "+req.session.uid)
-    if(req.session.uid!==undefined){
+    if (req.session.uid !== undefined) {
       console.log("do not make a new user while logged in");
       //send to home page
-      return res.json({url:"/"});
-    }else{
+      return res.json({ url: "/" });
+    } else {
       var newUser = req.body;
       //console.log(newUser.password);
-      var namesearch=newUser.username;
-      var emailsearch=newUser.email;
+      var namesearch = newUser.username;
+      var emailsearch = newUser.email;
       //search to see if username is already taken
-      db.user.findOne({where: {$or:[{username:{$eq:namesearch}}, {email:{$eq:emailsearch}}]}}).then(function(dbExample) {
-        //console.log(dbExample);
-        if(dbExample==null){
+      db.user
+        .findOne({
+          where: {
+            $or: [
+              { username: { $eq: namesearch } },
+              { email: { $eq: emailsearch } }
+            ]
+          }
+        })
+        .then(function(dbExample) {
+          //console.log(dbExample);
+          if (dbExample === null) {
             const user = {
               password: {
                 hash: null,
@@ -35,62 +42,81 @@ module.exports = function(app) {
               //create hash and salt
               user.password = await password.hash(newUser.password);
               //console.log(user);
-              newUser.password=user.password.hash;
-              newUser.salt=user.password.salt;
+              newUser.password = user.password.hash;
+              newUser.salt = user.password.salt;
               //console.log(newUser);
-              db.user.create(newUser).then(function(dbExample){
+              db.user.create(newUser).then(function(dbExample) {
                 //console.log(dbExample.dataValues.id);
-                req.session.uid=dbExample.dataValues.id;
+                req.session.uid = dbExample.dataValues.id;
                 //send to home page
-                return res.json({url:"/"});
+                return res.json({ url: "/" });
                 //return res.redirect("/");
-              });;
+              });
             }
             hashing();
-        }else{
-          console.log("That username or email is taken")
-          //send to login page
-          //return res.redirect('/login')
-          return res.json({error:"That username or email is taken"});
-        }
-      });
+          } else {
+            console.log("That username or email is taken");
+            //send to login page
+            //return res.redirect('/login')
+            return res.json({ error: "That username or email is taken" });
+          }
+        });
     }
   });
 
-  app.put('/api/users/change', function(req, res) {
+  app.put("/api/users/change", function(req, res) {
     console.log("in users/change route");
     console.log(req.body);
-    updateUser=req.body;
-    if(check.login(req, res)){
+    updateUser = req.body;
+    if (check.login(req, res)) {
       return;
     }
-    emailsearch=req.body.email;
-    db.user.findOne({where: {email:{$eq:emailsearch}, $and:{id:{$ne:req.session.uid}}}}).then(function(dbExample) {
-      if(dbExample==null){
-        if(updateUser.firstName==="" || updateUser.firstName===undefined ){
-          updateUser.firstName=req.session.firstName;
+    emailsearch = req.body.email;
+    db.user
+      .findOne({
+        where: {
+          email: { $eq: emailsearch },
+          $and: { id: { $ne: req.session.uid } }
         }
-        if(updateUser.lastName==="" || updateUser.lastName===undefined ){
-          updateUser.lastName=req.session.lastName;
+      })
+      .then(function(dbExample) {
+        if (dbExample === null) {
+          if (
+            updateUser.firstName === "" ||
+            updateUser.firstName === undefined
+          ) {
+            updateUser.firstName = req.session.firstName;
+          }
+          if (updateUser.lastName === "" || updateUser.lastName === undefined) {
+            updateUser.lastName = req.session.lastName;
+          }
+          if (updateUser.email === "" || updateUser.email === undefined) {
+            updateUser.email = req.session.email;
+          }
+          if (updateUser.location === "" || updateUser.location === undefined) {
+            updateUser.location = req.session.location;
+          }
+          db.user
+            .update(
+              {
+                firstName: updateUser.firstName,
+                lastName: updateUser.lastName,
+                email: updateUser.email,
+                location: updateUser.location
+              },
+              { where: { id: req.session.uid } }
+            )
+            .then(function(dbExample) {
+              return res.json({ url: "/" });
+            });
+        } else {
+          console.log("That email is associated with another account");
+          return res.json({
+            error: "That email is associated with another account"
+          });
         }
-        if(updateUser.email==="" || updateUser.email===undefined ){
-          updateUser.email=req.session.email;
-        }
-        if(updateUser.location==="" || updateUser.location===undefined ){
-          updateUser.location=req.session.location;
-        }
-        db.user.update({firstName:updateUser.firstName,lastName: updateUser.lastName, email:updateUser.email, location:updateUser.location },
-          {where:{id:req.session.uid}}).then(function(dbExample){
-          return res.json({url:"/"});
-        })
-      }else{
-        console.log("That email is associated with another account")
-        return res.json({error:"That email is associated with another account"});
-      }
-
-    })
+      });
   });
-
 };
 
 // -- WHAT THE DATA LOOKS LIKE
