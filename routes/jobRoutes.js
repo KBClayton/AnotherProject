@@ -32,6 +32,36 @@ module.exports = function(app) {
     });
   });
 
+  // --Get all jobs that match an input confidence level
+  // to use you'll need to restrict input from 0-5 to return any jobs
+  app.get("/api/jobs/confidence/:id", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    db.savedJob.findAll({
+      where: {
+        confidenceLevel: req.params.id
+      }
+    }).then(function(results) {
+      res.json(results);
+    });
+  });
+
+  // --Get all remote jobs
+  // might need to add toLowerCase() to make sure all remote jobs render
+  app.get("/api/jobs/remote", function(req, res) {
+    if(check.login(req, res)){
+      return;
+    }
+    db.savedJob.findAll({
+      where: {
+        jobLocation: "remote"
+      }
+    }).then(function(results) {
+      res.json(results);
+    });
+  });
+
   // -- Post New Job
   app.post('/api/jobs', function(req, res) {
     if(check.login(req, res)){
@@ -50,8 +80,6 @@ module.exports = function(app) {
   });
   
   // PUT route for updating the phone contact info for a given job
-
-
   //can be used as template to create routes for any other item we want to be able to edit
   app.put("/api/jobs/changePhone/:id", function(req, res) {
     if(check.login(req, res)){
