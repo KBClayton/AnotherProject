@@ -173,7 +173,7 @@ module.exports = function(app) {
   //});
   //});
 
-  // create page base on id from button click
+  // create page based on id from button click -ALAN
   app.get("/home/:id", function(req, res) {
     db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
       console.log(job.dataValues);
