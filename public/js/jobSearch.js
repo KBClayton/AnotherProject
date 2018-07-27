@@ -63,69 +63,6 @@ $("#submit-jobSearchGov").on("click", function() {
     }).then(function(response) {
       console.log(response.length);
       console.log(response);
-<<<<<<< HEAD
-      if (response.length < 1) {
-        alert(
-          "Sorry. There are no jobs matching your requirements, please try a different search keyword or location."
-        );
-      } else {
-        for (i = 0; i < response.length; i++) {
-          if (response[i].minimum >= searchSalaryUS) {
-            jobArrayGov.push(response[i].position_title);
-            jobArrayGov.push(response[i].organization_name);
-            console.log(response[i].locations.length);
-            if (response[i].locations.length > 1) {
-              jobArrayGov.push("multiple openings");
-            } else {
-              jobArrayGov.push(response[i].locations.join(", "));
-            }
-            jobArrayGov.push(response[i].minimum);
-            jobArrayGov.push(JSON.stringify(response[i].url));
-            jobArrayGov.push(response[i].id);
-            jobsGov.push(jobArrayGov);
-            jobArrayGov = [];
-          }
-        }
-        counterHelperUS = jobsGov.length;
-        console.log("number of jobs returned: " + counterHelperUS);
-        if (jobsGov.length < 1) {
-          alert("Sorry. None of the available jobs match your desired salary.");
-          return;
-        }
-        $("#jobQueryUSdisplay").hide();
-        for (i = 0; i < jobsGov.length; i++) {
-          //add table html with relevant job data to the table body
-          $("#jobTableUSBody").append(
-            "<tr id='jobRowUS" +
-              i +
-              "'> <th class='align-middle' scope='row' id='jobTitleUS" +
-              i +
-              "'>" +
-              jobsGov[i][0] +
-              "</th> <td class='align-middle' id='jobCompanyUS" +
-              i +
-              "'>" +
-              jobsGov[i][1] +
-              "</td> <td class='align-middle' id='jobLocationUS" +
-              i +
-              "'>" +
-              jobsGov[i][2] +
-              "</td> <td class='align-middle' id='jobSalaryUS" +
-              i +
-              "'> $ " +
-              Number(jobsGov[i][3]).toLocaleString("en") +
-              "</td><td class='align-middle' id='jobSalaryUS" +
-              i +
-              "'><a href=" +
-              jobsGov[i][4] +
-              " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td>" +
-              "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorGovBtn' id='jobSelectorGovBtn'" +
-              i +
-              "' value='" +
-              i +
-              "' >Add Me</button></td></tr>"
-          );
-=======
       if (response.length <1){
         $("#modalTitle").text("No Jobs Found");
         $("#modalBody").text("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.");
@@ -171,7 +108,6 @@ $("#submit-jobSearchGov").on("click", function() {
         " class='btn btn-info' id='jobLinkUS' role='button' target='blank'>Open Link in New Window</a></td>" +
         "<td class='align-middle'><button type='input' class='btn btn-primary rounded jobSelectorGovBtn' id='jobSelectorGovBtn'" + i + 
         "' value='" + i + "' >Add Me</button></td></tr>");         
->>>>>>> alexbranch
         }
         $("#jobTableUSdisplay").show();
         $("#jobKeywordSearchUS").val("");
@@ -180,12 +116,9 @@ $("#submit-jobSearchGov").on("click", function() {
         $("#jobSalarySearchUS").val("");
       }
     });
-  } else {
-    alert("Please complete all input fields");
+  // } else {
+  //   alert("Please complete all input fields");
   }
-<<<<<<< HEAD
-});
-=======
   else{
     // alert("Please complete all input fields")
     $("#modalTitle").text("Missing Required Fields");
@@ -193,7 +126,6 @@ $("#submit-jobSearchGov").on("click", function() {
     $('.modal').modal('show');
    }
   });
->>>>>>> alexbranch
 
 //submit button for authentic jobs search button
 $("#submit-jobSearchAJ").on("click", function() {
