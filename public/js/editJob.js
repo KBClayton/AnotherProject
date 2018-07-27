@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function() {
   console.log("ready!");
 
@@ -8,6 +9,21 @@ $(document).ready(function() {
     console.log("Heyo");
   });
 });
+=======
+// $( document ).ready(function() {
+//   console.log( "ready!" );
+
+  $.ajax({
+    url:"/api/jobs/1",
+    method:"GET",
+  
+  }).then(function(){
+      console.log("Heyo");
+    }
+  );
+
+// });
+>>>>>>> f5053b9887c084119e7c66ce9369b3d5d804efbe
 
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);

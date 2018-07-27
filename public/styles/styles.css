@@ -42,6 +42,9 @@ body{
   visibility: visible;
 }
 
+#logout:hover {
+  cursor: pointer;
+}
 /* Fonts */
 .Ultrafont {
   font-family: 'Ultra', serif;
@@ -79,4 +82,7 @@ input::placeholder {
 .customBorder {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+.image404 {
+  width: 250px;
 }
