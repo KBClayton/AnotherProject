@@ -40,8 +40,9 @@ $("#saveContChanges").on("click", function(){
       type: "PUT",
       data: changeContact
     }).then(
-      function(){
+         function(){
         console.log("Changed contact");
+        // location.reload();
       }
     );
   }else{
@@ -71,6 +72,7 @@ $("#savePhoneChanges").on("click", function(){
     }).then(
       function(){
         console.log("Changed contact phone");
+        // location.reload();
       }
     );
   }else{
@@ -79,22 +81,12 @@ $("#savePhoneChanges").on("click", function(){
 });
 
 
-// $('#chConfidence').on('click',function() {
-  
-//   console.log($(this).val());
-// });
-
-
-console.log($('#chConfidence').val());
-
-
-
 // javascript for editing confidencelevel
 $("#chConfidenceBtn").on("click", function(){
 
      console.log("test")
  
-    // Create changePhone Object
+    // Create changeConfidence Object
     var changeConfidence = {
       confidence: $("#chConfidence").val().trim(),
       id: jobID
@@ -107,7 +99,62 @@ $("#chConfidenceBtn").on("click", function(){
     }).then(
       function(){
         console.log("Changed confidence");
+        // location.reload();
       }
     );
   
+});
+
+$("#deleteJob").on("click", function(){
+ 
+    console.log("test")
+ 
+    // Create changePhone Object
+    // var changePhone = {
+    //   phone: $("#chPhone").val().trim(),
+    //   id: jobID
+    // }
+
+    // console.log();
+    $.ajax("/api/jobs/"+jobID, {
+      type: "DELETE"
+    }).then(
+      function(){
+        console.log("Deleted job"+jobID);
+        // location.reload();
+      }
+    );
+  
+});
+
+
+
+// javascript to submit a comment
+$("#addComment").on("click", function(){
+
+  if (
+    $("#commentBox").val().trim() != ""
+ 
+  ){
+    console.log("test")
+ 
+    // Create an addComment Object
+    var addComment = {
+      comment: $("#commentBox").val().trim(),
+      id: jobID
+    }
+
+    console.log(addComment);
+    $.ajax("/api/comments/"+jobID, {
+      type: "PUT",
+      data: addComment
+    }).then(
+      function(){
+        console.log("Added comment");
+        // location.reload();
+      }
+    );
+  }else{
+    console.log("no changes made");
+  }
 });

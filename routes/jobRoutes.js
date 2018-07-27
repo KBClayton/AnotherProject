@@ -134,6 +134,7 @@ module.exports = function(app) {
     if(check.login(req, res)){
       return;
     }
+    console.log(req.params);
     // delete entry that corresponds to appropriate id
     db.savedJob.destroy({
       where: {

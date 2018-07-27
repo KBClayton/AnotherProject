@@ -35,14 +35,6 @@
 												<button class="btn btn-success btn-sm" id="savePhoneChanges">Save Changes</button>
 											</div>
 
-											<div class="form-group">
-												<label for="editPhone" id="chConfLvl">Change Confidence Level </label>
-												<input type="text" class="form-control" id="chConfidencelevel" placeholder="{{contactPhone}}">
-												<button class="btn btn-success btn-sm" id="saveConfChanges">Save Changes</button>
-											</div>
-
-
-
 											<br>
 											<p> Confidence level: {{this.confidenceLevel}}</p>
 											<div class="text-center">
@@ -55,6 +47,10 @@
 													<option>5</option>
 												</select>
 												<button class="btn btn-success btn-sm" id="chConfidenceBtn">Change Level of Confidence</button>
+
+												<div class="text-center">
+												<button class="btn btn-danger btn-sm" id="deleteJob">Delete Job</button>
+											</div>
 											</div>
 											<br>
 											<p> Position: {{this.position}}</p>
@@ -66,9 +62,7 @@
 											<p> Posted Annual Salary: {{this.postedSalary}} </p>
 											<br>
 											<br>
-											<div class="text-center">
-												<button class="btn btn-danger btn-sm" id="chConfidence">Delete Job</button>
-											</div>
+											
  
 										
         </div>
@@ -76,7 +70,8 @@
 <div class="col-6">
 <div class="form-group">
   <label for="comment">Add Comment:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
+  <textarea class="form-control" rows="5" id="commentBox"></textarea>
+	<button class="btn btn-success btn-sm" id="addComment">Add Comment</button>
 </div>
 </div>
 		
