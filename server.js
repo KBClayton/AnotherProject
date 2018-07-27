@@ -55,7 +55,7 @@ require("./routes/htmlRoutes")(app);
 //start clayton stuff
 require("./routes/logroutes")(app);
 require("./routes/newUserRoutes")(app);
-require("./routes/verify")(app);
+//require("./routes/verify")(app);
 //end clayton stuff
 
 var syncOptions = { force: false };
