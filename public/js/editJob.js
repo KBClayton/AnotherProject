@@ -1,12 +1,12 @@
-$( document ).ready(function() {
-  console.log( "ready!" );
+// $( document ).ready(function() {
+//   console.log( "ready!" );
 
-  $.get("/api/jobs/:id" + 
+//   $.get("/api/jobs/:id" + 
   
   
-   }).then(
-    function(){
-      console.log("Heyo");
-    }
-  );
-});
+//    }).then(
+//     function(){
+//       console.log("Heyo");
+//     }
+//   );
+// });
