@@ -10,6 +10,7 @@
 								<h2>Home Page</h2><br>
 								<div class="col-md-48">
 								<div class="card p-2 bg- border-secondary mb-6">
+												{{#if savedJob}}
 
 																			
 												{{#each savedJob}}
@@ -37,6 +38,10 @@
 													<br>
 
 												{{/each}}
+												{{else}}
+												   <h6>You have no saved jobs</h6>
+											  {{/if}}
+
 								</div>		
 							</div>
 						</div>
