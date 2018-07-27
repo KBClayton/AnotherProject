@@ -1,14 +1,12 @@
 // $( document ).ready(function() {
 //   console.log( "ready!" );
 
-  $.ajax({
-    url:"/api/jobs/1",
-    method:"GET",
-  
-  }).then(function(){
-      console.log("Heyo");
-    }
-  );
+$.ajax({
+  url: "/api/jobs/1",
+  method: "GET"
+}).then(function() {
+  console.log("Heyo");
+});
 
 // });
 
@@ -21,7 +19,7 @@ $("#saveContChanges").on("click", function() {
   if (
     $("#chCont")
       .val()
-      .trim() != ""
+      .trim() !== ""
   ) {
     console.log("test");
 
@@ -51,7 +49,7 @@ $("#savePhoneChanges").on("click", function() {
   if (
     $("#chPhone")
       .val()
-      .trim() != ""
+      .trim() !== ""
   ) {
     console.log("test");
 
@@ -121,7 +119,7 @@ $("#addComment").on("click", function() {
   if (
     $("#commentBox")
       .val()
-      .trim() != ""
+      .trim() !== ""
   ) {
     console.log("test");
 

@@ -3,8 +3,6 @@ var rp = require("request-promise-native");
 var keys = require("../keys");
 var check = require("./check");
 module.exports = function(app) {
-
-  
   //--authentic jobs API route
   app.post("/api/authJobs", function(req, res) {
     if (check.login(req, res)) {
@@ -22,11 +20,10 @@ module.exports = function(app) {
       uri: queryAuthJobsURL,
       json: true // Automatically parses the JSON string in the response
     };
-    
-    rp(options).
-    then(function(response){
+
+    rp(options).then(function(response) {
       res.json(response);
-      });
+    });
   });
 
   //route that checks if the job is already on the user's saved Jobs
@@ -38,17 +35,18 @@ module.exports = function(app) {
     console.log(req.query.jobSearchID);
     db.savedJob
       .findOne({
-      where: {
-        userId: req.session.uid,
+        where: {
+          userId: req.session.uid,
           jobSearchID: req.query.jobSearchID
-      }
-    }).then(function(results) {
-      console.log(results);
-        if (results == null) {
-        res.send(true);
+        }
+      })
+      .then(function(results) {
+        console.log(results);
+        if (results === null) {
+          res.send(true);
         } else {
-        res.send(false);
-      }
+          res.send(false);
+        }
       });
   });
-}
+};

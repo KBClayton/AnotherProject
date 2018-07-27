@@ -4,13 +4,13 @@ $("#submit-newJob").on("click", function() {
   if (
     $("#company")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#jobTitle")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#location")
       .val()
-      .trim() != ""
+      .trim() !== ""
   ) {
     console.log("test");
 

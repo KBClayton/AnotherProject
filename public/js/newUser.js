@@ -4,10 +4,10 @@ $("#create-newUser").on("click", function() {
   if (
     $("#usernameCreate")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#passwordCreate")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#passwordCreate")
       .val()
       .trim() ===

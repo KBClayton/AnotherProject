@@ -41,10 +41,10 @@ $("#changepass").on("click", function() {
   if (
     $("#newpassword1")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#newpassword2")
       .val()
-      .trim() != "" &&
+      .trim() !== "" &&
     $("#newpassword1")
       .val()
       .trim() ===

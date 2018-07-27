@@ -2,7 +2,7 @@ var db = require("../models");
 var check = require("./check");
 // Dependencies
 // =============================================================
-var path = require("path");
+//var path = require("path");
 
 module.exports = function(app) {
   // Load index page
@@ -24,7 +24,7 @@ module.exports = function(app) {
       return;
     }
     db.savedJob.findAll({}).then(function(result) {
-      if (req.session.uid == undefined) {
+      if (req.session.uid === undefined) {
         res.render("login", {
           msg: "Welcome!"
           //examples: result
@@ -41,6 +41,7 @@ module.exports = function(app) {
   // load jobDetails Page
   app.get("/jobDetails", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
+      console.log(result);
       res.render("jobDetails", {
         jobs: savedJob
       });

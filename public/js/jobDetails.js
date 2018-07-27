@@ -4,7 +4,7 @@ $(".addCommentBtn").on("click", function(event) {
     savedJobID: $(this).data("id"),
     comment: $(".commentBox").val()
   };
-
+  console.log(event);
   console.log(commentID);
   $.ajax("/api/jobs", {
     type: "POST",
