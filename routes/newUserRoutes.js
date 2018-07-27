@@ -60,13 +60,26 @@ module.exports = function(app) {
   app.put('/api/users/change', function(req, res) {
     console.log("in users/change route");
     console.log(req.body);
+    updateUser=req.body;
     if(check.login(req, res)){
       return;
     }
     emailsearch=req.body.email;
     db.user.findOne({where: {email:{$eq:emailsearch}, $and:{id:{$ne:req.session.uid}}}}).then(function(dbExample) {
       if(dbExample==null){
-        db.user.update({firstName:req.body.firstName,lastName: req.body.lastName, email:req.body.email, location:req.body.location },
+        if(updateUser.firstName==="" || updateUser.firstName===undefined ){
+          updateUser.firstName=req.session.firstName;
+        }
+        if(updateUser.lastName==="" || updateUser.lastName===undefined ){
+          updateUser.lastName=req.session.lastName;
+        }
+        if(updateUser.email==="" || updateUser.email===undefined ){
+          updateUser.email=req.session.email;
+        }
+        if(updateUser.location==="" || updateUser.location===undefined ){
+          updateUser.location=req.session.location;
+        }
+        db.user.update({firstName:updateUser.firstName,lastName: updateUser.lastName, email:updateUser.email, location:updateUser.location },
           {where:{id:req.session.uid}}).then(function(dbExample){
           return res.json({url:"/"});
         })
