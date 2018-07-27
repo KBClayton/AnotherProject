@@ -90,6 +90,10 @@ module.exports = function(app) {
   // editJobPage page -Alan
   app.get("/home2", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
       res.render("jobDetails", {
         savedJob: result
       });
