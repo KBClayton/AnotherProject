@@ -65,8 +65,18 @@ $("#changepass").on("click", function() {
     $.ajax("/api/change", {
       type: "PUT",
       data: cpassword
-    }).then(function() {
-      window.location = "/";
+    }).then(function(res) {
+      if (res.url !== undefined) {
+        window.location=res.url;
+      } else if (res.error !== undefined) {
+       // alert(res.error);
+        $("#modalTitle").text("Error");
+        $("#modalBody").text(res.error);
+        $('.modal').modal('show');
+        
+      } else {
+        window.location="/";
+      }
     });
   } else {
     //alert("New passwords do not match");
