@@ -43,8 +43,11 @@ $("#submit-jobSearchGov").on("click", function(){
       console.log(response.length);
       console.log(response);
       if (response.length <1){
+        $("#modalTitle").text("No Jobs Found");
+        $("#modalBody").text("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.");
+        $('.modal').modal('show');
 
-        alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
+        // alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
       }
       else {
       for (i = 0 ; i < response.length ; i++){
@@ -68,7 +71,10 @@ $("#submit-jobSearchGov").on("click", function(){
       counterHelperUS = jobsGov.length;
       console.log("number of jobs returned: " + counterHelperUS);
       if (jobsGov.length < 1){
-        alert("Sorry. None of the available jobs match your desired salary.")
+        // alert("Sorry. None of the available jobs match your desired salary.")
+        $("#modalTitle").text("No Jobs Found");
+        $("#modalBody").text("Sorry. There are no jobs matching your desired salary.");
+        $('.modal').modal('show');
         return;
       }
       $("#jobQueryUSdisplay").hide();
@@ -92,7 +98,10 @@ $("#submit-jobSearchGov").on("click", function(){
     });
   }
   else{
-    alert("Please complete all input fields") 
+    // alert("Please complete all input fields")
+    $("#modalTitle").text("Missing Required Fields");
+    $("#modalBody").text("Please fill out all of the required fields and try searching again.");
+    $('.modal').modal('show');
    }
   });
 
