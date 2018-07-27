@@ -130,10 +130,10 @@ module.exports = function(app) {
 
   // PUT route for updating the user confidence for a given job
   app.put("/api/jobs/changeConfidence/:id", function(req, res) {
-    if (check.login(req, res)) {
-      return;
-    }
-    console.log(req.params);
+   // if (check.login(req, res)) {
+     // return;
+   // }
+    console.log(req.body.confidenceLevel);
     db.savedJob
       .update(
         {

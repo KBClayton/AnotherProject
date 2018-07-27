@@ -40,6 +40,9 @@ module.exports = function(app) {
 
   // load jobDetails Page
   app.get("/jobDetails", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob.findAll({}).then(function(result) {
       console.log(result);
       res.render("jobDetails", {
@@ -53,12 +56,12 @@ module.exports = function(app) {
     if (check.notin(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
+    //db.user.findAll({}).then(function(result) {
       res.render("newProfile", {
         msg: "Welcome!",
-        examples: result
+        //examples: result
       });
-    });
+    //});
   });
 
   // CreateNewUser Page --Alex
@@ -90,6 +93,10 @@ module.exports = function(app) {
   // editJobPage page -Alan
   app.get("/home2", function(req, res) {
     db.savedJob.findAll({}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
       res.render("jobDetails", {
         savedJob: result
       });

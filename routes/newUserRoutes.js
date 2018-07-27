@@ -48,6 +48,10 @@ module.exports = function(app) {
               db.user.create(newUser).then(function(dbExample) {
                 //console.log(dbExample.dataValues.id);
                 req.session.uid = dbExample.dataValues.id;
+                req.session.firstName = dbExample.dataValues.firstName;
+                req.session.lastName = dbExample.dataValues.lastName;
+                req.session.email = dbExample.dataValues.email;
+                req.session.location = dbExample.dataValues.location;
                 //send to home page
                 return res.json({ url: "/" });
                 //return res.redirect("/");
@@ -107,6 +111,10 @@ module.exports = function(app) {
               { where: { id: req.session.uid } }
             )
             .then(function(dbExample) {
+              req.session.firstName = updateUser.firstName;
+              req.session.lastName = updateUser.lastName;
+              req.session.email = updateUser.email;
+              req.session.location = updateUser.location;
               return res.json({ url: "/" });
             });
         } else {
