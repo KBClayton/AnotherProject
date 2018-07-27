@@ -33,6 +33,15 @@ body{
   text-align: center;
 }
 
+.JobSearchTextNav {
+  visibility: hidden;
+  position: fixed;
+}
+
+#jobSearchNav:hover .JobSearchTextNav {
+  visibility: visible;
+}
+
 /* Fonts */
 .Ultrafont {
   font-family: 'Ultra', serif;
