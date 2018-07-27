@@ -5,19 +5,20 @@ $("#signInBtn").on("click", function(){
     password: $("#passwordSignIn").val().trim()
   }
 
-  console.log(LoginAccess);
+  //console.log(LoginAccess);
 
    $.ajax("/api/login", {
      type: "POST",
      data: LoginAccess
    })
    .then(function(res){
-    console.log("in then client side");
-    console.log(res);
+    //console.log("in then client side");
+    //console.log(res);
     if(res.url !== undefined){
       window.location = res.url;
     }else if (res.error!==undefined){
-      alert(res.error);
+      // alert(res.error);
+      $('.modal').modal('show')
     }else{
       location.reload();
     }
@@ -55,3 +56,4 @@ $("#changepass").on("click", function(){
     alert("New passwords do not match");
   }
 })
+
