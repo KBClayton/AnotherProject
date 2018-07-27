@@ -1,76 +1,87 @@
+
+
+
+
+
+
+
+
+<div class="push8"></div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-4">
-			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="create-event">
-							<h2>Saved Jobs</h2><br>
-							<div class="col-md-12">
+		<div class="col-md-6">
+			
+					<div data-toggle="collapse" action="{{savedJob}}?_method=GET" method="POST" class="card">
+									<div class="row">
+										<div class="col-6">
 
+											{{!--
+											<div class="form-group">
+												<label for="exampleFormControlInput1">Email address</label>
+												<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+											</div> --}}
 
-							                       
-											
+											<div class="form-group">
+												<label for="editCompany" id="chCompany">Change Company</label>
+												<input type="text" class="form-control" id="chComp" placeholder="{{company}}">
+												<button class="btn btn-success btn-sm" id="saveCompChanges">Save Changes</button>
+											</div>
+											<br>
+											<div class="form-group">
+												<label for="editContact" id="chContact">Change Contact</label>
+												<input type="text" class="form-control" id="chContact" placeholder="{{contactName}}">
+												<button class="btn btn-success btn-sm" id="saveChanges">Save Changes</button>
+											</div>
 
+											<br>
 
-												<div data-toggle="collapse" action="{{savedJob}}?_method=GET" method="POST" class="card p-3">
-													<div class="row">
-														<div class="col-16">
-															<p> Company: {{company}}</p>
-                              <div class="text-center">
-					                    <button class="btn btn-success btn-sm" id="chCompany">Change Company</button>
-						                  </div>  
-                              <br>
-                              <p> Contact Name: {{this.contactName}}</p>
-                              <div class="text-center">
-					                    <button class="btn btn-success btn-sm" id="chContact">Change Contact</button>
-						                  </div>  
-                              <br>
-															<p> Contact Name: {{this.contactPhone}}</p>
-                              <div class="text-center">
-					                    <button class="btn btn-success btn-sm" id="chPhone">Change Contact Phone</button>
-						                  </div>
-                              <p> Notes to Self: {{this.notes_to_self}} </p>
-                              <div class="text-center">
-					                    <button class="btn btn-success btn-sm" id="chNotes">Change Notes to Self</button>
-						                  </div>
-                              <br>  
-                              <p> Confidence level: {{this.confidenceLevel}}</p>
-                              <div class="text-center">
-					                    <button class="btn btn-success btn-sm" id="chConfidence">Change Level of Confidence</button>
-						                  </div>
-                              <br>                                              
-                              <p> Position: {{this.position}}</p>
-                              <br>  
-                              <p> Job Location: {{this.jobLocation}} </p>
-                              <br>  
-                              <p> Remote Available: {{this.remote_available}}</p>
-                              <br>                           
-                              <p> Posted Annual Salary: {{this.postedSalary}} </p>
-                              <br>
-                              <br>
-                               <div class="text-center">
-					                    <button class="btn btn-danger btn-sm" id="chConfidence">Delete Job</button>
-						                  </div>
+											<div class="form-group">
+												<label for="editPhone" id="chPhone">Change Contact Phone</label>
+												<input type="text" class="form-control" id="chPhone" placeholder="{{contactPhone}}">
+												<button class="btn btn-success btn-sm" id="saveChanges">Save Changes</button>
+											</div>
 
-
-														</div>
-
-														
-													</div>
-          							</div>
-												<br>
+											<div class="form-group">
+												<label for="editPhone" id="chPhone">Change Confidence Level </label>
+												<input type="text" class="form-control" id="chPhone" placeholder="{{contactPhone}}">
+												<button class="btn btn-success btn-sm" id="saveChanges">Save Changes</button>
+											</div>
 
 
 
-											
+											<br>
+											<p> Confidence level: {{this.confidenceLevel}}</p>
+											<div class="text-center">
+												<label for="editConf" id="chConf">Change Confidence Level </label>
+												<select class="form-control" id="chConfidence">
+													<option>1</option>
+													<option>2</option>
+													<option>3</option>
+													<option>4</option>
+													<option>5</option>
+												</select>
+												<button class="btn btn-success btn-sm" id="chConfidenceBtn">Change Level of Confidence</button>
+											</div>
+											<br>
+											<p> Position: {{this.position}}</p>
+											<br>
+											<p> Job Location: {{this.jobLocation}} </p>
+											<br>
+											<p> Remote Available: {{this.remote_available}}</p>
+											<br>
+											<p> Posted Annual Salary: {{this.postedSalary}} </p>
+											<br>
+											<br>
+											<div class="text-center">
+												<button class="btn btn-danger btn-sm" id="chConfidence">Delete Job</button>
+											</div>
+ 
+										
+        </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 </div>
-	
+
+
+
