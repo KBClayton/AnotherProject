@@ -95,3 +95,6 @@ input::placeholder {
 .image404 {
   width: 250px;
 }
+.myShadow {
+  box-shadow: 1px 3px gray;
+}
