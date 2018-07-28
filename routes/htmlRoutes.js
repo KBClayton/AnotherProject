@@ -10,7 +10,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({where:{id:req.session.uid}}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       if(result===null){
         console.log("there was nothing there");
         console.log(result);
@@ -27,7 +27,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       if (req.session.uid === undefined) {
         res.render("login", {
           msg: "Welcome!"
@@ -47,7 +47,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       console.log(result);
       res.render("jobDetails", {
         jobs: result
@@ -73,7 +73,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
+    db.user.findAll({where:{userId:req.session.uid}}).then(function(result) {
       res.render("homePage", {
         msg: "Welcome!",
         examples: result
@@ -86,7 +86,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       res.render("jobDetails", {
         savedJob: result
       });
@@ -99,7 +99,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       if(result===null){
         console.log("there was nothing there");
         console.log(result);
@@ -116,12 +116,12 @@ module.exports = function(app) {
     if (check.notin(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
+  //  db.user.findAll({}).then(function(result) {
       res.render("login", {
         msg: "Welcome!",
         examples: result
       });
-    });
+    //});
   });
 
   // load authenticJobs Page
