@@ -66,6 +66,7 @@ $("#changepass").on("click", function() {
       data: cpassword
     }).then(function(res) {
       if (res.url !== undefined) {
+        //console.log(document.cookie);
         window.location=res.url;
       } else if (res.error !== undefined) {
         $("#modalTitle").text("Error");
