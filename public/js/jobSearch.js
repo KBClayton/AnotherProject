@@ -533,11 +533,11 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
     console.log(res);
     if (res === false) {
       console.log("job is already saved");
-      if (counterHelperUS < 1) {
+      if (counterHelperAJ < 1) {
         console.log("HIDING");
-        //$("#jobTableAJDisplay").hide();
-        //$("#jobQueryAJDisplay").show();
-        //$("#jobTableAJBody").empty();
+        $("#jobTableAJDisplay").hide();
+        $("#jobQueryAJDisplay").show();
+        $("#jobTableAJBody").empty();
       }
     } else {
       $.ajax("/api/jobs", {
@@ -546,11 +546,11 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
       }).then(function() {
         console.log("Created New Job Lead");
 
-        if (counterHelperUS < 1) {
+        if (counterHelperAJ < 1) {
           console.log("HIDING");
-          //$("#jobTableAJDisplay").hide();
-          //$("#jobQueryAJDisplay").show();
-          //$("#jobTableAJBody").empty();
+          $("#jobTableAJDisplay").hide();
+          $("#jobQueryAJDisplay").show();
+          $("#jobTableAJBody").empty();
         }
       });
     }
