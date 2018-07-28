@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "1qaz6yhn2wsx!QAZ",
+    "password": "root",
     "database": "jobs_db",
     "host": "localhost",
     "port": "8889",
