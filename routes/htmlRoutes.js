@@ -119,7 +119,7 @@ module.exports = function(app) {
   //  db.user.findAll({}).then(function(result) {
       res.render("login", {
         msg: "Welcome!",
-        examples: result
+        //examples: result
       });
     //});
   });
