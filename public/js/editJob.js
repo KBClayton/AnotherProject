@@ -17,9 +17,10 @@ $.ajax({
 });
 
 
-
+if($("#chComp")[0]!==undefined){
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);
+}
 
 var commentID = $("editComment");
 
