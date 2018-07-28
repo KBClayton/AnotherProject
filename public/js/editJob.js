@@ -1,3 +1,5 @@
+//$( document ).ready(function() {
+
 // ajax call for job data route 
 $.ajax({
   url: "/api/jobs/1",
@@ -26,6 +28,7 @@ var commentID = $("editComment");
 // javascript for editing contactName
 
 $("#saveContChanges").on("click", function () {
+  console.log("in saveContChanges clickhandler");
   if (
     $("#chCont")
       .val()
@@ -56,6 +59,7 @@ $("#saveContChanges").on("click", function () {
 
 // javascript for editing contactPhone
 $("#savePhoneChanges").on("click", function () {
+  console.log("in savePhoneChanges clickhandler");
   if (
     $("#chPhone")
       .val()
@@ -86,7 +90,8 @@ $("#savePhoneChanges").on("click", function () {
 
 // javascript for editing confidencelevel
 $("#chConfidenceBtn").on("click", function () {
-  console.log("test");
+  //console.log("test");
+  console.log("in chConfidenceBtn clickhandler");
 
   // Create changeConfidence Object
   var changeConfidence = {
@@ -117,20 +122,22 @@ $("#deleteJob").on("click", function () {
     data: deleteJob
   }).then(function() {
     console.log("Deleted job" + jobID);
-    location.reload();
+    //location.reload();
+    window.location="/";
   });
 });
 
 // javascript to submit a comment
-$("#addComment").on("click", function () {
-    console.log("in clickhandler")
+$(".addComment").on("click", function () {
+    console.log("in addcomment clickhandler");
+    console.log($(".addC").val().trim(),)
     console.log($("#chComp").attr("placeholder"))
     // Create an addComment Object
     var addComment = {
-      comment: $("#addC")
+      comment: $(".addC")
         .val()
         .trim(),
-      savedJobId:$("#chComp").attr("placeholder"),
+        savedJobId:$("#chComp").attr("placeholder"),
      };
     
     console.log(addComment);
@@ -138,7 +145,7 @@ $("#addComment").on("click", function () {
       type: "POST",
       data: addComment
     }).then(function () {
-      //console.log("Added comment");
+      console.log("Added comment");
       location.reload();
     });
  
@@ -147,14 +154,18 @@ $("#addComment").on("click", function () {
 
 
 // Edit a comment
-$("#editComment").on("click", function () {
+$(".editComment").on("click", function () {
   var commentID = $(this).val();
   console.log("comment ID: "+commentID);
+  var editthing=".editdata"+commentID;
+  //console.log($(".editdata15").val());
+  //console.log(editthing);
+  //console.log($(editthing).val());
     // console.log("test");
 
     // Create an editComment Object
     var editComment = {
-      comment: $("#commentBox")
+      comment: $(editthing)
         .val()
         .trim(),
       id: commentID
@@ -165,8 +176,8 @@ $("#editComment").on("click", function () {
       type: "PUT",
       data: editComment
     }).then(function () {
-      console.log("Comment edited");
-      //location.reload();
+      //console.log("Comment edited");
+      location.reload();
     });
   
     console.log("no changes made");
@@ -174,7 +185,7 @@ $("#editComment").on("click", function () {
 });
 
 // Delete a comment
-$("#deleteComment").on("click", function () {
+$(".deleteComment").on("click", function () {
   //  console.log("#hideDiv"+this.val());
   var commentID = $(this).val();
   $("#hideDiv"+commentID).hide();
@@ -198,3 +209,4 @@ $("#deleteComment").on("click", function () {
     console.log("no changes made");
   
 });
+//});

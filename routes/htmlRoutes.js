@@ -7,13 +7,18 @@ var check = require("./check");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-
-    db.user.findAll({}).then(function(result) {
-      res.render("index", {
-        msg: "Welcome!",
-        examples: result
+    if (check.login(req, res)) {
+      return;
+    }
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
+      res.render("jobDetails", {
+        savedJob: result
       });
-      console.log(result);
+      //console.log(result);
     });
  }); 
 
@@ -73,11 +78,15 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({where:{userId:req.session.uid}}).then(function(result) {
-      res.render("homePage", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
+      res.render("jobDetails", {
+        savedJob: result
       });
+      console.log(result);
     });
   });
 
@@ -200,9 +209,11 @@ module.exports = function(app) {
       return;
     }
     req.session.savedJobId=req.params.id
-    db.savedJob.findOne({where: {
-      id: req.params.id
+    db.savedJob.findOne({
+      where: {
+      id: {$eq: req.params.id}
     },
+    $and:{userId:{$eq:req.session.uid}},
     include: [
       {
         model: db.comment
