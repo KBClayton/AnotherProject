@@ -6,10 +6,10 @@ $("#create-newUser").on("click", function() {
       .val()
       .trim() !== "" &&
     $("#passwordCreate")
-      .val()
+      .val() 
       .trim() !== "" &&
     $("#passwordCreate")
-      .val()
+      .val()   
       .trim() ===
       $("#passwordCreateVerify")
         .val()
@@ -44,7 +44,6 @@ $("#create-newUser").on("click", function() {
       if (res.url !== undefined) {
         window.location = res.url;
       } else if (res.error !== undefined) {
-        //alert(res.error);
         $("#modalTitle").text("Error");
         $("#modalBody").text(res.error);
         $('.modal').modal('show');
@@ -56,11 +55,11 @@ $("#create-newUser").on("click", function() {
     $("#modalTitle").text("Error");
     $("#modalBody").text("Cannot create user. please fix issues...");
     $('.modal').modal('show');
-    //alert("Cannot create user. please fix issues...");
   }
 });
 
 $("#updateUser").on("click", function() {
+  console.log($("#locationNew").val());
   var updateUser = {
     firstName: $("#firstNameNew")
       .val()
@@ -73,7 +72,7 @@ $("#updateUser").on("click", function() {
       .trim(),
     location: $("#locationNew")
       .val()
-      .trim()
+      .trim(),
   };
   if (updateUser.firstName === "") {
     updateUser.firstName = $("#firstNameNew").attr("placeholder");
@@ -94,9 +93,9 @@ $("#updateUser").on("click", function() {
     data: updateUser
   }).then(function(res) {
     if (res.url !== undefined) {
+      //console.log("success");
       window.location = res.url;
     } else if (res.error !== undefined) {
-     // alert(res.error);
       $("#modalTitle").text("Error");
       $("#modalBody").text(res.error);
       $('.modal').modal('show');

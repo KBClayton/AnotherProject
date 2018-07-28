@@ -1,21 +1,32 @@
-// $( document ).ready(function() {
-//   console.log( "ready!" );
 
+// ajax call for job data route 
 $.ajax({
   url: "/api/jobs/1",
   method: "GET"
-}).then(function() {
+}).then(function () {
   console.log("Heyo");
 });
 
-// });
 
+// ajax call for comments route
+$.ajax({
+  url: "/api/comments/1",
+  method: "GET"
+}).then(function () {
+  console.log("getting comments");
+});
+
+
+if($("#chComp")[0]!==undefined){
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);
+}
+
+var commentID = $("editComment");
 
 // javascript for editing contactName
 
-$("#saveContChanges").on("click", function() {
+$("#saveContChanges").on("click", function () {
   if (
     $("#chCont")
       .val()
@@ -35,7 +46,7 @@ $("#saveContChanges").on("click", function() {
     $.ajax("/api/jobs/changeName/" + jobID, {
       type: "PUT",
       data: changeContact
-    }).then(function() {
+    }).then(function () {
       console.log("Changed contact");
       location.reload();
     });
@@ -45,7 +56,7 @@ $("#saveContChanges").on("click", function() {
 });
 
 // javascript for editing contactPhone
-$("#savePhoneChanges").on("click", function() {
+$("#savePhoneChanges").on("click", function () {
   if (
     $("#chPhone")
       .val()
@@ -65,7 +76,7 @@ $("#savePhoneChanges").on("click", function() {
     $.ajax("/api/jobs/changePhone/" + jobID, {
       type: "PUT",
       data: changePhone
-    }).then(function() {
+    }).then(function () {
       console.log("Changed contact phone");
       location.reload();
     });
@@ -75,7 +86,7 @@ $("#savePhoneChanges").on("click", function() {
 });
 
 // javascript for editing confidencelevel
-$("#chConfidenceBtn").on("click", function() {
+$("#chConfidenceBtn").on("click", function () {
   console.log("test");
 
   // Create changeConfidence Object
@@ -90,13 +101,13 @@ $("#chConfidenceBtn").on("click", function() {
   $.ajax("/api/jobs/changeConfidence/" + jobID, {
     type: "PUT",
     data: changeConfidence
-  }).then(function() {
+  }).then(function () {
     console.log("Changed confidence");
     location.reload();
   });
 });
 
-$("#deleteJob").on("click", function() {
+$("#deleteJob").on("click", function () {
   console.log("test");
   var deleteJob = {
     id: jobID
@@ -112,31 +123,79 @@ $("#deleteJob").on("click", function() {
 });
 
 // javascript to submit a comment
-$("#addComment").on("click", function() {
-  if (
-    $("#commentBox")
-      .val()
-      .trim() !== ""
-  ) {
-    console.log("test");
-
+$("#addComment").on("click", function () {
+    console.log("in clickhandler")
+    console.log($("#chComp").attr("placeholder"))
     // Create an addComment Object
     var addComment = {
+      comment: $("#addC")
+        .val()
+        .trim(),
+      savedJobId:$("#chComp").attr("placeholder"),
+     };
+    
+    console.log(addComment);
+    $.ajax("/api/comments/", {
+      type: "POST",
+      data: addComment
+    }).then(function () {
+      //console.log("Added comment");
+      location.reload();
+    });
+ 
+});
+
+
+
+// Edit a comment
+$("#editComment").on("click", function () {
+  var commentID = $(this).val();
+  console.log("comment ID: "+commentID);
+    // console.log("test");
+
+    // Create an editComment Object
+    var editComment = {
       comment: $("#commentBox")
         .val()
         .trim(),
-      id: jobID
+      id: commentID
     };
 
-    console.log(addComment);
-    $.ajax("/api/comments/" + jobID, {
+    console.log(editComment);
+    $.ajax("/api/comments/" + commentID, {
       type: "PUT",
-      data: addComment
-    }).then(function() {
-      console.log("Added comment");
+      data: editComment
+    }).then(function () {
+      console.log("Comment edited");
       //location.reload();
     });
-  } else {
+  
     console.log("no changes made");
-  }
+  
+});
+
+// Delete a comment
+$("#deleteComment").on("click", function () {
+  //  console.log("#hideDiv"+this.val());
+  var commentID = $(this).val();
+  $("#hideDiv"+commentID).hide();
+  console.log("comment ID: "+commentID);
+    // console.log("test");
+
+    // Create an editComment Object
+    var deleteComment = {
+      id: commentID
+    };
+
+    console.log(deleteComment);
+    $.ajax("/api/comments/" + commentID, {
+      type: "DELETE",
+      data: deleteComment
+    }).then(function () {
+      console.log("Comment deleted");
+      // location.reload();
+    });
+  
+    console.log("no changes made");
+  
 });
