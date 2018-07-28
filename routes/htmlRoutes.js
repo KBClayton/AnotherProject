@@ -196,8 +196,12 @@ module.exports = function(app) {
   // });
 
   app.get("/home/:id", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
+    req.session.savedJobId=req.params.id
     db.savedJob.findOne({where: {
-      userId: req.session.uid
+      id: req.params.id
     },
     include: [
       {
