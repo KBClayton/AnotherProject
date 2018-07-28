@@ -3,10 +3,11 @@ var check = require("./check");
 
 module.exports = function(app) {
   // -- Get All Comments
-  if (check.login(req, res)) {
-    return;
-  }
+
   app.get("/api/comments", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     db.comment.findAll({}).then(function(results) {
       res.json(results);
     });
