@@ -196,7 +196,7 @@ module.exports = function(app) {
 
   app.get("/home/:id", function(req, res) {
     db.savedJob.findOne({where: {
-      id: req.session.uid
+      userId: req.session.uid
     },
     include: [
       {
