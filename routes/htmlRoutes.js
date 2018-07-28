@@ -10,7 +10,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{id:req.session.uid}}).then(function(result) {
       if(result===null){
         console.log("there was nothing there");
         console.log(result);
@@ -196,7 +196,7 @@ module.exports = function(app) {
 
   app.get("/home/:id", function(req, res) {
     db.savedJob.findOne({where: {
-      id: req.params.id
+      id: req.session.uid
     },
     include: [
       {
