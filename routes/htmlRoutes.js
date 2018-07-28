@@ -200,9 +200,11 @@ module.exports = function(app) {
       return;
     }
     req.session.savedJobId=req.params.id
-    db.savedJob.findOne({where: {
-      id: req.params.id
+    db.savedJob.findOne({
+      where: {
+      id: {$eq: req.params.id}
     },
+    $and:{userId:{$eq:req.session.uid}},
     include: [
       {
         model: db.comment
