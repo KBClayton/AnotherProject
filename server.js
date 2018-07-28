@@ -52,8 +52,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/testRoutes")(app);
-require("./routes/userRoutes")(app);
+//require("./routes/testRoutes")(app);
+//require("./routes/userRoutes")(app);
 require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
 require("./routes/apiRoutes")(app);
