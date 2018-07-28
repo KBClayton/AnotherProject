@@ -40,18 +40,18 @@ $("#submit-newJob").on("click", function() {
       userId: 2
     };
 
-    console.log(NewJob);
+    //console.log(NewJob);
     $.ajax("/api/jobs", {
       type: "POST",
       data: NewJob
-    }).then(function() {
-      console.log("Created New Job Lead");
-      window.location="/"
+    }).then(function(res) {
+      console.log(res);
+      window.location=res.url;
     });
   } else {
     //alert("You have nor filled it out");
     $("#modalTitle").text("Error");
-    $("#modalBody").text("You have not filled out all feilds");
+    $("#modalBody").text("You have not filled out all the fields");
     $('.modal').modal('show');
   }
 });
