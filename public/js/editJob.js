@@ -47,7 +47,7 @@ $("#saveContChanges").on("click", function () {
       data: changeContact
     }).then(function () {
       console.log("Changed contact");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
