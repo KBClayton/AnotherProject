@@ -27,7 +27,7 @@ var commentID = $("editComment");
 
 // javascript for editing contactName
 
-$(".saveContChanges").on("click", function () {
+$("#saveContChanges").on("click", function () {
   console.log("in saveContChanges clickhandler");
   if (
     $("#chCont")
@@ -58,7 +58,7 @@ $(".saveContChanges").on("click", function () {
 });
 
 // javascript for editing contactPhone
-$(".savePhoneChanges").on("click", function () {
+$("#savePhoneChanges").on("click", function () {
   console.log("in savePhoneChanges clickhandler");
   if (
     $("#chPhone")
@@ -89,7 +89,7 @@ $(".savePhoneChanges").on("click", function () {
 });
 
 // javascript for editing confidencelevel
-$(".chConfidenceBtn").on("click", function () {
+$("#chConfidenceBtn").on("click", function () {
   //console.log("test");
   console.log("in chConfidenceBtn clickhandler");
 
