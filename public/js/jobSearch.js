@@ -511,7 +511,7 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
   var helper = $(this).val();
   var identifier = "jobRowAJ" + helper;
   $("#" + identifier.toString()).hide();
-
+  console.log("#" + identifier.toString());
   //Create NewJob Object
   var NewJob = {
     company: jobsAJ[helper][1],
@@ -535,9 +535,9 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
       console.log("job is already saved");
       if (counterHelperUS < 1) {
         console.log("HIDING");
-        $("#jobTableAJDisplay").hide();
-        $("#jobQueryAJDisplay").show();
-        $("#jobTableAJBody").empty();
+        //$("#jobTableAJDisplay").hide();
+        //$("#jobQueryAJDisplay").show();
+        //$("#jobTableAJBody").empty();
       }
     } else {
       $.ajax("/api/jobs", {
@@ -548,9 +548,9 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
 
         if (counterHelperUS < 1) {
           console.log("HIDING");
-          $("#jobTableAJDisplay").hide();
-          $("#jobQueryAJDisplay").show();
-          $("#jobTableAJBody").empty();
+          //$("#jobTableAJDisplay").hide();
+          //$("#jobQueryAJDisplay").show();
+          //$("#jobTableAJBody").empty();
         }
       });
     }
