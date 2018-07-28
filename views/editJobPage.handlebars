@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<label for="editContact" id="chContact">Change Contact</label>
 							<input type="text" class="form-control" id="chCont" placeholder="{{contactName}}">
-							<button class="btn btn-success btn-sm" id="saveContChanges">Save Changes</button>
+							<button class="btn btn-success btn-sm saveContChanges" id="saveContChanges">Save Changes</button>
 						</div>
 
 						<br>
@@ -30,7 +30,7 @@
 						<div class="form-group">
 							<label for="editPhone" id="chContPhone">Change Contact Phone</label>
 							<input type="text" class="form-control" id="chPhone" placeholder="{{contactPhone}}">
-							<button class="btn btn-success btn-sm" id="savePhoneChanges">Save Changes</button>
+							<button class="btn btn-success btn-sm savePhoneChanges" id="savePhoneChanges">Save Changes</button>
 						</div>
 
 						<br>
@@ -44,7 +44,7 @@
 								<option>4</option>
 								<option>5</option>
 							</select>
-							<button class="btn btn-success btn-sm" id="chConfidenceBtn">Change Level of Confidence</button>
+							<button class="btn btn-success btn-sm wryclass chConfidenceBtn" id="chConfidenceBtn">Change Level of Confidence</button>
 
 							<div class="text-center">
 							<button class="btn btn-danger btn-sm" id="deleteJob">Delete Job</button>
@@ -133,9 +133,9 @@
 			<div class="col-md-6">
 				<div class="card p-3 mt-3 opaque border-dark myShadow">
 					<h4 for="addCom" class="text-info" id="addComm"><b>Add a Comment</b></h4>
-					<textarea type="text" class="mb-2" id="addC" placeholder="Type a comment"></textarea>
+					<textarea type="text" class="mb-2 addC" id="addC" placeholder="Type a comment"></textarea>
 					<div class="text-right">
-						<button class="btn btn-success btn-sm " id="addComment">Add Comment</button>
+						<button class="btn btn-success btn-sm addComment" id="addComment">Add Comment</button>
 					</div>
 				</div>
 			</div>
@@ -147,10 +147,10 @@
 						<div class="col-12">
 							<div id="hideDiv{{this.dataValues.id}}" class="card p-3 border-dark mb-3" action="?_method=GET" method="POST">
 								<label for="comment" class="text-dark"><b>Comment</b> <small class="text-info">{{this.dataValues.updatedAt}}</small></label>
-								<textarea class="form-control mb-2" rows="5" id="commentBox" placeholder="{{this.dataValues.comment}}"></textarea>
+								<textarea class="form-control mb-2 editdata{{this.dataValues.id}}" rows="5" id="commentBox editdata{{this.dataValues.id}}" placeholder="{{this.dataValues.comment}}"></textarea>
 								<div class="d-flex justify-content-end">
-									<button class="btn btn-danger btn-sm" id="deleteComment" value="{{this.dataValues.id}}">Delete</button>
-								<button class="btn btn-primary btn-sm" id="editComment" value="{{this.dataValues.id}}">Update Comment</button>
+									<button class="btn btn-danger btn-sm deleteComment" id="deleteComment" value="{{this.dataValues.id}}">Delete</button>
+									<button class="btn btn-primary btn-sm editComment" id="editComment" value="{{this.dataValues.id}}">Update Comment</button>
 								</div>
 								
 							</div>
