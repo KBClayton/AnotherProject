@@ -126,9 +126,9 @@ $("#addComment").on("click", function () {
  
     // Create an addComment Object
     var addComment = {
-      comment: $("#addC")[0].placeholder;
+      comment: $("#addC")
         .val()
-        .trim(),
+        .trim()
      };
     
     console.log(addComment);
