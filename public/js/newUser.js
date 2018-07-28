@@ -44,7 +44,6 @@ $("#create-newUser").on("click", function() {
       if (res.url !== undefined) {
         window.location = res.url;
       } else if (res.error !== undefined) {
-        //alert(res.error);
         $("#modalTitle").text("Error");
         $("#modalBody").text(res.error);
         $('.modal').modal('show');
@@ -56,7 +55,6 @@ $("#create-newUser").on("click", function() {
     $("#modalTitle").text("Error");
     $("#modalBody").text("Cannot create user. please fix issues...");
     $('.modal').modal('show');
-    //alert("Cannot create user. please fix issues...");
   }
 });
 
@@ -96,7 +94,6 @@ $("#updateUser").on("click", function() {
     if (res.url !== undefined) {
       window.location = res.url;
     } else if (res.error !== undefined) {
-     // alert(res.error);
       $("#modalTitle").text("Error");
       $("#modalBody").text(res.error);
       $('.modal').modal('show');
