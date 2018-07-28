@@ -19,8 +19,9 @@ $("#signInBtn").on("click", function() {
     if (res.url !== undefined) {
       window.location = res.url;
     } else if (res.error !== undefined) {
-      // alert(res.error);
-      $(".modal").modal("show");
+      $("#modalTitle").text("Error");
+      $("#modalBody").text(res.error);
+      $('.modal').modal('show');
     } else {
       location.reload();
     }
@@ -63,10 +64,21 @@ $("#changepass").on("click", function() {
     $.ajax("/api/change", {
       type: "PUT",
       data: cpassword
-    }).then(function() {
-      window.location = "/login";
+    }).then(function(res) {
+      if (res.url !== undefined) {
+        window.location=res.url;
+      } else if (res.error !== undefined) {
+        $("#modalTitle").text("Error");
+        $("#modalBody").text(res.error);
+        $('.modal').modal('show');
+        
+      } else {
+        window.location="/";
+      }
     });
   } else {
-    alert("New passwords do not match");
+    $("#modalTitle").text("Password Error");
+    $("#modalBody").text("New passwords do not match");
+    $('.modal').modal('show');
   }
 });

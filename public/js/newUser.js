@@ -44,13 +44,17 @@ $("#create-newUser").on("click", function() {
       if (res.url !== undefined) {
         window.location = res.url;
       } else if (res.error !== undefined) {
-        alert(res.error);
+        $("#modalTitle").text("Error");
+        $("#modalBody").text(res.error);
+        $('.modal').modal('show');
       } else {
         location.reload();
       }
     });
   } else {
-    alert("Cannot create user. please fix issues...");
+    $("#modalTitle").text("Error");
+    $("#modalBody").text("Cannot create user. please fix issues...");
+    $('.modal').modal('show');
   }
 });
 
@@ -90,7 +94,10 @@ $("#updateUser").on("click", function() {
     if (res.url !== undefined) {
       window.location = res.url;
     } else if (res.error !== undefined) {
-      alert(res.error);
+      $("#modalTitle").text("Error");
+      $("#modalBody").text(res.error);
+      $('.modal').modal('show');
+      
     } else {
       location.reload();
     }
