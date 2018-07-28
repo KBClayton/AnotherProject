@@ -46,11 +46,12 @@ $("#submit-newJob").on("click", function() {
       data: NewJob
     }).then(function() {
       console.log("Created New Job Lead");
+      window.location="/"
     });
   } else {
     //alert("You have nor filled it out");
     $("#modalTitle").text("Error");
-    $("#modalBody").text("You have nor filled it out");
+    $("#modalBody").text("You have not filled out all feilds");
     $('.modal').modal('show');
   }
 });
