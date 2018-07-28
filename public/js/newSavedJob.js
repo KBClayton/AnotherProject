@@ -46,12 +46,12 @@ $("#submit-newJob").on("click", function() {
       data: NewJob
     }).then(function(res) {
       console.log(res);
-      window.location=res.url;
+      window.location = res.url;
     });
   } else {
     //alert("You have nor filled it out");
     $("#modalTitle").text("Error");
     $("#modalBody").text("You have not filled out all the fields");
-    $('.modal').modal('show');
+    $(".modal").modal("show");
   }
 });

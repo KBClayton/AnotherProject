@@ -22,7 +22,7 @@ module.exports = function(app) {
     var newComment = req.body;
     console.log("in post new comment route");
     console.log(newComment);
-    newComment.savedJobId=req.session.savedJobId;
+    newComment.savedJobId = req.session.savedJobId;
     // Creates a new Job in the database
     db.comment
       .create(newComment)
