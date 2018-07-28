@@ -10,11 +10,15 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
+    db.savedJob.findAll({}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
       res.render("jobDetails", {
-        msg: "Welcome!",
-        examples: result
+        savedJob: result
       });
+      console.log(result);
     });
   });
 
