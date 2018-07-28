@@ -203,11 +203,11 @@ module.exports = function(app) {
         model: db.comment
       }
     ]}).then(function(job) {
-      console.log(job.dataValues);
-      console.log("below should be individual comments");
-      console.log(job.dataValues.comments[0].dataValues);
-      console.log(job.dataValues.comments[1].dataValues);
-      console.log(job.dataValues.comments[2].dataValues);
+      // console.log(job.dataValues);
+      // console.log("below should be individual comments");
+      // console.log(job.dataValues.comments[0].dataValues);
+      // console.log(job.dataValues.comments[1].dataValues);
+      // console.log(job.dataValues.comments[2].dataValues);
       res.render("editJobPage", job.dataValues);
     });
   });
