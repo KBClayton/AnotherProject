@@ -71,7 +71,7 @@
 	<b></b>
 <div>
 			<label for="addCom" id="addComm">Add a Comment</label>
-			<input type="text" class="form-control" id="addC" placeholder="Type a comment">
+			<input type="text" class="form-control" id="addC" placeholder="Type a comment" jobId="{{id}}">
 			<button class="btn btn-success btn-sm" id="addComment">Save Comment</button>
 </div>
 {{#if this.comments}}
@@ -84,7 +84,7 @@
 		<label for="comment">Comment:</label>
 		<textarea class="form-control" rows="5" id="commentBox" placeholder="{{this.dataValues.comment}}"></textarea>
 		<button class="btn btn-danger btn-sm" id="deleteComment" value="{{this.dataValues.id}}">Delete</button>
-		<button class="btn btn-primary btn-sm" id="editComment" value="{{this.dataValues.id}}">Update Comment</button>
+		<button class="btn btn-primary btn-sm" id="editComment" value="{{this.dataValues.id}}" >Update Comment</button>
 	</div>
 </div>
 {{/each}}
