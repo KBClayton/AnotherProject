@@ -1,6 +1,6 @@
-// $( document ).ready(function() {
-//   console.log( "ready!" );
+//$( document ).ready(function() {
 
+// ajax call for job data route
 $.ajax({
   url: "/api/jobs/1",
   method: "GET"
@@ -8,14 +8,26 @@ $.ajax({
   console.log("Heyo");
 });
 
-// });
+// ajax call for comments route
+$.ajax({
+  url: "/api/comments/1",
+  method: "GET"
+}).then(function() {
+  console.log("getting comments");
+});
 
-var jobID = $("#chComp")[0].placeholder;
-console.log(jobID);
+if ($("#chComp")[0] !== undefined) {
+  var jobID = $("#chComp")[0].placeholder;
+  console.log(jobID);
+}
+
+var commentID = $("editComment");
+console.log(commentID);
 
 // javascript for editing contactName
 
 $("#saveContChanges").on("click", function() {
+  console.log("in saveContChanges clickhandler");
   if (
     $("#chCont")
       .val()
@@ -25,7 +37,7 @@ $("#saveContChanges").on("click", function() {
 
     // Create changeContact Object
     var changeContact = {
-      contact: $("#chCont")
+      contactName: $("#chCont")
         .val()
         .trim(),
       id: jobID
@@ -37,7 +49,7 @@ $("#saveContChanges").on("click", function() {
       data: changeContact
     }).then(function() {
       console.log("Changed contact");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
@@ -46,6 +58,7 @@ $("#saveContChanges").on("click", function() {
 
 // javascript for editing contactPhone
 $("#savePhoneChanges").on("click", function() {
+  console.log("in savePhoneChanges clickhandler");
   if (
     $("#chPhone")
       .val()
@@ -55,7 +68,7 @@ $("#savePhoneChanges").on("click", function() {
 
     // Create changePhone Object
     var changePhone = {
-      phone: $("#chPhone")
+      contactPhone: $("#chPhone")
         .val()
         .trim(),
       id: jobID
@@ -67,7 +80,7 @@ $("#savePhoneChanges").on("click", function() {
       data: changePhone
     }).then(function() {
       console.log("Changed contact phone");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
@@ -76,11 +89,12 @@ $("#savePhoneChanges").on("click", function() {
 
 // javascript for editing confidencelevel
 $("#chConfidenceBtn").on("click", function() {
-  console.log("test");
+  //console.log("test");
+  console.log("in chConfidenceBtn clickhandler");
 
   // Create changeConfidence Object
   var changeConfidence = {
-    confidence: $("#chConfidence")
+    confidenceLevel: $("#chConfidence")
       .val()
       .trim(),
     id: jobID
@@ -92,54 +106,105 @@ $("#chConfidenceBtn").on("click", function() {
     data: changeConfidence
   }).then(function() {
     console.log("Changed confidence");
-    // location.reload();
+    location.reload();
   });
 });
 
 $("#deleteJob").on("click", function() {
   console.log("test");
-
-  // Create changePhone Object
-  // var changePhone = {
-  //   phone: $("#chPhone").val().trim(),
-  //   id: jobID
-  // }
-
-  // console.log();
+  var deleteJob = {
+    id: jobID
+  };
+  console.log(deleteJob);
   $.ajax("/api/jobs/" + jobID, {
-    type: "DELETE"
+    type: "DELETE",
+    data: deleteJob
   }).then(function() {
     console.log("Deleted job" + jobID);
-    // location.reload();
+    //location.reload();
+    window.location = "/";
   });
 });
 
 // javascript to submit a comment
-$("#addComment").on("click", function() {
-  if (
-    $("#commentBox")
+$(".addComment").on("click", function() {
+  console.log("in addcomment clickhandler");
+  console.log(
+    $(".addC")
       .val()
-      .trim() !== ""
-  ) {
-    console.log("test");
+      .trim()
+  );
+  console.log($("#chComp").attr("placeholder"));
+  // Create an addComment Object
+  var addComment = {
+    comment: $(".addC")
+      .val()
+      .trim(),
+    savedJobId: $("#chComp").attr("placeholder")
+  };
 
-    // Create an addComment Object
-    var addComment = {
-      comment: $("#commentBox")
-        .val()
-        .trim(),
-      id: jobID
-    };
-
-    console.log(addComment);
-    $.ajax("/api/comments/" + jobID, {
-      type: "PUT",
-      data: addComment
-    }).then(function() {
-      console.log("Added comment");
-      // location.reload();
-    });
-  } else {
-    console.log("no changes made");
-  }
+  console.log(addComment);
+  $.ajax("/api/comments/", {
+    type: "POST",
+    data: addComment
+  }).then(function() {
+    console.log("Added comment");
+    location.reload();
+  });
 });
+
+// Edit a comment
+$(".editComment").on("click", function() {
+  var commentID = $(this).val();
+  console.log("comment ID: " + commentID);
+  var editthing = ".editdata" + commentID;
+  //console.log($(".editdata15").val());
+  //console.log(editthing);
+  //console.log($(editthing).val());
+  // console.log("test");
+
+  // Create an editComment Object
+  var editComment = {
+    comment: $(editthing)
+      .val()
+      .trim(),
+    id: commentID
+  };
+
+  console.log(editComment);
+  $.ajax("/api/comments/" + commentID, {
+    type: "PUT",
+    data: editComment
+  }).then(function() {
+    //console.log("Comment edited");
+    location.reload();
+  });
+
+  console.log("no changes made");
+});
+
+// Delete a comment
+$(".deleteComment").on("click", function() {
+  //  console.log("#hideDiv"+this.val());
+  var commentID = $(this).val();
+  $("#hideDiv" + commentID).hide();
+  console.log("comment ID: " + commentID);
+  // console.log("test");
+
+  // Create an editComment Object
+  var deleteComment = {
+    id: commentID
+  };
+
+  console.log(deleteComment);
+  $.ajax("/api/comments/" + commentID, {
+    type: "DELETE",
+    data: deleteComment
+  }).then(function() {
+    console.log("Comment deleted");
+    // location.reload();
+  });
+
+  console.log("no changes made");
+});
+//});

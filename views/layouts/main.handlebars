@@ -25,15 +25,22 @@
     </button>       
     <div class="collapse navbar-collapse justify-content-end text-dark" id="navbarSupportedContent">
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item  text-dark p-1 ml-3 border-highlight-nav border-secondary font-weight-bold" id="homeBtn"><a href="/home" class="text-dark">Home</a></li>
+            <li class="nav-item  text-dark p-1 ml-3 border-highlight-nav border-secondary font-weight-bold" id="homeBtn"><a href="/" class="text-dark">Home</a></li>
             <li class="nav-item text-dark p-1 ml-3 font-weight-bold" id ="aboutPage"><a href="/about" class="text-dark"> About</a></li>
+            <li class="nav-item text-dark p-1 ml-3 font-weight-bold" id ="newJob"><a href="/createJob" class="text-dark"> +New Lead</a></li>
             <li class="nav-item text-dark p-1 ml-3 font-weight-bold" id="jobSearchNav">Search Jobs
                 <div class="bg-light text-dark border border-dark JobSearchTextNav">
                     <a href="/jobSearchGov"><p class="mb-0 p-1">USA Gov Search</p></a>
                     <a href="/jobSearchAJ"><p class="mb-0 p-1">AuthenticJobs Search</p></a>    
                 </div>
             </li>
-            <li class="nav-item text-dark p-1 ml-3 font-weight-bold" id ="newJob"><a href="/createJob" class="text-dark"> +New Lead</a></li>
+            <li class="nav-item text-dark p-1 ml-3 font-weight-bold" id="SettingsNav">Settings
+                <div class="bg-light text-dark border border-dark SettingsTextNav">
+                    <a href="/change"><p class="mb-0 p-1">Change Password</p></a>
+                    <a href="/editUser"><p class="mb-0 p-1">Edit Settings</p></a>    
+                </div>
+            </li>
+            
             <li class="nav-item text-danger p-1 ml-3 font-weight-bold" id ="logout">SignOut</li>
 
         </ul>                
@@ -42,13 +49,12 @@
   
   {{{body}}}
   
-<footer class="footer text-center bg-secondary border-top">
-    <p class="mb-0 pb-0 "><span>
-        <a href="#">Resources</a>
-        <a href="#">About This Page</a>
-        <a href="#">GitHub Repository</a>
-    </span></p>
-    <p class="mb-0 pb-0 text-white">This website is hosted on HEROKU</p>
+<footer class="footer text-center bg-secondary mt-2 pt-2 border-top">
+    <h6 class="text-white"><span>
+        <a class="text-dark" href="/about">About <span class="LuckyFont">J O B <span class="text-info"> S K R</span></span></a> ||
+        <a class="text-dark" href= "https://github.com/KBClayton/AnotherProject">GitHub Repository</a>
+    </span></h6>
+    <h6 class="mb-0 pb-0 text-white font-weight-light">This website is hosted on <a class="font-weight-bold text-white" href="http://www.heroku.com">Heroku</a></h6>
 </footer>
 
 </body>
