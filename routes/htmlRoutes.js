@@ -186,6 +186,14 @@ module.exports = function(app) {
   //});
 
   // create page based on id from button click -ALAN
+  // app.get("/home/:id", function(req, res) {
+  //   db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
+  //     console.log(job.dataValues);
+  //     res.render("editJobPage", job.dataValues);
+  //   });
+  // });
+  // });
+
   app.get("/home/:id", function(req, res) {
     db.savedJob.findOne({where: {
       id: req.params.id
@@ -195,11 +203,14 @@ module.exports = function(app) {
         model: db.comment
       }
     ]}).then(function(job) {
+      console.log(job.dataValues);
+      console.log("below should be individual comments");
       console.log(job.dataValues.comments[0].dataValues);
+      console.log(job.dataValues.comments[1].dataValues);
+      console.log(job.dataValues.comments[2].dataValues);
       res.render("editJobPage", job.dataValues);
     });
   });
-  // });
 
   // Route to view changes to editJobPage -ALAN
   app.get("/home3", function(req, res) {
