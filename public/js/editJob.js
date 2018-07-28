@@ -176,8 +176,8 @@ $(".editComment").on("click", function () {
       type: "PUT",
       data: editComment
     }).then(function () {
-      console.log("Comment edited");
-      //location.reload();
+      //console.log("Comment edited");
+      location.reload();
     });
   
     console.log("no changes made");
