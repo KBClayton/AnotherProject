@@ -124,32 +124,23 @@ $("#deleteJob").on("click", function () {
 
 // javascript to submit a comment
 $("#addComment").on("click", function () {
-  if (
-    $("#commentBox")
-      .val()
-      .trim() !== ""
-  ) {
-    console.log("test");
-
+ 
     // Create an addComment Object
     var addComment = {
-      comment: $("#commentBox")
+      comment: $("#addC")[0].placeholder;
         .val()
         .trim(),
-      id: jobID
-    };
-
+     };
+    
     console.log(addComment);
-    $.ajax("/api/comments/" + jobID, {
-      type: "PUT",
+    $.ajax("/api/comments/", {
+      type: "POST",
       data: addComment
     }).then(function () {
       console.log("Added comment");
       //location.reload();
     });
-  } else {
-    console.log("no changes made");
-  }
+ 
 });
 
 
