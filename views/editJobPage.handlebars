@@ -61,11 +61,25 @@
 											<br>
 											<p> Posted Annual Salary: {{this.postedSalary}} </p>
 											<br>
-											<br>
-											
- 
-										
+											<br>				
         </div>
+			
+<div class="col-6">
+	{{#if this.comments}}
+	
+	{{#each this.comments }}
+    <div class="form-group" action="{{this.dataValues.comment}}?_method=GET" method="POST">
+
+        <label for="comment">Comment: {{this.dataValues.comment}}</label>
+        <textarea class="form-control" rows="5" id="commentBox {{this.dataValues.id}}" placeholder="{{this.dataValues.comment}}"></textarea>
+        <button class="btn btn-success btn-sm" id="addComment">{{this.dataValues.id}}</button>
+    </div>
+		</div>
+		{{/each}}
+{{else}}
+		<h1>No comments</h1>
+{{/if}}
+<h1>there are no comments</h1>
 
 <div class="col-6">
 <div class="form-group">

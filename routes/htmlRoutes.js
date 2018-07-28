@@ -46,7 +46,7 @@ module.exports = function(app) {
     db.savedJob.findAll({}).then(function(result) {
       console.log(result);
       res.render("jobDetails", {
-        jobs: savedJob
+        jobs: result
       });
     });
   });
@@ -92,6 +92,9 @@ module.exports = function(app) {
 
   // editJobPage page -Alan
   app.get("/home2", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob.findAll({}).then(function(result) {
       if(result===null){
         console.log("there was nothing there");
@@ -180,8 +183,15 @@ module.exports = function(app) {
 
   // create page based on id from button click -ALAN
   app.get("/home/:id", function(req, res) {
-    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
-      console.log(job.dataValues);
+    db.savedJob.findOne({where: {
+      id: req.params.id
+    },
+    include: [
+      {
+        model: db.comment
+      }
+    ]}).then(function(job) {
+      console.log(job.dataValues.comments[0].dataValues);
       res.render("editJobPage", job.dataValues);
     });
   });
