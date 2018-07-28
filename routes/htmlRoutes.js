@@ -18,9 +18,14 @@ module.exports = function(app) {
       res.render("jobDetails", {
         savedJob: result
       });
-      console.log(result);
+      //console.log(result);
     });
-  });
+ }); 
+
+  // index route loads view.html
+  //app.get("/", function(req, res) {
+    //res.sendFile(path.join(__dirname, "../public/blog.html"));
+  //});
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
@@ -73,11 +78,15 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({where:{userId:req.session.uid}}).then(function(result) {
-      res.render("homePage", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
+      if(result===null){
+        console.log("there was nothing there");
+        console.log(result);
+      }
+      res.render("jobDetails", {
+        savedJob: result
       });
+      console.log(result);
     });
   });
 
@@ -196,9 +205,15 @@ module.exports = function(app) {
   // });
 
   app.get("/home/:id", function(req, res) {
-    db.savedJob.findOne({where: {
-      userId: req.session.uid
+    if (check.login(req, res)) {
+      return;
+    }
+    req.session.savedJobId=req.params.id
+    db.savedJob.findOne({
+      where: {
+      id: {$eq: req.params.id}
     },
+    $and:{userId:{$eq:req.session.uid}},
     include: [
       {
         model: db.comment

@@ -12,6 +12,9 @@ module.exports = function(app) {
   app.post("/api/comments", function(req, res) {
     // Take Input from Client
     var newComment = req.body;
+    console.log("in post new comment route");
+    console.log(newComment);
+    newComment.savedJobId=req.session.savedJobId;
     // Creates a new Job in the database
     db.comment
       .create(newComment)

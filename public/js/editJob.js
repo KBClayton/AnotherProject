@@ -1,3 +1,4 @@
+//$( document ).ready(function() {
 
 // ajax call for job data route 
 $.ajax({
@@ -26,7 +27,8 @@ var commentID = $("editComment");
 
 // javascript for editing contactName
 
-$("#saveContChanges").on("click", function () {
+$(".saveContChanges").on("click", function () {
+  console.log("in saveContChanges clickhandler");
   if (
     $("#chCont")
       .val()
@@ -48,7 +50,7 @@ $("#saveContChanges").on("click", function () {
       data: changeContact
     }).then(function () {
       console.log("Changed contact");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
@@ -56,7 +58,8 @@ $("#saveContChanges").on("click", function () {
 });
 
 // javascript for editing contactPhone
-$("#savePhoneChanges").on("click", function () {
+$(".savePhoneChanges").on("click", function () {
+  console.log("in savePhoneChanges clickhandler");
   if (
     $("#chPhone")
       .val()
@@ -86,8 +89,9 @@ $("#savePhoneChanges").on("click", function () {
 });
 
 // javascript for editing confidencelevel
-$("#chConfidenceBtn").on("click", function () {
-  console.log("test");
+$(".chConfidenceBtn").on("click", function () {
+  //console.log("test");
+  console.log("in chConfidenceBtn clickhandler");
 
   // Create changeConfidence Object
   var changeConfidence = {
@@ -118,18 +122,22 @@ $("#deleteJob").on("click", function () {
     data: deleteJob
   }).then(function() {
     console.log("Deleted job" + jobID);
-    location.reload();
+    //location.reload();
+    window.location="/";
   });
 });
 
 // javascript to submit a comment
-$("#addComment").on("click", function () {
- 
+$(".addComment").on("click", function () {
+    console.log("in addcomment clickhandler");
+    console.log($(".addC").val().trim(),)
+    console.log($("#chComp").attr("placeholder"))
     // Create an addComment Object
     var addComment = {
-      comment: $("#addC")[0].placeholder;
+      comment: $(".addC")
         .val()
         .trim(),
+        savedJobId:$("#chComp").attr("placeholder"),
      };
     
     console.log(addComment);
@@ -138,7 +146,7 @@ $("#addComment").on("click", function () {
       data: addComment
     }).then(function () {
       console.log("Added comment");
-      //location.reload();
+      location.reload();
     });
  
 });
@@ -146,14 +154,18 @@ $("#addComment").on("click", function () {
 
 
 // Edit a comment
-$("#editComment").on("click", function () {
+$(".editComment").on("click", function () {
   var commentID = $(this).val();
   console.log("comment ID: "+commentID);
+  var editthing=".editdata"+commentID;
+  //console.log($(".editdata15").val());
+  //console.log(editthing);
+  //console.log($(editthing).val());
     // console.log("test");
 
     // Create an editComment Object
     var editComment = {
-      comment: $("#commentBox")
+      comment: $(editthing)
         .val()
         .trim(),
       id: commentID
@@ -173,7 +185,7 @@ $("#editComment").on("click", function () {
 });
 
 // Delete a comment
-$("#deleteComment").on("click", function () {
+$(".deleteComment").on("click", function () {
   //  console.log("#hideDiv"+this.val());
   var commentID = $(this).val();
   $("#hideDiv"+commentID).hide();
@@ -197,3 +209,4 @@ $("#deleteComment").on("click", function () {
     console.log("no changes made");
   
 });
+//});
