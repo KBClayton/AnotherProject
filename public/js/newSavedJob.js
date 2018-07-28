@@ -50,7 +50,7 @@ $("#submit-newJob").on("click", function() {
   } else {
     //alert("You have nor filled it out");
     $("#modalTitle").text("Error");
-    $("#modalBody").text("You have nor filled it out");
+    $("#modalBody").text("You have not filled it out");
     $('.modal').modal('show');
   }
 });
