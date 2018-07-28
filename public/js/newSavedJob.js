@@ -48,6 +48,9 @@ $("#submit-newJob").on("click", function() {
       console.log("Created New Job Lead");
     });
   } else {
-    alert("You have nor filled it out");
+    //alert("You have nor filled it out");
+    $("#modalTitle").text("Error");
+    $("#modalBody").text("You have nor filled it out");
+    $('.modal').modal('show');
   }
 });

@@ -54,7 +54,7 @@ module.exports = function(app) {
               return res.json({ url: "/" });
             } else {
               //console.log(correctpass);
-              //console.log("the password was wrong");
+              console.log("the password was wrong");
               //send to login page
               //return res.redirect(303, "/login")
               return res.json({ error: "the password was wrong" });
@@ -93,7 +93,7 @@ module.exports = function(app) {
           if (dbExample === null) {
             //console.log("there is no user with that id, how did you get here?");
             //send to change password page
-            return res.json({ url: "/changepass" });
+            return res.json({ url: "/change" });
           }
           user.password.hash = dbExample.dataValues.password;
           user.password.salt = dbExample.dataValues.salt;
@@ -127,7 +127,7 @@ module.exports = function(app) {
                     //console.log("the password of user id "+req.session.uid+" was updated")
                     console.log(dbExample);
                     //send to home page
-                    return res.json({ url: "/jobDetails" });
+                    return res.json({ url: "/" });
                   });
               }
               hashing2();
@@ -135,7 +135,8 @@ module.exports = function(app) {
               //console.log("correctpass: "+correctpass2);
               //console.log("the old password was wrong");
               //send to change password page
-              return res.json({ url: "/changepass" });
+              return res.json({ error: "The existing password is wrong" });
+              //return res.json({ url: "/change" });
             }
           }
           checker2();

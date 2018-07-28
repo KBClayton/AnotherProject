@@ -130,10 +130,10 @@ module.exports = function(app) {
 
   // PUT route for updating the user confidence for a given job
   app.put("/api/jobs/changeConfidence/:id", function(req, res) {
-    if (check.login(req, res)) {
-      return;
-    }
-    console.log(req.params);
+   // if (check.login(req, res)) {
+     // return;
+   // }
+    console.log(req.body.confidenceLevel);
     db.savedJob
       .update(
         {
@@ -177,7 +177,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    console.log(req.params);
+    console.log("found route:  " + req.params);
     // delete entry that corresponds to appropriate id
     db.savedJob
       .destroy({
@@ -187,6 +187,7 @@ module.exports = function(app) {
       })
       // then it renders
       .then(function(results) {
+        console.log(results)
         res.json(results);
       });
   });

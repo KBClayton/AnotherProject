@@ -35,7 +35,7 @@ $("#saveContChanges").on("click", function () {
 
     // Create changeContact Object
     var changeContact = {
-      contact: $("#chCont")
+      contactName: $("#chCont")
         .val()
         .trim(),
       id: jobID
@@ -65,7 +65,7 @@ $("#savePhoneChanges").on("click", function () {
 
     // Create changePhone Object
     var changePhone = {
-      phone: $("#chPhone")
+      contactPhone: $("#chPhone")
         .val()
         .trim(),
       id: jobID
@@ -77,7 +77,7 @@ $("#savePhoneChanges").on("click", function () {
       data: changePhone
     }).then(function () {
       console.log("Changed contact phone");
-      // location.reload();
+      location.reload();
     });
   } else {
     console.log("no changes made");
@@ -90,7 +90,7 @@ $("#chConfidenceBtn").on("click", function () {
 
   // Create changeConfidence Object
   var changeConfidence = {
-    confidence: $("#chConfidence")
+    confidenceLevel: $("#chConfidence")
       .val()
       .trim(),
     id: jobID
@@ -102,23 +102,22 @@ $("#chConfidenceBtn").on("click", function () {
     data: changeConfidence
   }).then(function () {
     console.log("Changed confidence");
-    // location.reload();
+    location.reload();
   });
 });
 
 $("#deleteJob").on("click", function () {
   console.log("test");
-
   var deleteJob = {
     id: jobID
   }
-  // console.log();
+  console.log(deleteJob);
   $.ajax("/api/jobs/" + jobID, {
     type: "DELETE",
     data: deleteJob
-  }).then(function () {
+  }).then(function() {
     console.log("Deleted job" + jobID);
-    // location.reload();
+    location.reload();
   });
 });
 
@@ -145,7 +144,7 @@ $("#addComment").on("click", function () {
       data: addComment
     }).then(function () {
       console.log("Added comment");
-      // location.reload();
+      //location.reload();
     });
   } else {
     console.log("no changes made");

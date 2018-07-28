@@ -2,7 +2,10 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
-var session = require("express-session");
+var session = require('express-session')
+const helmet = require('helmet')
+
+
 
 var db = require("./models");
 
@@ -14,22 +17,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+
 var sess = {
-  secret:
-    "This is an exceedingly long high entropy string for encrypting cookie values",
+  secret: 'This is an exceedingly long high entropy string for encrypting cookie values',
   cookie: {
-    secure: false,
+    secure:false,
     resave: false,
     saveUninitialized: true
   }
-};
-
-if (app.get("env") === "production") {
-  app.set("trust proxy", 1); // trust first proxy
-  sess.cookie.secure = true; // serve secure cookies
 }
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+ 
+app.use(session(sess))
+app.use(helmet());
 
-app.use(session(sess));
+
 
 // Handlebars
 app.engine(
@@ -74,3 +80,7 @@ db.sequelize.sync(syncOptions).then(function() {
 });
 
 module.exports = app;
+
+
+
+
