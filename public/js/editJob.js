@@ -21,6 +21,8 @@ $.ajax({
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);
 
+// var commentID = $("")
+
 // javascript for editing contactName
 
 $("#saveContChanges").on("click", function () {
