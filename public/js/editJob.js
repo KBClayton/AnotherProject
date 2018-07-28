@@ -1,4 +1,3 @@
-
 // ajax call for job data route 
 $.ajax({
   url: "/api/jobs/1",

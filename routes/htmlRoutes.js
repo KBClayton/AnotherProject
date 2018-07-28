@@ -7,20 +7,20 @@ var check = require("./check");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    if (check.login(req, res)) {
-      return;
-    }
-    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
-      if(result===null){
-        console.log("there was nothing there");
-        console.log(result);
-      }
-      res.render("jobDetails", {
-        savedJob: result
+
+    db.user.findAll({}).then(function(result) {
+      res.render("index", {
+        msg: "Welcome!",
+        examples: result
       });
       console.log(result);
     });
-  });
+ }); 
+
+  // index route loads view.html
+  //app.get("/", function(req, res) {
+    //res.sendFile(path.join(__dirname, "../public/blog.html"));
+  //});
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
