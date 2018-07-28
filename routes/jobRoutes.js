@@ -75,13 +75,16 @@ module.exports = function(app) {
     // Take Input from Client
     var newJob = req.body;
     newJob.userId = req.session.uid;
-    console.log(newJob);
+    //console.log(newJob);
     // Creates a new Job in the database
     db.savedJob
       .create(newJob)
       // Then it renders
       .then(function(results) {
-        res.json(results);
+        var stufferShack=results.dataValues;
+        stufferShack.url="/";
+        console.log(stufferShack);
+        res.json(stufferShack);
       });
   });
 

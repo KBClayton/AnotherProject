@@ -64,28 +64,16 @@
 				</div>
 			</div>
 
+	<b></b>
+<div>
+			<label for="addCom" id="addComm">Add a Comment</label>
+			<input type="text" class="form-control" id="addC" placeholder="Type a comment">
+			<button class="btn btn-success btn-sm" id="addComment">Save Comment</button>
+</div>
+{{#if this.comments}}
+	{{#each this.comments }}
 	
 
-			<button class="btn btn-success btn-sm" id="addComment">Add Comment</button>
-			{{#if this.comments}}
-				{{#each this.comments }}
-	
-
-<<<<<<< HEAD
-					<div class="col-6">
-						<div class="form-group" action="?_method=GET" method="POST">
-				
-							<label for="comment">Comment:</label>
-							<textarea class="form-control" rows="5" id="commentBox" placeholder="{{this.dataValues.comment}}"></textarea>
-							<button class="btn btn-danger btn-sm" id="deleteComment{{this.datavalues.id}}">Delete</button>
-							<button class="btn btn-primary btn-sm" id="editComment{{this.datavalues.id}}" placeholder="{{this.datavalues.id}}">Edit</button>
-						</div>
-					</div>
-				{{/each}}
-			{{/if}}
-		</div>
-		</div>
-=======
 <div class="col-6">
 	<div id="hideDiv{{this.dataValues.id}}" class="form-group" action="?_method=GET" method="POST">
 
@@ -93,7 +81,6 @@
 		<textarea class="form-control" rows="5" id="commentBox" placeholder="{{this.dataValues.comment}}"></textarea>
 		<button class="btn btn-danger btn-sm" id="deleteComment" value="{{this.dataValues.id}}">Delete</button>
 		<button class="btn btn-primary btn-sm" id="editComment" value="{{this.dataValues.id}}">Update Comment</button>
->>>>>>> 47ca14782582caeefba2eab82e3f72cf7315137d
 	</div>
 </div>
 

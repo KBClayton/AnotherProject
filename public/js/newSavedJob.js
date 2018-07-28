@@ -40,18 +40,22 @@ $("#submit-newJob").on("click", function() {
       userId: 2
     };
 
-    console.log(NewJob);
+    //console.log(NewJob);
     $.ajax("/api/jobs", {
       type: "POST",
       data: NewJob
-    }).then(function() {
-      console.log("Created New Job Lead");
-      window.location="/"
+    }).then(function(res) {
+      console.log(res);
+      window.location=res.url;
     });
   } else {
     //alert("You have nor filled it out");
     $("#modalTitle").text("Error");
+<<<<<<< HEAD
     $("#modalBody").text("You have not filled out all fields");
+=======
+    $("#modalBody").text("You have not filled out all the fields");
+>>>>>>> 7e76f03074122405417464772a50972dc0e5196f
     $('.modal').modal('show');
   }
 });
