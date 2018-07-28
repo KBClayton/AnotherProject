@@ -6,10 +6,10 @@ $("#create-newUser").on("click", function() {
       .val()
       .trim() !== "" &&
     $("#passwordCreate")
-      .val() 
+      .val()
       .trim() !== "" &&
     $("#passwordCreate")
-      .val()   
+      .val()
       .trim() ===
       $("#passwordCreateVerify")
         .val()
@@ -46,7 +46,7 @@ $("#create-newUser").on("click", function() {
       } else if (res.error !== undefined) {
         $("#modalTitle").text("Error");
         $("#modalBody").text(res.error);
-        $('.modal').modal('show');
+        $(".modal").modal("show");
       } else {
         location.reload();
       }
@@ -54,7 +54,7 @@ $("#create-newUser").on("click", function() {
   } else {
     $("#modalTitle").text("Error");
     $("#modalBody").text("Cannot create user. please fix issues...");
-    $('.modal').modal('show');
+    $(".modal").modal("show");
   }
 });
 
@@ -72,7 +72,7 @@ $("#updateUser").on("click", function() {
       .trim(),
     location: $("#locationNew")
       .val()
-      .trim(),
+      .trim()
   };
   if (updateUser.firstName === "") {
     updateUser.firstName = $("#firstNameNew").attr("placeholder");
@@ -98,8 +98,7 @@ $("#updateUser").on("click", function() {
     } else if (res.error !== undefined) {
       $("#modalTitle").text("Error");
       $("#modalBody").text(res.error);
-      $('.modal').modal('show');
-      
+      $(".modal").modal("show");
     } else {
       location.reload();
     }

@@ -21,7 +21,7 @@ $("#signInBtn").on("click", function() {
     } else if (res.error !== undefined) {
       $("#modalTitle").text("Error");
       $("#modalBody").text(res.error);
-      $('.modal').modal('show');
+      $(".modal").modal("show");
     } else {
       location.reload();
     }
@@ -67,19 +67,18 @@ $("#changepass").on("click", function() {
     }).then(function(res) {
       if (res.url !== undefined) {
         //console.log(document.cookie);
-        window.location=res.url;
+        window.location = res.url;
       } else if (res.error !== undefined) {
         $("#modalTitle").text("Error");
         $("#modalBody").text(res.error);
-        $('.modal').modal('show');
-        
+        $(".modal").modal("show");
       } else {
-        window.location="/";
+        window.location = "/";
       }
     });
   } else {
     $("#modalTitle").text("Password Error");
     $("#modalBody").text("New passwords do not match");
-    $('.modal').modal('show');
+    $(".modal").modal("show");
   }
 });

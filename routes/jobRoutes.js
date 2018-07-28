@@ -81,8 +81,8 @@ module.exports = function(app) {
       .create(newJob)
       // Then it renders
       .then(function(results) {
-        var stufferShack=results.dataValues;
-        stufferShack.url="/";
+        var stufferShack = results.dataValues;
+        stufferShack.url = "/";
         console.log(stufferShack);
         res.json(stufferShack);
       });
@@ -117,6 +117,9 @@ module.exports = function(app) {
     //   return;
     // }
     // console.log(req.params);
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob
       .update(
         { contactName: req.body.contactName },
@@ -133,9 +136,12 @@ module.exports = function(app) {
 
   // PUT route for updating the user confidence for a given job
   app.put("/api/jobs/changeConfidence/:id", function(req, res) {
-   // if (check.login(req, res)) {
-     // return;
-   // }
+    // if (check.login(req, res)) {
+    // return;
+    // }
+    if (check.login(req, res)) {
+      return;
+    }
     console.log(req.body.confidenceLevel);
     db.savedJob
       .update(
@@ -190,7 +196,7 @@ module.exports = function(app) {
       })
       // then it renders
       .then(function(results) {
-        console.log(results)
+        console.log(results);
         res.json(results);
       });
   });
