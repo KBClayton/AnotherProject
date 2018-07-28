@@ -1,7 +1,11 @@
 var db = require("../models");
+var check = require("./check");
 
 module.exports = function(app) {
   // -- Get All Comments
+  if (check.login(req, res)) {
+    return;
+  }
   app.get("/api/comments", function(req, res) {
     db.comment.findAll({}).then(function(results) {
       res.json(results);
@@ -10,6 +14,9 @@ module.exports = function(app) {
 
   // -- Create a New Comment
   app.post("/api/comments", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     // Take Input from Client
     var newComment = req.body;
     console.log("in post new comment route");
@@ -26,6 +33,9 @@ module.exports = function(app) {
 
   // -- Edit a specific comment
   app.put("/api/comments/:id", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     // update the entry that corresponds to the appropriate id
     console.log(req.body.comment);
     db.comment
@@ -47,6 +57,9 @@ module.exports = function(app) {
   // -- Delete a Comment
   app.delete("/api/comments/:id", function(req, res) {
     // delete entry that corresponds to appropriate id
+    if (check.login(req, res)) {
+      return;
+    }
     db.comment
       .destroy({
         where: {

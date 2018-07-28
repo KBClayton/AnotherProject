@@ -117,6 +117,9 @@ module.exports = function(app) {
     //   return;
     // }
     // console.log(req.params);
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob
       .update(
         { contactName: req.body.contactName },
@@ -136,6 +139,9 @@ module.exports = function(app) {
    // if (check.login(req, res)) {
      // return;
    // }
+   if (check.login(req, res)) {
+    return;
+  }
     console.log(req.body.confidenceLevel);
     db.savedJob
       .update(

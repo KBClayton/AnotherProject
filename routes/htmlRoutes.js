@@ -230,6 +230,9 @@ module.exports = function(app) {
 
   // Route to view changes to editJobPage -ALAN
   app.get("/home3", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob
       .findOne({ where: { userId: req.params.id } })
       .then(function(result) {
