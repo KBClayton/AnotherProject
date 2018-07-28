@@ -129,7 +129,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       res.render("usaJobs", {
         msg: "Welcome!",
         examples: result
@@ -142,7 +142,7 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
+    db.savedJob.findAll({where:{userId:req.session.uid}}).then(function(result) {
       res.render("authenticJobs", {
         msg: "Welcome!",
         examples: result
@@ -169,7 +169,8 @@ module.exports = function(app) {
     db.user
       .findOne({ where: { id: req.session.uid } })
       .then(function(response) {
-        //console.log(response.dataValues);
+        console.log("in edituser");
+        console.log(response.dataValues.location);
         res.render("editUser", {
           account: response.dataValues
         });
@@ -196,7 +197,7 @@ module.exports = function(app) {
 
   app.get("/home/:id", function(req, res) {
     db.savedJob.findOne({where: {
-      id: req.session.uid
+      userId: req.session.uid
     },
     include: [
       {
@@ -215,7 +216,7 @@ module.exports = function(app) {
   // Route to view changes to editJobPage -ALAN
   app.get("/home3", function(req, res) {
     db.savedJob
-      .findOne({ where: { id: req.params.id } })
+      .findOne({ where: { userId: req.params.id } })
       .then(function(result) {
         res.render("editJobPage", {
           editJob: result

@@ -23,8 +23,13 @@ var sess = {
   cookie: {
     secure:false,
     resave: false,
-    saveUninitialized: true
-  }
+    saveUninitialized: true,
+    maxAge: 3600000,
+    rolling: true
+  },
+  // genid: function(req) {
+  //   return genuuid() // use UUIDs for session IDs
+  // },
 }
  
 if (app.get('env') === 'production') {
