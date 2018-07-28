@@ -1,5 +1,5 @@
 language: node_js
-node_js: "8"
+node_js: "10"
 branches:
   only:
   - master
@@ -8,3 +8,4 @@ cache:
     - node_modules
 before_install:
   - mysql -e 'CREATE DATABASE jobs_db;'
+after_failure: "cat /home/travis/builds/evantahler/actionHero/npm-debug.log"
