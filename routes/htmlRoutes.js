@@ -169,7 +169,8 @@ module.exports = function(app) {
     db.user
       .findOne({ where: { id: req.session.uid } })
       .then(function(response) {
-        //console.log(response.dataValues);
+        console.log("in edituser");
+        console.log(response.dataValues.location);
         res.render("editUser", {
           account: response.dataValues
         });
@@ -195,8 +196,12 @@ module.exports = function(app) {
   // });
 
   app.get("/home/:id", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
+    req.session.savedJobId=req.params.id
     db.savedJob.findOne({where: {
-      userId: req.session.uid
+      id: req.params.id
     },
     include: [
       {

@@ -16,9 +16,10 @@ $.ajax({
 });
 
 
-
+if($("#chComp")[0]!==undefined){
 var jobID = $("#chComp")[0].placeholder;
 console.log(jobID);
+}
 
 var commentID = $("editComment");
 
@@ -122,12 +123,14 @@ $("#deleteJob").on("click", function () {
 
 // javascript to submit a comment
 $("#addComment").on("click", function () {
- 
+    console.log("in clickhandler")
+    console.log($("#chComp").attr("placeholder"))
     // Create an addComment Object
     var addComment = {
-      comment: $("#addC")[0].placeholder;
+      comment: $("#addC")
         .val()
         .trim(),
+      savedJobId:$("#chComp").attr("placeholder"),
      };
     
     console.log(addComment);
@@ -135,8 +138,8 @@ $("#addComment").on("click", function () {
       type: "POST",
       data: addComment
     }).then(function () {
-      console.log("Added comment");
-      //location.reload();
+      //console.log("Added comment");
+      location.reload();
     });
  
 });
