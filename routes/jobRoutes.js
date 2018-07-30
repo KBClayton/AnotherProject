@@ -7,7 +7,11 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(results) {
+    db.savedJob.findAll({
+      where: {
+          userId:{$eq: req.session.uid}
+      }
+    }).then(function(results) {
       res.json(results);
     });
   });
@@ -20,7 +24,10 @@ module.exports = function(app) {
     db.savedJob
       .findOne({
         where: {
-          id: req.params.id
+          $and:{
+            id:{$eq: req.params.id},
+            userId:{$eq: req.session.uid}
+          }
         },
         include: [
           {
@@ -42,7 +49,10 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
-          confidenceLevel: req.params.id
+          $and:{
+            confidenceLevel: {$eq:req.params.id},
+            userId:{$eq: req.session.uid}
+          }
         }
       })
       .then(function(results) {
@@ -59,7 +69,10 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
-          jobLocation: "remote"
+          $and:{
+            jobLocation: {eq:"remote"},
+            userId:{$eq: req.session.uid}
+          }
         }
       })
       .then(function(results) {
@@ -102,7 +115,11 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            $and:{
+              id: {$eq:req.params.id},
+              userId:{$eq: req.session.uid}
+            }
+
           }
         }
       )
@@ -125,7 +142,10 @@ module.exports = function(app) {
         { contactName: req.body.contactName },
         {
           where: {
-            id: req.params.id
+            $and:{
+              userId:{$eq: req.session.uid},
+              id: {$eq: req.params.id}
+            }
           }
         }
       )
@@ -150,7 +170,10 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            $and:{
+              userId:{$eq: req.session.uid},
+              id: {$eq:req.params.id}
+            }
           }
         }
       )
@@ -172,7 +195,10 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            $and:{
+              userId:{$eq: req.session.uid},
+              id:{$eq: req.params.id}
+            }
           }
         }
       )
@@ -191,7 +217,10 @@ module.exports = function(app) {
     db.savedJob
       .destroy({
         where: {
-          id: req.params.id
+          $and:{
+            userId:{$eq: req.session.uid},
+            id:{$eq: req.params.id}
+          }
         }
       })
       // then it renders
