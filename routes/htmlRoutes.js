@@ -10,42 +10,60 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
-      res.render("jobDetails", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        if (result === null) {
+          console.log("there was nothing there");
+          console.log(result);
+        }
+        res.render("jobDetails", {
+          savedJob: result
+        });
+        //console.log(result);
       });
-    });
   });
+
+  // index route loads view.html
+  //app.get("/", function(req, res) {
+  //res.sendFile(path.join(__dirname, "../public/blog.html"));
+  //});
 
   // CreateNewJob Page  --ALEX
   app.get("/createJob", function(req, res) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
-      if (req.session.uid === undefined) {
-        res.render("login", {
-          msg: "Welcome!"
-          //examples: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        if (req.session.uid === undefined) {
+          res.render("login", {
+            msg: "Welcome!"
+            //examples: result
+          });
+          return;
+        }
+        res.render("enterNewJob", {
+          msg: "Welcome!",
+          examples: result
         });
-        return;
-      }
-      res.render("enterNewJob", {
-        msg: "Welcome!",
-        examples: result
       });
-    });
   });
 
   // load jobDetails Page
   app.get("/jobDetails", function(req, res) {
-    db.savedJob.findAll({}).then(function(result) {
-      console.log(result);
-      res.render("jobDetails", {
-        jobs: savedJob
+    if (check.login(req, res)) {
+      return;
+    }
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        console.log(result);
+        res.render("jobDetails", {
+          jobs: result
+        });
       });
-    });
   });
 
   // CreateNewUser Page --Alex
@@ -53,12 +71,12 @@ module.exports = function(app) {
     if (check.notin(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
-      res.render("newProfile", {
-        msg: "Welcome!",
-        examples: result
-      });
+    //db.user.findAll({}).then(function(result) {
+    res.render("newProfile", {
+      msg: "Welcome!"
+      //examples: result
     });
+    //});
   });
 
   // CreateNewUser Page --Alex
@@ -66,12 +84,18 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
-      res.render("homePage", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        if (result === null) {
+          console.log("there was nothing there");
+          console.log(result);
+        }
+        res.render("jobDetails", {
+          savedJob: result
+        });
+        console.log(result);
       });
-    });
   });
 
   // load jobDetails Page
@@ -79,22 +103,33 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
-      res.render("jobDetails", {
-        savedJob: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        res.render("jobDetails", {
+          savedJob: result
+        });
+        console.log(result);
       });
-      console.log(result);
-    });
   });
 
   // editJobPage page -Alan
   app.get("/home2", function(req, res) {
-    db.savedJob.findAll({}).then(function(result) {
-      res.render("jobDetails", {
-        savedJob: result
+    if (check.login(req, res)) {
+      return;
+    }
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        if (result === null) {
+          console.log("there was nothing there");
+          console.log(result);
+        }
+        res.render("jobDetails", {
+          savedJob: result
+        });
+        console.log(result);
       });
-      console.log(result);
-    });
   });
 
   // load login Page
@@ -102,12 +137,12 @@ module.exports = function(app) {
     if (check.notin(req, res)) {
       return;
     }
-    db.user.findAll({}).then(function(result) {
-      res.render("login", {
-        msg: "Welcome!",
-        examples: result
-      });
+    //  db.user.findAll({}).then(function(result) {
+    res.render("login", {
+      msg: "Welcome!"
+      //examples: result
     });
+    //});
   });
 
   // load authenticJobs Page
@@ -115,12 +150,14 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
-      res.render("usaJobs", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        res.render("usaJobs", {
+          msg: "Welcome!",
+          examples: result
+        });
       });
-    });
   });
 
   // load authenticJobs Page
@@ -128,12 +165,14 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(result) {
-      res.render("authenticJobs", {
-        msg: "Welcome!",
-        examples: result
+    db.savedJob
+      .findAll({ where: { userId: req.session.uid } })
+      .then(function(result) {
+        res.render("authenticJobs", {
+          msg: "Welcome!",
+          examples: result
+        });
       });
-    });
   });
 
   // load change password page
@@ -155,7 +194,8 @@ module.exports = function(app) {
     db.user
       .findOne({ where: { id: req.session.uid } })
       .then(function(response) {
-        //console.log(response.dataValues);
+        console.log("in edituser");
+        console.log(response.dataValues.location);
         res.render("editUser", {
           account: response.dataValues
         });
@@ -172,18 +212,51 @@ module.exports = function(app) {
   //});
 
   // create page based on id from button click -ALAN
-  app.get("/home/:id", function(req, res) {
-    db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
-      console.log(job.dataValues);
-      res.render("editJobPage", job.dataValues);
-    });
-  });
+  // app.get("/home/:id", function(req, res) {
+  //   db.savedJob.findOne({ where: { id: req.params.id } }).then(function(job) {
+  //     console.log(job.dataValues);
+  //     res.render("editJobPage", job.dataValues);
+  //   });
   // });
+  // });
+
+  app.get("/home/:id", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
+    req.session.savedJobId = req.params.id;
+    db.savedJob
+      .findOne({
+        where: {
+          id: { $eq: req.params.id },
+          $and: { userId: { $eq: req.session.uid } },
+        },
+        include: [
+          {
+            model: db.comment
+          }
+        ]
+      })
+      .then(function(job) {
+        if(job===null){
+          res.json({error:"Nothing was found for that ID"})
+        }
+        // console.log(job.dataValues);
+        // console.log("below should be individual comments");
+        // console.log(job.dataValues.comments[0].dataValues);
+        // console.log(job.dataValues.comments[1].dataValues);
+        // console.log(job.dataValues.comments[2].dataValues);
+        res.render("editJobPage", job.dataValues);
+      });
+  });
 
   // Route to view changes to editJobPage -ALAN
   app.get("/home3", function(req, res) {
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob
-      .findOne({ where: { id: req.params.id } })
+      .findOne({ where: { userId: req.session.uid } })
       .then(function(result) {
         res.render("editJobPage", {
           editJob: result

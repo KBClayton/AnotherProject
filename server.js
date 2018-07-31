@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var session = require("express-session");
+const helmet = require("helmet");
 
 var db = require("./models");
 
@@ -20,8 +21,13 @@ var sess = {
   cookie: {
     secure: false,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    maxAge: 3600000,
+    rolling: true
   }
+  // genid: function(req) {
+  //   return genuuid() // use UUIDs for session IDs
+  // },
 };
 
 if (app.get("env") === "production") {
@@ -30,6 +36,7 @@ if (app.get("env") === "production") {
 }
 
 app.use(session(sess));
+app.use(helmet());
 
 // Handlebars
 app.engine(
@@ -41,8 +48,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/testRoutes")(app);
-require("./routes/userRoutes")(app);
+//require("./routes/testRoutes")(app);
+//require("./routes/userRoutes")(app);
 require("./routes/jobRoutes")(app);
 require("./routes/commentRoutes")(app);
 require("./routes/apiRoutes")(app);

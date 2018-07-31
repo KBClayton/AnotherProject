@@ -7,7 +7,14 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    db.savedJob.findAll({}).then(function(results) {
+    db.savedJob.findAll({
+      where: {
+          userId:{$eq: req.session.uid}
+      }
+    }).then(function(results) {
+      if(results===null){
+        res.json({error: "Nothing found for that ID"})
+      }
       res.json(results);
     });
   });
@@ -20,7 +27,10 @@ module.exports = function(app) {
     db.savedJob
       .findOne({
         where: {
-          id: req.params.id
+          userId:{$eq: req.session.uid},
+          $and:{
+            id:{$eq: req.params.id},
+          }
         },
         include: [
           {
@@ -29,6 +39,9 @@ module.exports = function(app) {
         ]
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -42,10 +55,16 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
-          confidenceLevel: req.params.id
+          userId:{$eq: req.session.uid},
+          $and:{
+            confidenceLevel: {$eq:req.params.id},
+          }
         }
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -59,10 +78,16 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
-          jobLocation: "remote"
+          userId:{$eq: req.session.uid},
+          $and:{
+            jobLocation: {eq:"remote"},
+          }
         }
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -75,13 +100,16 @@ module.exports = function(app) {
     // Take Input from Client
     var newJob = req.body;
     newJob.userId = req.session.uid;
-    console.log(newJob);
+    //console.log(newJob);
     // Creates a new Job in the database
     db.savedJob
       .create(newJob)
       // Then it renders
       .then(function(results) {
-        res.json(results);
+        var stufferShack = results.dataValues;
+        stufferShack.url = "/";
+        console.log(stufferShack);
+        res.json(stufferShack);
       });
   });
 
@@ -99,11 +127,19 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            userId:{$eq: req.session.uid},
+            $and:{
+              id: {$eq:req.params.id},
+
+            }
+
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -114,26 +150,39 @@ module.exports = function(app) {
     //   return;
     // }
     // console.log(req.params);
+    if (check.login(req, res)) {
+      return;
+    }
     db.savedJob
       .update(
         { contactName: req.body.contactName },
         {
           where: {
-            id: req.params.id
+            userId:{$eq: req.session.uid},
+            $and:{
+
+              id: {$eq: req.params.id}
+            }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
 
   // PUT route for updating the user confidence for a given job
   app.put("/api/jobs/changeConfidence/:id", function(req, res) {
+    // if (check.login(req, res)) {
+    // return;
+    // }
     if (check.login(req, res)) {
       return;
     }
-    console.log(req.params);
+    console.log(req.body.confidenceLevel);
     db.savedJob
       .update(
         {
@@ -141,11 +190,18 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            userId:{$eq: req.session.uid},
+            $and:{
+
+              id: {$eq:req.params.id}
+            }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -163,11 +219,17 @@ module.exports = function(app) {
         },
         {
           where: {
-            id: req.params.id
+            userId:{$eq: req.session.uid},
+            $and:{
+              id:{$eq: req.params.id}
+            }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -177,16 +239,23 @@ module.exports = function(app) {
     if (check.login(req, res)) {
       return;
     }
-    console.log(req.params);
+    console.log("found route:  " + req.params);
     // delete entry that corresponds to appropriate id
     db.savedJob
       .destroy({
         where: {
-          id: req.params.id
+          $and:{
+            userId:{$eq: req.session.uid},
+            id:{$eq: req.params.id}
+          }
         }
       })
       // then it renders
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
+        console.log(results);
         res.json(results);
       });
   });

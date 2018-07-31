@@ -64,9 +64,13 @@ $("#submit-jobSearchGov").on("click", function() {
       console.log(response.length);
       console.log(response);
       if (response.length < 1) {
-        alert(
+        $("#modalTitle").text("No Jobs Found");
+        $("#modalBody").text(
           "Sorry. There are no jobs matching your requirements, please try a different search keyword or location."
         );
+        $(".modal").modal("show");
+
+        // alert("Sorry. There are no jobs matching your requirements, please try a different search keyword or location.")
       } else {
         for (i = 0; i < response.length; i++) {
           if (response[i].minimum >= searchSalaryUS) {
@@ -88,7 +92,12 @@ $("#submit-jobSearchGov").on("click", function() {
         counterHelperUS = jobsGov.length;
         console.log("number of jobs returned: " + counterHelperUS);
         if (jobsGov.length < 1) {
-          alert("Sorry. None of the available jobs match your desired salary.");
+          // alert("Sorry. None of the available jobs match your desired salary.")
+          $("#modalTitle").text("No Jobs Found");
+          $("#modalBody").text(
+            "Sorry. There are no jobs matching your desired salary."
+          );
+          $(".modal").modal("show");
           return;
         }
         $("#jobQueryUSdisplay").hide();
@@ -132,8 +141,15 @@ $("#submit-jobSearchGov").on("click", function() {
         $("#jobSalarySearchUS").val("");
       }
     });
+    // } else {
+    //   alert("Please complete all input fields");
   } else {
-    alert("Please complete all input fields");
+    // alert("Please complete all input fields")
+    $("#modalTitle").text("Missing Required Fields");
+    $("#modalBody").text(
+      "Please fill out all of the required fields and try searching again."
+    );
+    $(".modal").modal("show");
   }
 });
 
@@ -521,7 +537,7 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
   var helper = $(this).val();
   var identifier = "jobRowAJ" + helper;
   $("#" + identifier.toString()).hide();
-
+  console.log("#" + identifier.toString());
   //Create NewJob Object
   var NewJob = {
     company: jobsAJ[helper][1],
@@ -543,7 +559,7 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
     console.log(res);
     if (res === false) {
       console.log("job is already saved");
-      if (counterHelperUS < 1) {
+      if (counterHelperAJ < 1) {
         console.log("HIDING");
         $("#jobTableAJDisplay").hide();
         $("#jobQueryAJDisplay").show();
@@ -556,7 +572,7 @@ $(document).on("click", ".jobSelectorAJBtn", function() {
       }).then(function() {
         console.log("Created New Job Lead");
 
-        if (counterHelperUS < 1) {
+        if (counterHelperAJ < 1) {
           console.log("HIDING");
           $("#jobTableAJDisplay").hide();
           $("#jobQueryAJDisplay").show();

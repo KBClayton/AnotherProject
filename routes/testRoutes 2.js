@@ -29,6 +29,7 @@ module.exports = function(app) {
       .findOne({
         where: {
           id: req.params.id
+          
         },
         include: [
           {

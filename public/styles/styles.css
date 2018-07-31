@@ -32,6 +32,7 @@ body{
   bottom:0;
   text-align: center;
 }
+/* Nav Bar Hover */
 
 .JobSearchTextNav {
   visibility: hidden;
@@ -39,6 +40,14 @@ body{
 }
 
 #jobSearchNav:hover .JobSearchTextNav {
+  visibility: visible;
+}
+
+.SettingsTextNav {
+  visibility: hidden;
+  position: fixed;
+}
+#SettingsNav:hover .SettingsTextNav {
   visibility: visible;
 }
 
@@ -85,4 +94,7 @@ input::placeholder {
 }
 .image404 {
   width: 250px;
+}
+.myShadow {
+  box-shadow: 1px 3px gray;
 }
