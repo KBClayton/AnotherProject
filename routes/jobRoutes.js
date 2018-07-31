@@ -12,6 +12,9 @@ module.exports = function(app) {
           userId:{$eq: req.session.uid}
       }
     }).then(function(results) {
+      if(results===null){
+        res.json({error: "Nothing found for that ID"})
+      }
       res.json(results);
     });
   });
@@ -24,9 +27,9 @@ module.exports = function(app) {
     db.savedJob
       .findOne({
         where: {
+          userId:{$eq: req.session.uid},
           $and:{
             id:{$eq: req.params.id},
-            userId:{$eq: req.session.uid}
           }
         },
         include: [
@@ -36,6 +39,9 @@ module.exports = function(app) {
         ]
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -49,13 +55,16 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
+          userId:{$eq: req.session.uid},
           $and:{
             confidenceLevel: {$eq:req.params.id},
-            userId:{$eq: req.session.uid}
           }
         }
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -69,13 +78,16 @@ module.exports = function(app) {
     db.savedJob
       .findAll({
         where: {
+          userId:{$eq: req.session.uid},
           $and:{
             jobLocation: {eq:"remote"},
-            userId:{$eq: req.session.uid}
           }
         }
       })
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(results);
       });
   });
@@ -115,15 +127,19 @@ module.exports = function(app) {
         },
         {
           where: {
+            userId:{$eq: req.session.uid},
             $and:{
               id: {$eq:req.params.id},
-              userId:{$eq: req.session.uid}
+
             }
 
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -142,14 +158,18 @@ module.exports = function(app) {
         { contactName: req.body.contactName },
         {
           where: {
+            userId:{$eq: req.session.uid},
             $and:{
-              userId:{$eq: req.session.uid},
+
               id: {$eq: req.params.id}
             }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -170,14 +190,18 @@ module.exports = function(app) {
         },
         {
           where: {
+            userId:{$eq: req.session.uid},
             $and:{
-              userId:{$eq: req.session.uid},
+
               id: {$eq:req.params.id}
             }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -195,14 +219,17 @@ module.exports = function(app) {
         },
         {
           where: {
+            userId:{$eq: req.session.uid},
             $and:{
-              userId:{$eq: req.session.uid},
               id:{$eq: req.params.id}
             }
           }
         }
       )
       .then(function(dbPost) {
+        if(dbPost===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         res.json(dbPost);
       });
   });
@@ -225,6 +252,9 @@ module.exports = function(app) {
       })
       // then it renders
       .then(function(results) {
+        if(results===null){
+          res.json({error: "Nothing found for that ID"})
+        }
         console.log(results);
         res.json(results);
       });

@@ -228,9 +228,9 @@ module.exports = function(app) {
     db.savedJob
       .findOne({
         where: {
-          id: { $eq: req.params.id }
+          id: { $eq: req.params.id },
+          $and: { userId: { $eq: req.session.uid } },
         },
-        $and: { userId: { $eq: req.session.uid } },
         include: [
           {
             model: db.comment
@@ -238,6 +238,9 @@ module.exports = function(app) {
         ]
       })
       .then(function(job) {
+        if(job===null){
+          res.json({error:"Nothing was found for that ID"})
+        }
         // console.log(job.dataValues);
         // console.log("below should be individual comments");
         // console.log(job.dataValues.comments[0].dataValues);
@@ -253,7 +256,7 @@ module.exports = function(app) {
       return;
     }
     db.savedJob
-      .findOne({ where: { userId: req.params.id } })
+      .findOne({ where: { userId: req.session.uid } })
       .then(function(result) {
         res.render("editJobPage", {
           editJob: result
